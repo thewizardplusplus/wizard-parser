@@ -1,6 +1,5 @@
 #include <vector>
 #include <functional>
-#include <regex>
 #include <iostream>
 
 struct Result {
@@ -13,12 +12,10 @@ using Parser = std::function<Result(const std::string&, const size_t&)>;
 
 const auto invalid = Result();
 const auto symbol = [] (const char& symbol) {
-	return [=] (const std::string& text, const size_t& position) {
-		if (text.size() > position && text[position] == symbol) {
-			return Result{true, std::string(1, symbol), {}, position + 1};
-		} else {
-			return invalid;
-		}
+	return [=] (const std::string& text, const size_t& position) -> Result {
+		return text.size() > position && text[position] == symbol
+			? Result{true, std::string(1, symbol), {}, position + 1}
+			: invalid;
 	};
 };
 
@@ -59,14 +56,14 @@ std::ostream& operator<<(std::ostream& stream, const Result& result) {
 }
 
 Parser operator!(const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result = parser(text, position);
 		return result.valid ? result : Result{true, "", {}, position};
 	};
 }
 
 Parser operator-(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result1 = parser1(text, position);
 		return result1.valid && !parser2(text, position).valid
 			? result1
@@ -75,20 +72,20 @@ Parser operator-(const Parser& parser1, const Parser& parser2) {
 }
 
 Parser operator|(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result1 = parser1(text, position);
 		return result1.valid ? result1 : parser2(text, position);
 	};
 }
 
 Parser operator,(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result1 = parser1(text, position);
 		if (!result1.valid) {
 			return invalid;
 		}
 
-		const auto result2 = parser2(text, position);
+		const auto result2 = parser2(text, result1.position);
 		if (!result2.valid) {
 			return invalid;
 		}
@@ -98,14 +95,9 @@ Parser operator,(const Parser& parser1, const Parser& parser2) {
 }
 
 int main(void) try {
-	std::cout
-		<< Result{
-			true,
-			"test",
-			{Result{true, R"("\m/")", {}, 23}, Result{false, "test", {}, 23}},
-			23
-		}
-		<< std::endl;
+	const auto text = "12";
+	const auto parser = (symbol('1'), symbol('2'));
+	std::cout << parser(text, 0) << std::endl;
 } catch (std::exception& exception) {
 	std::cerr << "Error: \"" << exception.what() << "\"." << std::endl;
 }
