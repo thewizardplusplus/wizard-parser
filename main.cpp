@@ -1,5 +1,6 @@
 #include <vector>
 #include <functional>
+#include <regex>
 #include <iostream>
 
 struct Result {
@@ -22,18 +23,37 @@ const auto symbol = [] (const char& symbol) {
 };
 
 std::ostream& operator<<(std::ostream& stream, const Result& result) {
-    stream
-        << "{"
-        << "\"valid\":" << (result.valid ? "true" : "false") << ";"
-        << "\"value\":\"" << result.value << "\";"
-        << "\"children\":[";
-    for (size_t i = 0; i < result.children.size(); ++i) {
-        stream << (i ? "," : "") << result.children[i];
+    if (result.valid) {
+        stream << "{";
+
+        auto has_value = false;
+        if (!result.value.empty()) {
+            stream << R"("value":")";
+
+            for (const auto& symbol: result.value) {
+                if (symbol == '"' || symbol == '\\' || symbol == '/') {
+                    stream << R"(\)";
+                }
+                stream << symbol;
+            }
+
+            stream << R"(")";
+
+            has_value = true;
+        }
+
+        if (!result.children.empty()) {
+            stream << (has_value ? "," : "") << R"("children":[)";
+            for (size_t i = 0; i < result.children.size(); ++i) {
+                stream << (i ? "," : "") << result.children[i];
+            }
+            stream << "]";
+        }
+
+        stream << "}";
+    } else {
+        stream << R"({"valid":false})";
     }
-    stream
-        << "];"
-        << "\"position\":" << std::to_string(result.position) << ";"
-        << "}";
 
     return stream;
 }
@@ -82,7 +102,7 @@ int main(void) try {
         << Result{
             true,
             "test",
-            {Result{true, "test", {}, 23}, Result{true, "test", {}, 23}},
+            {Result{true, R"("\m/")", {}, 23}, Result{false, "test", {}, 23}},
             23
         }
         << std::endl;
