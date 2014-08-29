@@ -10,8 +10,8 @@ const auto symbol = [] (const char& symbol) {
 };
 
 int main(void) try {
-	const auto text = "12";
-	const auto parser = (symbol('1'), symbol('2'));
+	const auto text = "1,1,1,1";
+	const auto parser = list(symbol('1'), symbol(','));
 	const auto result = parser(text, 0);
 	if (std::get<0>(result)) {
 		std::cout << std::get<1>(parser(text, 0)) << std::endl;
