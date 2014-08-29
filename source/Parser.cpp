@@ -1,4 +1,24 @@
 #include "Parser.h"
+#include <numeric>
+
+Parser operator"" _s(char symbol) {
+	return [=] (const std::string& text, const size_t& position) {
+		return text.size() > position && text[position] == symbol
+			? Result{true, Node{std::string(1, symbol), {}}, position + 1}
+			: INVALID;
+	};
+}
+
+Parser operator"" _t(const char* text, size_t length) {
+	return std::accumulate(
+		text + 1,
+		text + length,
+		operator"" _s(text[0]),
+		[] (const Parser& parser, const char& symbol) {
+			return (parser, operator"" _s(symbol));
+		}
+	);
+}
 
 Parser operator,(const Parser& parser1, const Parser& parser2) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
@@ -20,6 +40,20 @@ Parser operator,(const Parser& parser1, const Parser& parser2) {
 	};
 }
 
+Parser operator|(const Parser& parser1, const Parser& parser2) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
+		const auto result = parser1(text, position);
+		return std::get<0>(result) ? result : parser2(text, position);
+	};
+}
+
+Parser operator!(const Parser& parser) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
+		const auto result = parser(text, position);
+		return std::get<0>(result) ? result : Result{true, Node(), position};
+	};
+}
+
 Parser operator*(const Parser& parser) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
 		auto nodes = std::vector<Node>();
@@ -38,24 +72,6 @@ Parser operator*(const Parser& parser) {
 	};
 }
 
-Parser operator+(const Parser& parser) {
-	return parser, *parser;
-}
-
-Parser operator|(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
-		const auto result = parser1(text, position);
-		return std::get<0>(result) ? result : parser2(text, position);
-	};
-}
-
-Parser operator!(const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
-		const auto result = parser(text, position);
-		return std::get<0>(result) ? result : Result{true, Node(), position};
-	};
-}
-
 Parser operator-(const Parser& parser1, const Parser& parser2) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result = parser1(text, position);
@@ -63,8 +79,4 @@ Parser operator-(const Parser& parser1, const Parser& parser2) {
 			? result
 			: INVALID;
 	};
-}
-
-Parser list(const Parser& parser, const Parser& separator) {
-	return parser, *(separator, parser);
 }

@@ -1,17 +1,9 @@
 #include "Parser.h"
 #include <iostream>
 
-const auto symbol = [] (const char& symbol) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
-		return text.size() > position && text[position] == symbol
-			? Result{true, Node{std::string(1, symbol), {}}, position + 1}
-			: INVALID;
-	};
-};
-
 int main(void) try {
-	const auto text = "1,1,1,1";
-	const auto parser = list(symbol('1'), symbol(','));
+	const auto text = "11";
+	const auto parser = *'1'_s;
 	const auto result = parser(text, 0);
 	if (std::get<0>(result)) {
 		std::cout << std::get<1>(parser(text, 0)) << std::endl;

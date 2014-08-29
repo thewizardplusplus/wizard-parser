@@ -1,4 +1,5 @@
 # general settings
+TARGET = wb3
 CONFIG += warn_on
 CONFIG += console
 CONFIG -= qt
