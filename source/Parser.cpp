@@ -3,37 +3,41 @@
 Parser operator,(const Parser& parser1, const Parser& parser2) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result1 = parser1(text, position);
-		if (!result1.valid) {
+		if (!std::get<0>(result1)) {
 			return INVALID;
 		}
 
-		const auto result2 = parser2(text, result1.position);
-		if (!result2.valid) {
+		const auto result2 = parser2(text, std::get<2>(result1));
+		if (!std::get<0>(result2)) {
 			return INVALID;
 		}
 
-		return Result{true, "", {result1, result2}, result2.position};
+		return Result{
+			true,
+			Node{"", {std::get<1>(result1), std::get<1>(result2)}},
+			std::get<2>(result2)
+		};
 	};
 }
 
 Parser operator|(const Parser& parser1, const Parser& parser2) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result = parser1(text, position);
-		return result.valid ? result : parser2(text, position);
+		return std::get<0>(result) ? result : parser2(text, position);
 	};
 }
 
 Parser operator!(const Parser& parser) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result = parser(text, position);
-		return result.valid ? result : Result{true, "", {}, position};
+		return std::get<0>(result) ? result : Result{true, Node(), position};
 	};
 }
 
 Parser operator-(const Parser& parser1, const Parser& parser2) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
 		const auto result = parser1(text, position);
-		return result.valid && !parser2(text, position).valid
+		return std::get<0>(result) && !std::get<0>(parser2(text, position))
 			? result
 			: INVALID;
 	};
