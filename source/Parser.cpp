@@ -63,7 +63,7 @@ Parser operator!(const Parser& parser) {
 
 Parser operator*(const Parser& parser) {
 	return [=] (const std::string& text, const size_t& position) -> Result {
-		auto nodes = std::vector<Node>();
+		auto nodes = NodeGroup();
 		auto end_position = position;
 		while (true) {
 			const auto result = parser(text, end_position);
@@ -93,7 +93,22 @@ Parser name(const std::string& name, const Parser& parser) {
 		const auto result = parser(text, position);
 		return Result{
 			true,
-			{name, "", std::get<1>(result).children},
+			{name, std::get<1>(result).value, std::get<1>(result).children},
+			std::get<2>(result)
+		};
+	};
+}
+
+Parser plain(const Parser& parser) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
+		const auto result = parser(text, position);
+		return Result{
+			true,
+			{
+				std::get<1>(result).name,
+				std::get<1>(result).value,
+				children(std::get<1>(result))
+			},
 			std::get<2>(result)
 		};
 	};

@@ -1,15 +1,18 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <string>
 #include <vector>
+#include <string>
 #include <ostream>
 
+struct Node;
+using NodeGroup = std::vector<Node>;
 struct Node {
 	std::string name;
 	std::string value;
-	std::vector<Node> children;
+	NodeGroup children;
 };
 
 std::ostream& operator<<(std::ostream& stream, const Node& node);
+NodeGroup children(const Node& node);
 #endif

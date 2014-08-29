@@ -1,4 +1,5 @@
 #include "Node.h"
+#include <numeric>
 
 static std::string escape(const std::string& text) {
 	auto escaped_text = std::string();
@@ -35,4 +36,28 @@ std::ostream& operator<<(std::ostream& stream, const Node& node) {
 	stream << "}";
 
 	return stream;
+}
+
+NodeGroup children(const Node& node) {
+	return !node.children.empty()
+		? std::accumulate(
+			node.children.begin(),
+			node.children.end(),
+			NodeGroup(),
+			[] (
+				const NodeGroup& all_children,
+				const Node& node
+			) -> NodeGroup {
+				auto supplemented_all_children = all_children;
+				const auto node_children = children(node);
+				supplemented_all_children.insert(
+					supplemented_all_children.end(),
+					node_children.begin(),
+					node_children.end()
+				);
+
+				return supplemented_all_children;
+			}
+		)
+		: NodeGroup{node};
 }
