@@ -5,6 +5,4 @@
 #include <tuple>
 
 using Result = std::tuple<bool, Node, size_t>;
-
-extern const Result INVALID;
 #endif
