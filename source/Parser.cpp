@@ -4,19 +4,26 @@
 Parser operator"" _s(char symbol) {
 	return [=] (const std::string& text, const size_t& position) {
 		return text.size() > position && text[position] == symbol
-			? Result{true, Node{std::string(1, symbol), {}}, position + 1}
+			? Result{
+				true,
+				Node{"symbol", std::string(1, symbol), {}},
+				position + 1
+			}
 			: INVALID;
 	};
 }
 
 Parser operator"" _t(const char* text, size_t length) {
-	return std::accumulate(
-		text + 1,
-		text + length,
-		operator"" _s(text[0]),
-		[] (const Parser& parser, const char& symbol) {
-			return (parser, operator"" _s(symbol));
-		}
+	return name(
+		"text",
+		std::accumulate(
+			text + 1,
+			text + length,
+			operator"" _s(text[0]),
+			[] (const Parser& parser, const char& symbol) {
+				return (parser, operator"" _s(symbol));
+			}
+		)
 	);
 }
 
@@ -34,7 +41,7 @@ Parser operator,(const Parser& parser1, const Parser& parser2) {
 
 		return Result{
 			true,
-			Node{"", {std::get<1>(result1), std::get<1>(result2)}},
+			Node{"", "", {std::get<1>(result1), std::get<1>(result2)}},
 			std::get<2>(result2)
 		};
 	};
@@ -68,7 +75,7 @@ Parser operator*(const Parser& parser) {
 			end_position = std::get<2>(result);
 		}
 
-		return Result{true, {"", nodes}, end_position};
+		return Result{true, {"", "", nodes}, end_position};
 	};
 }
 
@@ -78,5 +85,16 @@ Parser operator-(const Parser& parser1, const Parser& parser2) {
 		return std::get<0>(result) && !std::get<0>(parser2(text, position))
 			? result
 			: INVALID;
+	};
+}
+
+Parser name(const std::string& name, const Parser& parser) {
+	return [=] (const std::string& text, const size_t& position) -> Result {
+		const auto result = parser(text, position);
+		return Result{
+			true,
+			{name, "", std::get<1>(result).children},
+			std::get<2>(result)
+		};
 	};
 }

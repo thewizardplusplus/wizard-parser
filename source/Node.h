@@ -6,6 +6,7 @@
 #include <ostream>
 
 struct Node {
+	std::string name;
 	std::string value;
 	std::vector<Node> children;
 };
