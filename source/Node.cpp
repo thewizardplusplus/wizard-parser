@@ -1,5 +1,6 @@
 #include "Node.h"
 #include <numeric>
+#include <algorithm>
 
 static std::string escape(const std::string& text) {
 	auto escaped_text = std::string();
@@ -50,10 +51,13 @@ NodeGroup children(const Node& node) {
 			) -> NodeGroup {
 				auto supplemented_all_children = all_children;
 				const auto node_children = children(node);
-				supplemented_all_children.insert(
-					supplemented_all_children.end(),
+				std::copy_if(
 					node_children.begin(),
-					node_children.end()
+					node_children.end(),
+					std::back_inserter(supplemented_all_children),
+					[] (const Node& node) {
+						return !node.value.empty();
+					}
 				);
 
 				return supplemented_all_children;
