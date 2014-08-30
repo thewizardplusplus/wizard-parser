@@ -4,6 +4,8 @@
 #include "Result.h"
 #include <functional>
 
+namespace parser {
+
 using Parser = std::function<Result(const std::string&, const size_t&)>;
 
 extern const Parser nothing;
@@ -21,4 +23,6 @@ Parser hide(const Parser& parser);
 Parser plain(const Parser& parser);
 Parser lexeme(const Parser& parser);
 Parser name(const std::string& name, const Parser& parser);
+
+}
 #endif

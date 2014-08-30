@@ -6,14 +6,13 @@ CONFIG -= qt
 
 # project files
 HEADERS += \
-	source/Parser.h \
-	source/Result.h \
-	source/Node.h
+	source/parser/Node.h \
+	source/parser/Result.h \
+	source/parser/Parser.h
 SOURCES += \
-	source/main.cpp \
-	source/Parser.cpp \
-	source/Result.cpp \
-	source/Node.cpp
+	source/parser/Node.cpp \
+	source/parser/Parser.cpp \
+	source/main.cpp
 
 # compiler flags
 QMAKE_CXXFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -O2

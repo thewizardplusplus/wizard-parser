@@ -1,5 +1,7 @@
-#include "Parser.h"
+#include "parser/Parser.h"
 #include <iostream>
+
+using namespace parser;
 
 int main(void) try {
 	const auto text = "123";

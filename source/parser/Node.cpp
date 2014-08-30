@@ -2,14 +2,15 @@
 #include <numeric>
 #include <algorithm>
 
+namespace parser {
+
 static std::string escape(const std::string& text) {
 	auto escaped_text = std::string();
 	for (const auto& symbol: text) {
-		escaped_text +=
-			(symbol == '"' || symbol == '\\' || symbol == '/'
-				? std::string(R"(\)")
-				: std::string())
-			+ symbol;
+		if (symbol == '"' || symbol == '\\' || symbol == '/') {
+			escaped_text += R"(\)";
+		}
+		escaped_text += symbol;
 	}
 
 	return escaped_text;
@@ -17,25 +18,34 @@ static std::string escape(const std::string& text) {
 
 std::ostream& operator<<(std::ostream& stream, const Node& node) {
 	stream << "{";
+
 	if (!node.name.empty()) {
 		stream << R"("name":")" << escape(node.name) << R"(")";
 	}
+
 	if (!node.value.empty()) {
-		stream
-			<< (!node.name.empty() ? "," : "")
-			<< R"("value":")" << escape(node.value) << R"(")";
+		if (!node.name.empty()) {
+			stream << ",";
+		}
+		stream << R"("value":")" << escape(node.value) << R"(")";
 	}
+
 	if (!node.children.empty()) {
-		stream
-			<< (!node.name.empty() || !node.value.empty() ? "," : "")
-			<< R"("children":[)";
+		if (!node.name.empty() || !node.value.empty()) {
+			stream << ",";
+		}
+
+		stream << R"("children":[)";
 		for (size_t i = 0; i < node.children.size(); ++i) {
-			stream << (i ? "," : "") << node.children[i];
+			if (i > 0) {
+				stream << ",";
+			}
+			stream << node.children[i];
 		}
 		stream << "]";
 	}
-	stream << "}";
 
+	stream << "}";
 	return stream;
 }
 
@@ -50,6 +60,7 @@ NodeGroup children(const Node& node) {
 				const Node& node
 			) -> NodeGroup {
 				auto supplemented_all_children = all_children;
+
 				const auto node_children = children(node);
 				std::copy_if(
 					node_children.begin(),
@@ -64,4 +75,6 @@ NodeGroup children(const Node& node) {
 			}
 		)
 		: NodeGroup{node};
+}
+
 }

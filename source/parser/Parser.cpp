@@ -1,6 +1,8 @@
 #include "Parser.h"
 #include <numeric>
 
+namespace parser {
+
 const Parser nothing = [=] (const std::string& text, const size_t& position) {
 	(void)text;
 	return Result{true, Node(), position};
@@ -172,4 +174,6 @@ Parser name(const std::string& name, const Parser& parser) {
 			}
 			: Result();
 	};
+}
+
 }

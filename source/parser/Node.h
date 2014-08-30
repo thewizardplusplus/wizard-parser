@@ -5,6 +5,8 @@
 #include <string>
 #include <ostream>
 
+namespace parser {
+
 struct Node;
 using NodeGroup = std::vector<Node>;
 struct Node {
@@ -15,4 +17,6 @@ struct Node {
 
 std::ostream& operator<<(std::ostream& stream, const Node& node);
 NodeGroup children(const Node& node);
+
+}
 #endif
