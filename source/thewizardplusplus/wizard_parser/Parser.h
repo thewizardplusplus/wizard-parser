@@ -18,6 +18,7 @@ Parser operator>>(const Parser& parser1, const Parser& parser2);
 Parser operator|(const Parser& parser1, const Parser& parser2);
 Parser operator!(const Parser& parser);
 Parser operator*(const Parser& parser);
+Parser operator+(const Parser& parser);
 Parser operator-(const Parser& parser1, const Parser& parser2);
 
 Parser hide(const Parser& parser);

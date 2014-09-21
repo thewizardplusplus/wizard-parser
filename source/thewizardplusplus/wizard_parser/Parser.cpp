@@ -26,7 +26,7 @@ Parser operator"" _s(const char symbol) {
 		return position < text.size() && text[position] == symbol
 			? Result{
 				true,
-				Node{"symbol", std::string(1, symbol), {}},
+				Node{"", std::string(1, symbol), {}},
 				position + 1
 			}
 			: Result();
@@ -106,6 +106,10 @@ Parser operator*(const Parser& parser) {
 
 		return Result{true, {"", "", nodes}, end_position};
 	};
+}
+
+Parser operator+(const Parser& parser) {
+	return plain(parser >> *parser);
 }
 
 Parser operator-(const Parser& parser1, const Parser& parser2) {
