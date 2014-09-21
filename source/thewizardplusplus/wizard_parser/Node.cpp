@@ -2,7 +2,8 @@
 #include <numeric>
 #include <algorithm>
 
-namespace parser {
+namespace thewizardplusplus {
+namespace wizard_parser {
 
 static std::string escape(const std::string& text) {
 	auto escaped_text = std::string();
@@ -77,4 +78,5 @@ NodeGroup children(const Node& node) {
 		: NodeGroup{node};
 }
 
+}
 }

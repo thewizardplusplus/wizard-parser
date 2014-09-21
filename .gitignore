@@ -1,2 +1,2 @@
-*.pro.user
-/wb3
+*.o
+/main

@@ -4,9 +4,11 @@
 #include "Node.h"
 #include <tuple>
 
-namespace parser {
+namespace thewizardplusplus {
+namespace wizard_parser {
 
 using Result = std::tuple<bool, Node, size_t>;
 
+}
 }
 #endif

@@ -1,22 +1,29 @@
 #include "Parser.h"
 #include <numeric>
 
-namespace parser {
+namespace thewizardplusplus {
+namespace wizard_parser {
 
-const Parser nothing = [=] (const std::string& text, const size_t& position) {
+const Parser nothing = [=] (
+	const std::string& text,
+	const size_t position
+) -> Result {
 	(void)text;
 	return Result{true, Node(), position};
 };
 
-const Parser end = [=] (const std::string& text, const size_t& position) {
+const Parser end = [=] (
+	const std::string& text,
+	const size_t position
+) -> Result {
 	return position == text.size()
 		? Result{true, Node(), position}
 		: Result();
 };
 
-Parser operator"" _s(char symbol) {
-	return [=] (const std::string& text, const size_t& position) {
-		return text.size() > position && text[position] == symbol
+Parser operator"" _s(const char symbol) {
+	return [=] (const std::string& text, const size_t position) -> Result {
+		return position < text.size() && text[position] == symbol
 			? Result{
 				true,
 				Node{"symbol", std::string(1, symbol), {}},
@@ -26,24 +33,21 @@ Parser operator"" _s(char symbol) {
 	};
 }
 
-Parser operator"" _t(const char* text, size_t length) {
-	return name(
-		"text",
-		lexeme(
-			std::accumulate(
-				text,
-				text + length,
-				nothing,
-				[] (const Parser& parser, const char& symbol) {
-					return parser >> operator"" _s(symbol);
-				}
-			)
+Parser operator"" _t(const char* text, const size_t length) {
+	return lexeme(
+		std::accumulate(
+			text,
+			text + length,
+			nothing,
+			[] (const Parser& parser, const char symbol) {
+				return parser >> operator"" _s(symbol);
+			}
 		)
 	);
 }
 
 Parser operator>>(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		auto nodes = NodeGroup();
 
 		const auto result1 = parser1(text, position);
@@ -71,7 +75,7 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 }
 
 Parser operator|(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = parser1(text, position);
 		return std::get<0>(result) ? result : parser2(text, position);
 	};
@@ -82,7 +86,7 @@ Parser operator!(const Parser& parser) {
 }
 
 Parser operator*(const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		auto nodes = NodeGroup();
 		auto end_position = position;
 		while (true) {
@@ -105,7 +109,7 @@ Parser operator*(const Parser& parser) {
 }
 
 Parser operator-(const Parser& parser1, const Parser& parser2) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = parser1(text, position);
 		return std::get<0>(result) && !std::get<0>(parser2(text, position))
 			? result
@@ -114,7 +118,7 @@ Parser operator-(const Parser& parser1, const Parser& parser2) {
 }
 
 Parser hide(const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = parser(text, position);
 		return std::get<0>(result)
 			? Result{true, Node(), std::get<2>(result)}
@@ -123,7 +127,7 @@ Parser hide(const Parser& parser) {
 }
 
 Parser plain(const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = parser(text, position);
 		return std::get<0>(result)
 			? Result{
@@ -140,7 +144,7 @@ Parser plain(const Parser& parser) {
 }
 
 Parser lexeme(const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = plain(parser)(text, position);
 		return std::get<0>(result)
 			? Result{
@@ -164,7 +168,7 @@ Parser lexeme(const Parser& parser) {
 }
 
 Parser name(const std::string& name, const Parser& parser) {
-	return [=] (const std::string& text, const size_t& position) -> Result {
+	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = parser(text, position);
 		return std::get<0>(result)
 			? Result{
@@ -176,4 +180,5 @@ Parser name(const std::string& name, const Parser& parser) {
 	};
 }
 
+}
 }
