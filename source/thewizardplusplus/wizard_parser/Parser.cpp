@@ -26,7 +26,7 @@ Parser name(const std::string& name, const Parser& parser) {
 	};
 }
 
-Parser plain(const Parser& parser) {
+Parser plain(const Parser& parser, const size_t level) {
 	return [=] (const std::string& text, const size_t position) -> Result {
 		const auto result = parser(text, position);
 		return std::get<0>(result)
@@ -35,7 +35,7 @@ Parser plain(const Parser& parser) {
 				{
 					std::get<1>(result).name,
 					std::get<1>(result).value,
-					children(std::get<1>(result))
+					children(std::get<1>(result), level)
 				},
 				std::get<2>(result)
 			}
@@ -142,21 +142,6 @@ Parser operator-(const Parser& parser1, const Parser& parser2) {
 	};
 }
 
-Parser nothing(void) {
-	return [=] (const std::string& text, const size_t position) -> Result {
-		(void)text;
-		return Result{true, Node(), position};
-	};
-}
-
-Parser end(void) {
-	return [=] (const std::string& text, const size_t position) -> Result {
-		return position == text.size()
-			? Result{true, Node(), position}
-			: Result();
-	};
-}
-
 Parser operator"" _s(const char symbol) {
 	return [=] (const std::string& text, const size_t position) -> Result {
 		return position < text.size() && text[position] == symbol
@@ -180,6 +165,34 @@ Parser operator"" _t(const char* text, const size_t length) {
 			}
 		)
 	);
+}
+
+Parser nothing(void) {
+	return [=] (const std::string& text, const size_t position) -> Result {
+		(void)text;
+		return Result{true, Node(), position};
+	};
+}
+
+Parser end(void) {
+	return [=] (const std::string& text, const size_t position) -> Result {
+		return position == text.size()
+			? Result{true, Node(), position}
+			: Result();
+	};
+}
+
+Parser list(const Parser& parser, const Parser& separator) {
+	return plain(parser >> *(hide(separator) >> parser), 3);
+}
+
+Node parse(const std::string& text, const Parser& parser) {
+	const auto result = parser(text, 0);
+	if (!std::get<0>(result)) {
+		throw std::runtime_error("parse error");
+	}
+
+	return std::get<1>(result);
 }
 
 }

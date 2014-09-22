@@ -11,7 +11,7 @@ using Parser = std::function<Result(const std::string&, const size_t)>;
 
 Parser hide(const Parser& parser);
 Parser name(const std::string& name, const Parser& parser);
-Parser plain(const Parser& parser);
+Parser plain(const Parser& parser, const size_t level = -1);
 Parser lexeme(const Parser& parser);
 
 Parser operator>>(const Parser& parser1, const Parser& parser2);
@@ -21,10 +21,13 @@ Parser operator*(const Parser& parser);
 Parser operator+(const Parser& parser);
 Parser operator-(const Parser& parser1, const Parser& parser2);
 
-Parser nothing(void);
-Parser end(void);
 Parser operator"" _s(const char symbol);
 Parser operator"" _t(const char* text, const size_t length);
+Parser nothing(void);
+Parser end(void);
+Parser list(const Parser& parser, const Parser& separator);
+
+Node parse(const std::string& text, const Parser& parser);
 
 }
 }

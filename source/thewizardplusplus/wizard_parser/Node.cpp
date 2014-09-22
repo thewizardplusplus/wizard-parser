@@ -5,74 +5,74 @@
 namespace thewizardplusplus {
 namespace wizard_parser {
 
+const std::string XML_CDATA_START = "<![CDATA[";
+const std::string XML_CDATA_END = "]]>";
+const size_t XML_CDATA_ESCAPING_INSERT_SHIFT = 1;
+
 static std::string escape(const std::string& text) {
-	auto escaped_text = std::string();
-	for (const auto& symbol: text) {
-		if (symbol == '"' || symbol == '\\' || symbol == '/') {
-			escaped_text += R"(\)";
-		}
-		escaped_text += symbol;
+	if (text.empty()) {
+		return "";
 	}
 
-	return escaped_text;
+	auto text_copy = text;
+	size_t last_index = 0;
+	while (true) {
+		last_index = text_copy.find("]]>", last_index);
+		if (last_index == std::string::npos) {
+			break;
+		}
+
+		text_copy.insert(
+			last_index + XML_CDATA_ESCAPING_INSERT_SHIFT,
+			XML_CDATA_END + XML_CDATA_START
+		);
+		last_index +=
+			XML_CDATA_ESCAPING_INSERT_SHIFT
+			+ XML_CDATA_START.size()
+			+ XML_CDATA_END.size();
+	}
+
+	return XML_CDATA_START + text_copy + XML_CDATA_END;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Node& node) {
-	stream << "{";
+	stream << "<node>";
+	stream << "<name>" << escape(node.name) << "</name>";
+	stream << "<value>" << escape(node.value) << "</value>";
 
-	if (!node.name.empty()) {
-		stream << R"("name":")" << escape(node.name) << R"(")";
+	stream << "<children>";
+	for (const auto& child: node.children) {
+		stream << child;
 	}
+	stream << "</children>";
 
-	if (!node.value.empty()) {
-		if (!node.name.empty()) {
-			stream << ",";
-		}
-		stream << R"("value":")" << escape(node.value) << R"(")";
-	}
-
-	if (!node.children.empty()) {
-		if (!node.name.empty() || !node.value.empty()) {
-			stream << ",";
-		}
-
-		stream << R"("children":[)";
-		for (size_t i = 0; i < node.children.size(); ++i) {
-			if (i > 0) {
-				stream << ",";
-			}
-			stream << node.children[i];
-		}
-		stream << "]";
-	}
-
-	stream << "}";
+	stream << "</node>";
 	return stream;
 }
 
-NodeGroup children(const Node& node) {
-	return !node.children.empty()
+NodeGroup children(const Node& node, const size_t level) {
+	return level > 0 && !node.children.empty()
 		? std::accumulate(
 			node.children.begin(),
 			node.children.end(),
 			NodeGroup(),
-			[] (
+			[level] (
 				const NodeGroup& all_children,
 				const Node& node
 			) -> NodeGroup {
-				auto supplemented_all_children = all_children;
+				auto all_children_copy = all_children;
 
-				const auto node_children = children(node);
+				const auto node_children = children(node, level - 1);
 				std::copy_if(
 					node_children.begin(),
 					node_children.end(),
-					std::back_inserter(supplemented_all_children),
+					std::back_inserter(all_children_copy),
 					[] (const Node& node) {
 						return !node.value.empty();
 					}
 				);
 
-				return supplemented_all_children;
+				return all_children_copy;
 			}
 		)
 		: NodeGroup{node};
