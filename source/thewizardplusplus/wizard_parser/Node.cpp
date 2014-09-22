@@ -1,7 +1,6 @@
 #include "Node.h"
 #include <numeric>
 #include <algorithm>
-#include <iostream>
 
 namespace thewizardplusplus {
 namespace wizard_parser {

@@ -3,11 +3,13 @@
 
 #include "Result.h"
 #include <functional>
+#include <memory>
 
 namespace thewizardplusplus {
 namespace wizard_parser {
 
-using Parser = std::function<Result(const std::string&, const size_t)>;
+using ParserFunction = std::function<Result(const std::string&, const size_t)>;
+using Parser = std::shared_ptr<ParserFunction>;
 
 Parser hide(const Parser& parser);
 Parser name(const std::string& name, const Parser& parser);
@@ -20,15 +22,22 @@ Parser operator!(const Parser& parser);
 Parser operator*(const Parser& parser);
 Parser operator+(const Parser& parser);
 Parser operator-(const Parser& parser1, const Parser& parser2);
+Parser list(const Parser& parser, const Parser& separator);
+
+Parser nothing(void);
+Parser boundary(void);
+Parser end(void);
 
 Parser operator"" _s(const char symbol);
 Parser operator"" _t(const char* text, const size_t length);
-Parser nothing(void);
-Parser end(void);
-Parser some(const std::string& symbols);
-Parser list(const Parser& parser, const Parser& separator);
+Parser any(const std::string& symbols);
+Parser any(void);
+Parser letter(void);
+Parser digit(void);
+Parser word(void);
+Parser word(const Parser& parser);
 
-Node parse(const std::string& text, const Parser& parser);
+Node parse(const Parser& parser, const std::string& text);
 
 }
 }

@@ -32,7 +32,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
 
 Хранение: на стеке.
 
-Определение: `/(0|[1-9]\d*)(\.\d*[1-9])?/i`.
+Определение: `/\d+(\.\d+)?/`.
 
 #### Массивы
 
@@ -190,7 +190,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         variable definition
         | structure declaration
         | function declaration;
-    
+
     variable definition = "let", identifier, "=", expression, ";";
     structure declaration =
         "structure", identifier,
@@ -201,7 +201,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         "function", identifier, "(", [identifier, {",", identifier}], ")",
             statement list,
         "end";
-    
+
     statement list = statement, {statement};
     statement =
         variable definition
@@ -212,7 +212,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         | loop break
         | function return
         | (expression, ";");
-    
+
     assignment = expression, "=", expression, ";";
     condition =
         "if", expression, "then",
@@ -229,7 +229,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
     loop continue = continue, ";";
     loop break = break, ";";
     function return = "return", [expression], ";";
-    
+
     expression = disjunction;
     disjunction = conjunction, {"or", conjunction};
     conjunction = equality, {"and", equality};
@@ -238,25 +238,26 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
     sum = product, {("+" | "-"), product};
     product = unary, {("*" | "/"), unary};
     unary = {"new" | "-" | "not"}, accessor;
-    
-    accessor = atom, {array item access | structure field access};
+
+    accessor =
+        atom,
+        {array item access | structure field access | function call};
     array item access = "[", expression, "]";
     structure field access = ".", identifier;
-    
+    function call = "(", [expression, {",", expression}], ")";
+
     atom =
         number
         | identifier
         | array definition
         | string definition
-        | function call
         | ("(", expression, ")");
     array definition = "[", [expression, {",", expression}], "]";
-    function call = identifier, "(", [expression, {",", expression}], ")";
-    
-    number = ? /(0|[1-9]\d*)(\.\d*[1-9])?/i ?;
+
+    number = ? /\d+(\.\d+)?/ ?;
     identifier = ? /[a-z_]\w*/i ? - key words;
     string definition = ? /"(\\.|[^"])*"/ ?;
-    
+
     key words =
         "and"
         | "break"
@@ -282,7 +283,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
     * `GetType(value)`;
     * `Copy(value)`;
     * `DeepCopy(value)`;
-    * `ToJson(value)`;
+    * `ToXml(value)`;
     * модуль `lang.array`:
         * `GetLength(array)`;
         * `Add(array, element)`;
@@ -307,24 +308,3 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
     * `Ln(number)`;
     * `Integral(number)`;
     * `GetRandom()`;
-
-### Авторские права
-
-#### Рисунок списка
-
-Автор: lmproulx.
-
-Лицензия: public domain.
-
-Ссылка:
-[http://openclipart.org/detail/33265/liste-/-list-by-lmproulx](http://openclipart.org/detail/33265/liste-/-list-by-lmproulx).
-
-#### Рисунок розы
-
-Автор: zeimusu.
-
-Лицензия: public domain.
-
-Ссылка:
-[http://openclipart.org/detail/3681/coloured-rose-by-zeimusu](http://openclipart.org/detail/3681/coloured-rose-by-zeimusu).
-
