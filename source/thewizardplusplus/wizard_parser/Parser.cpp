@@ -177,15 +177,16 @@ Parser nothing(void) {
 Parser boundary(void) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			auto parser = word();
+			const auto parser = word();
+			const auto result_before =
+				position != 0
+					? parser->operator()(text, position - 1)
+					: Result();
+			const auto result = parser->operator()(text, position);
+
 			return
-				//TODO: debug it!
-				((position == 0
-				|| !std::get<0>(parser->operator()(text, position - 1)))
-				&& std::get<0>(parser->operator()(text, position)))
-				|| (std::get<0>(parser->operator()(text, position - 1))
-				&& (position == text.size()
-				|| std::get<0>(parser->operator()(text, position))))
+				(!std::get<0>(result_before) && std::get<0>(result))
+				|| (std::get<0>(result_before) && !std::get<0>(result))
 					? Result{true, Node(), position}
 					: Result();
 		}
@@ -267,7 +268,7 @@ Parser digit(void) {
 }
 
 Parser word(void) {
-	return letter | digit | '_'_s;
+	return letter() | digit() | '_'_s;
 }
 
 Parser word(const Parser& parser) {

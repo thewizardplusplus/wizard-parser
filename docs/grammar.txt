@@ -1,0 +1,74 @@
+program = statement list;
+
+statement list = statement, {statement};
+statement =
+	expression
+	| loop continue
+	| loop break
+	| lambda return;
+loop continue = continue;
+loop break = break;
+lambda return = "return", [expression], ";";
+
+expression = assignment;
+assignment = unary, "=", disjunction;
+disjunction = conjunction, {"or", conjunction};
+conjunction = equality, {"and", equality};
+equality = comparison, {("==" | "/="), comparison};
+comparison = sum, {("<" | "<=" | ">" | ">="), sum};
+sum = product, {("+" | "-"), product};
+product = unary, {("*" | "/"), unary};
+unary = {"new" | "-" | "not"}, accessor;
+
+accessor = atom, {item access | lambda call};
+item access = "[", expression, "]";
+lambda call = "(", [expression, {",", expression}], ")";
+
+atom =
+	number
+	| identifier
+	| array definition
+	| string definition
+	| condition
+	| loop
+	| lambda declaration
+	| ("(", expression, ")");
+array definition = "[", [expression, {",", expression}], "]";
+condition =
+	"if", expression, "then",
+		statement list,
+	{"else", "if", expression, "then",
+		statement list},
+	["else",
+		statement list],
+	"end";
+loop =
+	"while", expression, "do",
+		statement list,
+	"end";
+lambda declaration =
+	"lambda", "(", [identifier, {",", identifier}], ")",
+		statement list,
+	"end";
+
+number = ? /\d+(\.\d+)?/ ?;
+identifier = ? /[a-z_]\w*/i ? - key words;
+string definition = ? /'(\\.|[^'])*'/ ?;
+
+key words =
+	"and"
+	| "break"
+	| "continue"
+	| "do"
+	| "else"
+	| "end"
+	| "if"
+	| "include"
+	| "lambda"
+	| "new"
+	| "not"
+	| "null"
+	| "or"
+	| "return"
+	| "then"
+	| "while";

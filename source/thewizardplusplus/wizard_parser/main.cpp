@@ -10,7 +10,7 @@ Parser grammar(void) {
 		"NUMBER",
 		lexeme(+digit() >> !('.'_s >> +digit()))
 	);
-	const auto keywords =
+	const auto keywords = word(
 		"and"_t
 		| "break"_t
 		| "continue"_t
@@ -27,7 +27,8 @@ Parser grammar(void) {
 		| "return"_t
 		| "structure"_t
 		| "then"_t
-		| "while"_t;
+		| "while"_t
+	);
 	const auto identifier = name(
 		"IDENTIFIER",
 		lexeme((letter() | '_'_s) >> *word()) - keywords
@@ -61,7 +62,10 @@ Parser grammar(void) {
 		atom >> *(item_access | field_access | function_call)
 	);
 
-	const auto unary = name("UNARY", *("new"_t | '-'_s | "not"_t) >> accessor);
+	const auto unary = name(
+		"UNARY",
+		*(word("new"_t) | '-'_s | word("not"_t)) >> accessor
+	);
 	const auto product = name("PRODUCT", list(unary, '*'_s | '/'_s));
 	const auto sum = name("SUM", list(product, '+'_s | '-'_s));
 	const auto comparison = name(
@@ -69,10 +73,13 @@ Parser grammar(void) {
 		list(sum, '<'_s | "<="_t | '>'_s | ">="_t)
 	);
 	const auto equality = name("EQUALITY", list(comparison, "=="_t | "/="_t));
-	const auto conjunction = name("CONJUNCTION", list(equality, hide("and"_t)));
+	const auto conjunction = name(
+		"CONJUNCTION",
+		list(equality, hide(word("and"_t)))
+	);
 	const auto disjunction = name(
 		"DISJUNCTION",
-		list(conjunction, hide("or"_t))
+		list(conjunction, hide(word("or"_t)))
 	);
 	*expression.get() = *disjunction.get();
 
