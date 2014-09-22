@@ -17,7 +17,8 @@ struct Node {
 };
 
 std::ostream& operator<<(std::ostream& stream, const Node& node);
-NodeGroup children(const Node& node, const size_t level = -1);
+bool is_empty(const Node& node);
+NodeGroup leaves(const Node& node, const size_t level = -1);
 
 }
 }

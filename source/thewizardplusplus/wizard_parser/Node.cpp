@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <numeric>
 #include <algorithm>
+#include <iostream>
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -50,32 +51,35 @@ std::ostream& operator<<(std::ostream& stream, const Node& node) {
 	return stream;
 }
 
-NodeGroup children(const Node& node, const size_t level) {
+bool is_empty(const Node& node) {
+	return node.value.empty() && node.children.empty();
+}
+
+NodeGroup leaves(const Node& node, const size_t level) {
 	return level > 0 && !node.children.empty()
 		? std::accumulate(
 			node.children.begin(),
 			node.children.end(),
 			NodeGroup(),
-			[level] (
+			[=] (
 				const NodeGroup& all_children,
 				const Node& node
 			) -> NodeGroup {
 				auto all_children_copy = all_children;
 
-				const auto node_children = children(node, level - 1);
-				std::copy_if(
+				const auto node_children = leaves(node, level - 1);
+				std::copy(
 					node_children.begin(),
 					node_children.end(),
-					std::back_inserter(all_children_copy),
-					[] (const Node& node) {
-						return !node.value.empty();
-					}
+					std::back_inserter(all_children_copy)
 				);
 
 				return all_children_copy;
 			}
 		)
-		: NodeGroup{node};
+		: !is_empty(node)
+			? NodeGroup{node}
+			: NodeGroup();
 }
 
 }

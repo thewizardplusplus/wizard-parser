@@ -35,7 +35,7 @@ Parser plain(const Parser& parser, const size_t level) {
 				{
 					std::get<1>(result).name,
 					std::get<1>(result).value,
-					children(std::get<1>(result), level)
+					leaves(std::get<1>(result), level)
 				},
 				std::get<2>(result)
 			}
@@ -74,20 +74,14 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 		const auto result1 = parser1(text, position);
 		if (!std::get<0>(result1)) {
 			return Result();
-		} else if (
-			!std::get<1>(result1).value.empty()
-			|| !std::get<1>(result1).children.empty()
-		) {
+		} else if (!is_empty(std::get<1>(result1))) {
 			nodes.push_back(std::get<1>(result1));
 		}
 
 		const auto result2 = parser2(text, std::get<2>(result1));
 		if (!std::get<0>(result2)) {
 			return Result();
-		} else if (
-			!std::get<1>(result2).value.empty()
-			|| !std::get<1>(result2).children.empty()
-		) {
+		} else if (!is_empty(std::get<1>(result2))) {
 			nodes.push_back(std::get<1>(result2));
 		}
 
@@ -116,10 +110,7 @@ Parser operator*(const Parser& parser) {
 				break;
 			}
 
-			if (
-				!std::get<1>(result).value.empty()
-				|| !std::get<1>(result).children.empty()
-			) {
+			if (!is_empty(std::get<1>(result))) {
 				nodes.push_back(std::get<1>(result));
 			}
 			end_position = std::get<2>(result);
@@ -180,6 +171,21 @@ Parser end(void) {
 			? Result{true, Node(), position}
 			: Result();
 	};
+}
+
+Parser some(const std::string& symbols) {
+	if (symbols.empty()) {
+		throw std::invalid_argument("some() at empty string");
+	}
+
+	return std::accumulate(
+		symbols.begin() + 1,
+		symbols.end(),
+		operator"" _s(symbols[0]),
+		[] (const Parser& parser, const char symbol) {
+			return parser | operator"" _s(symbol);
+		}
+	);
 }
 
 Parser list(const Parser& parser, const Parser& separator) {

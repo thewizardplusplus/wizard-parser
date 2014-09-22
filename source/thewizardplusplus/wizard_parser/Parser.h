@@ -25,6 +25,7 @@ Parser operator"" _s(const char symbol);
 Parser operator"" _t(const char* text, const size_t length);
 Parser nothing(void);
 Parser end(void);
+Parser some(const std::string& symbols);
 Parser list(const Parser& parser, const Parser& separator);
 
 Node parse(const std::string& text, const Parser& parser);
