@@ -3,9 +3,27 @@
 
 using namespace thewizardplusplus::wizard_parser;
 
+Parser digit(void) {
+	return
+		'0'_s
+		| '1'_s
+		| '2'_s
+		| '3'_s
+		| '4'_s
+		| '5'_s
+		| '6'_s
+		| '7'_s
+		| '8'_s
+		| '9'_s;
+}
+
+Parser number(void) {
+	return lexeme(+digit() >> !('.'_s >> +digit()));
+}
+
 int main(void) try {
-	const auto text = "123";
-	const auto parser = "123"_t;
+	const auto text = "123.87";
+	const auto parser = number();
 
 	const auto result = parser(text, 0);
 	if (std::get<0>(result)) {
