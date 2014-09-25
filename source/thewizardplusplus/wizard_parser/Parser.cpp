@@ -5,6 +5,27 @@
 namespace thewizardplusplus {
 namespace wizard_parser {
 
+static auto separating = false;
+static auto separator_parser = nothing();
+
+void set_separator_parser(const Parser& parser) {
+	*separator_parser.get() = *parser.get();
+}
+
+Parser separate(bool separate, const Parser& parser) {
+	return std::make_shared<ParserFunction>(
+		[=] (const std::string& text, const size_t position) -> Result {
+			const auto old_separating = separating;
+			separating = separate;
+
+			const auto result = parser->operator()(text, position);
+			separating = old_separating;
+
+			return result;
+		}
+	);
+}
+
 Parser hide(const Parser& parser) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
@@ -81,6 +102,7 @@ Parser lexeme(const Parser& parser) {
 }
 
 Parser operator>>(const Parser& parser1, const Parser& parser2) {
+	const auto separator_parser = separator();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			auto nodes = NodeGroup();
@@ -92,9 +114,17 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 				nodes.push_back(std::get<1>(result1));
 			}
 
-			const auto result2 = parser2->operator()(
+			const auto separator_result = separator_parser->operator()(
 				text,
 				std::get<2>(result1)
+			);
+			if (!std::get<0>(separator_result)) {
+				return Result();
+			}
+
+			const auto result2 = parser2->operator()(
+				text,
+				std::get<2>(separator_result)
 			);
 			if (!std::get<0>(result2)) {
 				return Result();
@@ -123,17 +153,29 @@ Parser operator!(const Parser& parser) {
 }
 
 Parser operator*(const Parser& parser) {
+	const auto separator_parser = separator();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			auto nodes = NodeGroup();
 			auto end_position = position;
+			auto not_first = false;
 			while (true) {
+				if (not_first) {
+					const auto separator_result = separator_parser->operator()(
+						text,
+						end_position
+					);
+					if (!std::get<0>(separator_result)) {
+						break;
+					}
+				} else {
+					not_first = true;
+				}
+
 				const auto result = parser->operator()(text, end_position);
 				if (!std::get<0>(result)) {
 					break;
-				}
-
-				if (!is_empty(std::get<1>(result))) {
+				} else if (!is_empty(std::get<1>(result))) {
 					nodes.push_back(std::get<1>(result));
 				}
 				end_position = std::get<2>(result);
@@ -175,9 +217,9 @@ Parser nothing(void) {
 }
 
 Parser boundary(void) {
+	const auto parser = word();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			const auto parser = word();
 			const auto result_before =
 				position != 0
 					? parser->operator()(text, position - 1)
@@ -199,6 +241,17 @@ Parser end(void) {
 			return position == text.size()
 				? Result{true, Node(), position}
 				: Result();
+		}
+	);
+}
+
+Parser separator(void) {
+	const auto nothing_parser = nothing();
+	return std::make_shared<ParserFunction>(
+		[=] (const std::string& text, const size_t position) -> Result {
+			return separating
+				? separator_parser->operator()(text, position)
+				: nothing_parser->operator()(text, position);
 		}
 	);
 }
@@ -257,6 +310,10 @@ Parser any(void) {
 				: Result();
 		}
 	);
+}
+
+Parser space(void) {
+	return any(" \t\n\v\f\r");
 }
 
 Parser letter(void) {
