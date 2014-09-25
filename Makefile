@@ -1,5 +1,5 @@
 SOURCE = source/thewizardplusplus/wizard_parser/
-OBJECTS = $(SOURCE)main.o $(SOURCE)Parser.o $(SOURCE)Node.o
+OBJECTS = $(SOURCE)main.o $(SOURCE)parser/Parser.o $(SOURCE)node/Node.o
 CXXFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -O2
 
 main: $(OBJECTS)

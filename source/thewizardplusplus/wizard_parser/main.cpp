@@ -1,7 +1,7 @@
-#include "Parser.h"
+#include "parser/Parser.h"
 #include <iostream>
 
-using namespace thewizardplusplus::wizard_parser;
+using namespace thewizardplusplus::wizard_parser::parser;
 
 Parser grammar(void) {
 	const auto expression = nothing();
@@ -81,9 +81,9 @@ Parser grammar(void) {
 		"DISJUNCTION",
 		list(conjunction, hide(word("or"_t)))
 	);
-	*expression.get() = *disjunction.get();
+	assign(expression, disjunction);
 
-	const auto grammar = expression;
+	const auto grammar = separation(*space(), expression);
 	return grammar;
 }
 

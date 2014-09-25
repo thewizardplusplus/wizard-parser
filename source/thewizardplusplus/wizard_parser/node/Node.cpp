@@ -4,6 +4,7 @@
 
 namespace thewizardplusplus {
 namespace wizard_parser {
+namespace node {
 
 const std::string XML_CDATA_START = "<![CDATA[";
 const std::string XML_CDATA_END = "]]>";
@@ -81,5 +82,6 @@ NodeGroup leaves(const Node& node, const size_t level) {
 			: NodeGroup();
 }
 
+}
 }
 }

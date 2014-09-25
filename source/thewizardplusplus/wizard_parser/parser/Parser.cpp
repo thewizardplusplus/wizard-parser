@@ -4,22 +4,23 @@
 
 namespace thewizardplusplus {
 namespace wizard_parser {
+namespace parser {
 
-static auto separating = false;
-static auto separator_parser = nothing();
+const auto separator_parser = nothing();
 
-void set_separator_parser(const Parser& parser) {
-	*separator_parser.get() = *parser.get();
+void assign(const Parser& parser1, const Parser& parser2) {
+	*parser1.get() = *parser2.get();
 }
 
-Parser separate(bool separate, const Parser& parser) {
+Parser separation(const Parser& separator, const Parser& parser) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			const auto old_separating = separating;
-			separating = separate;
+			const auto old_separator_copy = nothing();
+			assign(old_separator_copy, separator_parser);
 
+			assign(separator_parser, separator);
 			const auto result = parser->operator()(text, position);
-			separating = old_separating;
+			assign(separator_parser, old_separator_copy);
 
 			return result;
 		}
@@ -31,7 +32,7 @@ Parser hide(const Parser& parser) {
 		[=] (const std::string& text, const size_t position) -> Result {
 			const auto result = parser->operator()(text, position);
 			return std::get<0>(result)
-				? Result{true, Node(), std::get<2>(result)}
+				? Result{true, node::Node(), std::get<2>(result)}
 				: Result();
 		}
 	);
@@ -88,7 +89,10 @@ Parser lexeme(const Parser& parser) {
 							std::get<1>(result).children.begin(),
 							std::get<1>(result).children.end(),
 							std::string(),
-							[] (const std::string& value, const Node& child) {
+							[] (
+								const std::string& value,
+								const node::Node& child
+							) {
 								return value + child.value;
 							}
 						),
@@ -105,7 +109,7 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 	const auto separator_parser = separator();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			auto nodes = NodeGroup();
+			auto nodes = node::NodeGroup();
 
 			const auto result1 = parser1->operator()(text, position);
 			if (!std::get<0>(result1)) {
@@ -132,7 +136,11 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 				nodes.push_back(std::get<1>(result2));
 			}
 
-			return Result{true, Node{"", "", nodes}, std::get<2>(result2)};
+			return Result{
+				true,
+				node::Node{"", "", nodes},
+				std::get<2>(result2)
+			};
 		}
 	);
 }
@@ -156,7 +164,7 @@ Parser operator*(const Parser& parser) {
 	const auto separator_parser = separator();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			auto nodes = NodeGroup();
+			auto nodes = node::NodeGroup();
 			auto end_position = position;
 			auto not_first = false;
 			while (true) {
@@ -211,26 +219,34 @@ Parser nothing(void) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			(void)text;
-			return Result{true, Node(), position};
+			return Result{true, node::Node(), position};
 		}
 	);
 }
 
 Parser boundary(void) {
-	const auto parser = word();
+	const auto word_parser = word();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			const auto result_before =
 				position != 0
-					? parser->operator()(text, position - 1)
+					? word_parser->operator()(text, position - 1)
 					: Result();
-			const auto result = parser->operator()(text, position);
+			const auto result = word_parser->operator()(text, position);
 
 			return
 				(!std::get<0>(result_before) && std::get<0>(result))
 				|| (std::get<0>(result_before) && !std::get<0>(result))
-					? Result{true, Node(), position}
+					? Result{true, node::Node(), position}
 					: Result();
+		}
+	);
+}
+
+Parser separator(void) {
+	return std::make_shared<ParserFunction>(
+		[=] (const std::string& text, const size_t position) -> Result {
+			return separator_parser->operator()(text, position);
 		}
 	);
 }
@@ -239,19 +255,8 @@ Parser end(void) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			return position == text.size()
-				? Result{true, Node(), position}
+				? Result{true, node::Node(), position}
 				: Result();
-		}
-	);
-}
-
-Parser separator(void) {
-	const auto nothing_parser = nothing();
-	return std::make_shared<ParserFunction>(
-		[=] (const std::string& text, const size_t position) -> Result {
-			return separating
-				? separator_parser->operator()(text, position)
-				: nothing_parser->operator()(text, position);
 		}
 	);
 }
@@ -262,7 +267,7 @@ Parser operator"" _s(const char symbol) {
 			return position < text.size() && text[position] == symbol
 				? Result{
 					true,
-					Node{"", std::string(1, symbol), {}},
+					node::Node{"", std::string(1, symbol), {}},
 					position + 1
 				}
 				: Result();
@@ -272,29 +277,17 @@ Parser operator"" _s(const char symbol) {
 
 Parser operator"" _t(const char* text, const size_t length) {
 	return lexeme(
-		std::accumulate(
-			text,
-			text + length,
+		separation(
 			nothing(),
-			[] (const Parser& parser, const char symbol) {
-				return parser >> operator"" _s(symbol);
-			}
+			std::accumulate(
+				text,
+				text + length,
+				nothing(),
+				[] (const Parser& parser, const char symbol) {
+					return parser >> operator"" _s(symbol);
+				}
+			)
 		)
-	);
-}
-
-Parser any(const std::string& symbols) {
-	if (symbols.empty()) {
-		throw std::invalid_argument("some() at empty string");
-	}
-
-	return std::accumulate(
-		symbols.begin() + 1,
-		symbols.end(),
-		operator"" _s(symbols[0]),
-		[] (const Parser& parser, const char symbol) {
-			return parser | operator"" _s(symbol);
-		}
 	);
 }
 
@@ -304,10 +297,25 @@ Parser any(void) {
 			return position < text.size()
 				? Result{
 					true,
-					Node{"", std::string(1, text[position]), {}},
+					node::Node{"", std::string(1, text[position]), {}},
 					position + 1
 				}
 				: Result();
+		}
+	);
+}
+
+Parser any(const std::string& symbols) {
+	if (symbols.empty()) {
+		throw std::invalid_argument("any() at empty string");
+	}
+
+	return std::accumulate(
+		symbols.begin() + 1,
+		symbols.end(),
+		operator"" _s(symbols[0]),
+		[] (const Parser& parser, const char symbol) {
+			return parser | operator"" _s(symbol);
 		}
 	);
 }
@@ -329,17 +337,20 @@ Parser word(void) {
 }
 
 Parser word(const Parser& parser) {
-	return boundary() >> parser >> boundary();
+	return separation(nothing(), boundary() >> parser >> boundary());
 }
 
-Node parse(const Parser& parser, const std::string& text) {
+node::Node parse(const Parser& parser, const std::string& text) {
 	const auto result = parser->operator()(text, 0);
 	if (!std::get<0>(result)) {
-		throw std::runtime_error("parse error");
+		throw std::runtime_error(
+			"parse error on position " + std::to_string(std::get<2>(result))
+		);
 	}
 
 	return std::get<1>(result);
 }
 
+}
 }
 }
