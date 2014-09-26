@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include <numeric>
+#include <algorithm>
 #include <iostream>
 
 namespace thewizardplusplus {
@@ -106,7 +107,6 @@ Parser lexeme(const Parser& parser) {
 }
 
 Parser operator>>(const Parser& parser1, const Parser& parser2) {
-	const auto separator_parser = separator();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			auto nodes = node::NodeGroup();
@@ -114,17 +114,17 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 			const auto result1 = parser1->operator()(text, position);
 			if (!std::get<0>(result1)) {
 				return Result();
-			} else if (!is_empty(std::get<1>(result1))) {
-				nodes.push_back(std::get<1>(result1));
 			}
+			nodes.push_back(std::get<1>(result1));
 
-			const auto separator_result = separator_parser->operator()(
+			const auto separator_result = separator()->operator()(
 				text,
 				std::get<2>(result1)
 			);
 			if (!std::get<0>(separator_result)) {
 				return Result();
 			}
+			nodes.push_back(std::get<1>(separator_result));
 
 			const auto result2 = parser2->operator()(
 				text,
@@ -132,9 +132,8 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 			);
 			if (!std::get<0>(result2)) {
 				return Result();
-			} else if (!is_empty(std::get<1>(result2))) {
-				nodes.push_back(std::get<1>(result2));
 			}
+			nodes.push_back(std::get<1>(result2));
 
 			return Result{
 				true,
@@ -161,32 +160,40 @@ Parser operator!(const Parser& parser) {
 }
 
 Parser operator*(const Parser& parser) {
-	const auto separator_parser = separator();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			auto nodes = node::NodeGroup();
+			auto old_end_position = position;
 			auto end_position = position;
 			auto not_first = false;
 			while (true) {
 				if (not_first) {
-					const auto separator_result = separator_parser->operator()(
+					const auto separator_result = separator()->operator()(
 						text,
 						end_position
 					);
 					if (!std::get<0>(separator_result)) {
 						break;
 					}
-				} else {
-					not_first = true;
+					nodes.push_back(std::get<1>(separator_result));
+
+					old_end_position = end_position;
+					end_position = std::get<2>(separator_result);
 				}
 
 				const auto result = parser->operator()(text, end_position);
 				if (!std::get<0>(result)) {
+					if (not_first) {
+						nodes.pop_back();
+						end_position = old_end_position;
+					}
+
 					break;
-				} else if (!is_empty(std::get<1>(result))) {
-					nodes.push_back(std::get<1>(result));
 				}
+				nodes.push_back(std::get<1>(result));
 				end_position = std::get<2>(result);
+
+				not_first = true;
 			}
 
 			return Result{true, {"", "", nodes}, end_position};
@@ -225,14 +232,13 @@ Parser nothing(void) {
 }
 
 Parser boundary(void) {
-	const auto word_parser = word();
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			const auto result_before =
 				position != 0
-					? word_parser->operator()(text, position - 1)
+					? word()->operator()(text, position - 1)
 					: Result();
-			const auto result = word_parser->operator()(text, position);
+			const auto result = word()->operator()(text, position);
 
 			return
 				(!std::get<0>(result_before) && std::get<0>(result))
@@ -340,7 +346,67 @@ Parser word(const Parser& parser) {
 	return separation(nothing(), boundary() >> parser >> boundary());
 }
 
-node::Node parse(const Parser& parser, const std::string& text) {
+node::Node simplify(
+	const node::Node& node,
+	const SimplifyLevel level,
+	const StringGroup& saved
+) {
+	if (
+		level != SimplifyLevel::EMPTIES
+		&& level != SimplifyLevel::WRAPPERS
+		&& level != SimplifyLevel::AST
+	) {
+		throw std::invalid_argument("invalid simplify level");
+	}
+
+	auto children = node::NodeGroup();
+	std::transform(
+		node.children.begin(),
+		node.children.end(),
+		std::back_inserter(children),
+		[=] (const node::Node& node) {
+			return simplify(node, level, saved);
+		}
+	);
+	children.erase(
+		std::remove_if(
+			children.begin(),
+			children.end(),
+			[] (const node::Node& node) {
+				return node.name.empty() && node::is_empty(node);
+			}
+		),
+		children.end()
+	);
+
+	auto simplified_node = node::Node{node.name, node.value, children};
+	if (simplified_node.value.empty() && simplified_node.children.size() == 1) {
+		auto child = simplified_node.children.front();
+		if (
+			(level == SimplifyLevel::WRAPPERS && simplified_node.name.empty())
+			|| (level == SimplifyLevel::AST && std::find(
+				saved.begin(),
+				saved.end(),
+				simplified_node.name
+			) == saved.end())
+			|| (level != SimplifyLevel::EMPTIES && child.name.empty())
+		) {
+			if (child.name.empty()) {
+				child.name = simplified_node.name;
+			}
+			simplified_node = child;
+		}
+	}
+
+	return simplified_node;
+}
+
+node::Node parse(
+	const Parser& parser,
+	const std::string& text,
+	const SimplifyLevel level,
+	const StringGroup& saved
+) {
 	const auto result = parser->operator()(text, 0);
 	if (!std::get<0>(result)) {
 		throw std::runtime_error(
@@ -348,7 +414,7 @@ node::Node parse(const Parser& parser, const std::string& text) {
 		);
 	}
 
-	return std::get<1>(result);
+	return simplify(std::get<1>(result), level, saved);
 }
 
 }

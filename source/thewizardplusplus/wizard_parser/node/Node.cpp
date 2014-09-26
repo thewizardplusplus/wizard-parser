@@ -77,9 +77,7 @@ NodeGroup leaves(const Node& node, const size_t level) {
 				return all_children_copy;
 			}
 		)
-		: !is_empty(node)
-			? NodeGroup{node}
-			: NodeGroup();
+		: NodeGroup{node};
 }
 
 }

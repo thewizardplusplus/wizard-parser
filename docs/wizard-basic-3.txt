@@ -189,11 +189,11 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         | structure declaration
         | function declaration;
 
-    variable definition = "let", identifier, "=", expression, ";";
+    variable definition = "let", identifier, "=", expression;
     structure declaration =
         "structure", identifier,
-            identifier, ";",
-            {identifier, ";"},
+            identifier,
+            {identifier},
         "end";
     function declaration =
         "function", identifier, "(", [identifier, {",", identifier}], ")",
@@ -209,7 +209,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         | loop continue
         | loop break
         | function return
-        | (expression, ";");
+        | expression;
 
     assignment = expression, "=", expression, ";";
     condition =
@@ -224,8 +224,8 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         "while", expression, "do",
             statement list,
         "end";
-    loop continue = continue, ";";
-    loop break = break, ";";
+    loop continue = "continue";
+    loop break = "break";
     function return = "return", [expression], ";";
 
     expression = disjunction;
@@ -237,19 +237,20 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
     product = unary, {("*" | "/"), unary};
     unary = {"new" | "-" | "not"}, accessor;
 
-    accessor = atom, {array item access | structure field access};
+    accessor =
+        atom,
+        {array item access | structure field access | function call};
     array item access = "[", expression, "]";
     structure field access = ".", identifier;
+    function call = "(", [expression, {",", expression}], ")";
 
     atom =
         number
         | identifier
         | array definition
         | string definition
-        | function call
         | ("(", expression, ")");
     array definition = "[", [expression, {",", expression}], "]";
-    function call = identifier, "(", [expression, {",", expression}], ")";
 
     number = ? /\d+(\.\d+)?/ ?;
     identifier = ? /[a-z_]\w*/i ? - key words;

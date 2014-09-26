@@ -6,85 +6,68 @@ using namespace thewizardplusplus::wizard_parser::parser;
 Parser grammar(void) {
 	const auto expression = nothing();
 
-	const auto number = name(
-		"NUMBER",
-		lexeme(+digit() >> !('.'_s >> +digit()))
-	);
-	const auto keywords = word(
-		"and"_t
-		| "break"_t
-		| "continue"_t
-		| "do"_t
-		| "else"_t
-		| "end"_t
-		| "function"_t
-		| "if"_t
-		| "include"_t
-		| "let"_t
-		| "new"_t
-		| "not"_t
-		| "or"_t
-		| "return"_t
-		| "structure"_t
-		| "then"_t
-		| "while"_t
-	);
-	const auto identifier = name(
-		"IDENTIFIER",
-		lexeme((letter() | '_'_s) >> *word()) - keywords
-	);
-	const auto array_definition = name(
-		"ARRAY_DEFINITION",
-		'['_s >> !list(expression, hide(','_s)) >> ']'_s
-	);
-	const auto string_definition = name(
-		"STRING_DEFINITION",
-		lexeme('"'_s >> *(('\\'_s >> any()) | (any() - '"'_s)) >> '"'_s)
-	);
-	const auto atom =
+	WP_RULE(keywords)
+		word(
+			"and"_t
+			| "break"_t
+			| "continue"_t
+			| "do"_t
+			| "else"_t
+			| "end"_t
+			| "function"_t
+			| "if"_t
+			| "include"_t
+			| "let"_t
+			| "new"_t
+			| "not"_t
+			| "or"_t
+			| "return"_t
+			| "structure"_t
+			| "then"_t
+			| "while"_t
+		)
+	WP_END
+
+	WP_RULE(number) lexeme(+digit() >> !('.'_s >> +digit())) WP_END
+	WP_RULE(identifier) lexeme((letter() | '_'_s) >> *word()) - keywords WP_END
+	WP_RULE(string_definition)
+		lexeme(
+			hide('"'_s)
+			>> *(('\\'_s >> any()) | (any() - '"'_s))
+			>> hide('"'_s)
+		)
+	WP_END
+
+	WP_RULE(array_definition)
+		hide('['_s) >> !list(expression, hide(','_s)) >> hide(']'_s)
+	WP_END
+	WP_RULE(atom)
 		number
 		| identifier
 		| array_definition
 		| string_definition
-		| hide('('_s) >> expression >> hide(')'_s);
+		| hide('('_s) >> expression >> hide(')'_s)
+	WP_END
 
-	const auto item_access = name(
-		"ITEM_ACCESS",
-		hide('['_s) >> expression >> hide(']'_s)
-	);
-	const auto field_access = name("FIELD_ACCESS", hide('.'_s) >> identifier);
-	const auto function_call = name(
-		"FUNCTION_CALL",
-		'('_s >> !list(expression, ','_s) >> ')'_s
-	);
-	const auto accessor = name(
-		"ACCESSOR",
+	WP_RULE(item_access) hide('['_s) >> expression >> hide(']'_s) WP_END
+	WP_RULE(field_access) hide('.'_s) >> identifier WP_END
+	WP_RULE(function_call)
+		hide('('_s) >> !list(expression, ','_s) >> hide(')'_s)
+	WP_END
+	WP_RULE(accessor)
 		atom >> *(item_access | field_access | function_call)
-	);
+	WP_END
 
-	const auto unary = name(
-		"UNARY",
-		*(word("new"_t) | '-'_s | word("not"_t)) >> accessor
-	);
-	const auto product = name("PRODUCT", list(unary, '*'_s | '/'_s));
-	const auto sum = name("SUM", list(product, '+'_s | '-'_s));
-	const auto comparison = name(
-		"COMPARISON",
-		list(sum, '<'_s | "<="_t | '>'_s | ">="_t)
-	);
-	const auto equality = name("EQUALITY", list(comparison, "=="_t | "/="_t));
-	const auto conjunction = name(
-		"CONJUNCTION",
-		list(equality, hide(word("and"_t)))
-	);
-	const auto disjunction = name(
-		"DISJUNCTION",
-		list(conjunction, hide(word("or"_t)))
-	);
+	WP_RULE(unary) *(word("new"_t) | '-'_s | word("not"_t)) >> accessor WP_END
+	WP_RULE(product) list(unary, '*'_s | '/'_s) WP_END
+	WP_RULE(sum) list(product, '+'_s | '-'_s) WP_END
+	WP_RULE(comparison) list(sum, lexeme(any("<>") >> !'='_s)) WP_END
+	WP_RULE(equality) list(comparison, "=="_t | "/="_t) WP_END
+	WP_RULE(conjunction) list(equality, hide(word("and"_t))) WP_END
+	WP_RULE(disjunction) list(conjunction, hide(word("or"_t))) WP_END
 	assign(expression, disjunction);
 
-	const auto grammar = separation(*space(), expression);
-	return grammar;
+	return separation(hide(*space()), expression);
 }
 
 int main(int number_of_arguments, char* arguments[]) try {
@@ -94,7 +77,14 @@ int main(int number_of_arguments, char* arguments[]) try {
 
 	const auto text = arguments[1];
 	const auto parser = grammar();
-	std::cout << parse(parser, text) << std::endl;
+	std::cout
+		<< parse(
+			parser,
+			text,
+			SimplifyLevel::AST,
+			{"ITEM_ACCESS", "FIELD_ACCESS", "FUNCTION_CALL"}
+		)
+		<< std::endl;
 } catch (std::exception& exception) {
 	std::cerr << "Error: \"" << exception.what() << "\"." << std::endl;
 	std::exit(EXIT_FAILURE);

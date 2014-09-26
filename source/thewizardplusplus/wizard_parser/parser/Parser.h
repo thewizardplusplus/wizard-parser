@@ -5,12 +5,23 @@
 #include <functional>
 #include <memory>
 
+#ifndef WP_DISABLE_MACROSES
+	#define WP_RULE(rule) const auto rule = name(#rule,
+	#define WP_END );
+#endif
+
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
 using ParserFunction = std::function<Result(const std::string&, const size_t)>;
 using Parser = std::shared_ptr<ParserFunction>;
+enum class SimplifyLevel : uint8_t {
+	EMPTIES,
+	WRAPPERS,
+	AST
+};
+using StringGroup = std::vector<std::string>;
 
 void assign(const Parser& parser1, const Parser& parser2);
 Parser separation(const Parser& separator, const Parser& parser);
@@ -42,7 +53,17 @@ Parser digit(void);
 Parser word(void);
 Parser word(const Parser& parser);
 
-node::Node parse(const Parser& parser, const std::string& text);
+node::Node simplify(
+	const node::Node& node,
+	const SimplifyLevel level = SimplifyLevel::WRAPPERS,
+	const StringGroup& saved = {}
+);
+node::Node parse(
+	const Parser& parser,
+	const std::string& text,
+	const SimplifyLevel level = SimplifyLevel::WRAPPERS,
+	const StringGroup& saved = {}
+);
 
 }
 }
