@@ -5,6 +5,7 @@ using namespace thewizardplusplus::wizard_parser::parser;
 
 Parser grammar(void) {
 	const auto expression = nothing();
+	const auto statement_list_copy = nothing();
 
 	WP_RULE(keywords)
 		word(
@@ -28,13 +29,20 @@ Parser grammar(void) {
 		)
 	WP_END
 
-	WP_RULE(number) lexeme(+digit() >> !('.'_s >> +digit())) WP_END
-	WP_RULE(identifier) lexeme((letter() | '_'_s) >> *word()) - keywords WP_END
+	WP_RULE(number)
+		separation(nothing(), lexeme(+digit() >> !('.'_s >> +digit())))
+	WP_END
+	WP_RULE(identifier)
+		separation(nothing(), lexeme((letter() | '_'_s) >> *word()) - keywords)
+	WP_END
 	WP_RULE(string_definition)
 		lexeme(
-			hide('"'_s)
-			>> *(('\\'_s >> any()) | (any() - '"'_s))
-			>> hide('"'_s)
+			separation(
+				nothing(),
+				hide('"'_s)
+					>> *(('\\'_s >> any()) | (any() - '"'_s))
+					>> hide('"'_s)
+			)
 		)
 	WP_END
 
@@ -67,7 +75,68 @@ Parser grammar(void) {
 	WP_RULE(disjunction) list(conjunction, hide(word("or"_t))) WP_END
 	assign(expression, disjunction);
 
-	return separation(hide(*space()), expression);
+	WP_RULE(variable_definition)
+		hide(word("let"_t)) >> identifier >> '='_s >> expression
+	WP_END
+	WP_RULE(assignment) expression >> '='_s >> expression WP_END
+	WP_RULE(condition)
+		hide(word("if"_t)) >> expression >> hide(word("then"_t))
+			>> statement_list_copy
+		>> *(hide(word("else"_t))
+			>> hide(word("if"_t))
+			>> expression
+			>> hide(word("then"_t))
+			>> statement_list_copy)
+		>> !(hide(word("else"_t))
+			>> statement_list_copy)
+		>> hide(word("end"_t))
+	WP_END
+	WP_RULE(loop)
+		hide(word("while"_t)) >> expression >> hide(word("do"_t))
+			>> statement_list_copy
+		>> hide(word("end"_t))
+	WP_END
+	WP_RULE(loop_continue) hide(word("continue"_t)) WP_END
+	WP_RULE(loop_break) hide(word("break"_t)) WP_END
+	WP_RULE(function_return)
+		hide(word("return"_t)) >> !expression
+	WP_END
+
+	WP_RULE(statement)
+		variable_definition
+		| assignment
+		| condition
+		| loop
+		| loop_continue
+		| loop_break
+		| function_return
+		| expression
+	WP_END
+	WP_RULE(statement_list) +statement WP_END
+	assign(statement_list_copy, statement_list);
+
+	WP_RULE(structure_declaration)
+		hide(word("structure"_t)) >> identifier
+			>> +identifier
+		>> hide(word("end"_t))
+	WP_END
+	WP_RULE(function_declaration)
+		hide(word("function"_t))
+			>> identifier
+			>> hide('('_s)
+			>> !list(identifier, hide(','_s))
+			>> hide(')'_s)
+			>> statement_list_copy
+		>> hide(word("end"_t))
+	WP_END
+
+	WP_RULE(program)
+		variable_definition
+		| structure_declaration
+		| function_declaration
+	WP_END
+
+	return separation(hide(*space()), program);
 }
 
 int main(int number_of_arguments, char* arguments[]) try {
@@ -82,7 +151,13 @@ int main(int number_of_arguments, char* arguments[]) try {
 			parser,
 			text,
 			SimplifyLevel::AST,
-			{"ITEM_ACCESS", "FIELD_ACCESS", "FUNCTION_CALL"}
+			{
+				"item_access",
+				"field_access",
+				"function_call",
+				"function_return",
+				"statement_list"
+			}
 		)
 		<< std::endl;
 } catch (std::exception& exception) {

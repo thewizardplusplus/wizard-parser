@@ -46,11 +46,7 @@ Parser name(const std::string& name, const Parser& parser) {
 			return std::get<0>(result)
 				? Result{
 					true,
-					{
-						name,
-						std::get<1>(result).value,
-						std::get<1>(result).children
-					},
+					{name, "", {std::get<1>(result)}},
 					std::get<2>(result)
 				}
 				: Result();
@@ -202,7 +198,7 @@ Parser operator*(const Parser& parser) {
 }
 
 Parser operator+(const Parser& parser) {
-	return plain(parser >> *parser);
+	return parser >> *parser;
 }
 
 Parser operator-(const Parser& parser1, const Parser& parser2) {

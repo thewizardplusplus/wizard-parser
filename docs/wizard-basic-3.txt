@@ -211,7 +211,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         | function return
         | expression;
 
-    assignment = expression, "=", expression, ";";
+    assignment = expression, "=", expression;
     condition =
         "if", expression, "then",
             statement list,
@@ -226,7 +226,7 @@ Wizard Basic 3 &mdash; интерпретируемый высокоуровне
         "end";
     loop continue = "continue";
     loop break = "break";
-    function return = "return", [expression], ";";
+    function return = "return", [expression];
 
     expression = disjunction;
     disjunction = conjunction, {"or", conjunction};
