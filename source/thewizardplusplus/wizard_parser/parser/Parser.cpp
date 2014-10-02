@@ -34,7 +34,7 @@ Parser hide(const Parser& parser) {
 			const auto result = parser->operator()(text, position);
 			return std::get<0>(result)
 				? Result{true, node::Node(), std::get<2>(result)}
-				: Result();
+				: Result{false, node::Node(), std::get<2>(result)};
 		}
 	);
 }
@@ -49,7 +49,7 @@ Parser name(const std::string& name, const Parser& parser) {
 					{name, "", {std::get<1>(result)}},
 					std::get<2>(result)
 				}
-				: Result();
+				: Result{false, node::Node(), std::get<2>(result)};
 		}
 	);
 }
@@ -68,7 +68,7 @@ Parser plain(const Parser& parser, const size_t level) {
 					},
 					std::get<2>(result)
 				}
-				: Result();
+				: Result{false, node::Node(), std::get<2>(result)};
 		}
 	);
 }
@@ -97,7 +97,7 @@ Parser lexeme(const Parser& parser) {
 					},
 					std::get<2>(result)
 				}
-				: Result();
+				: Result{false, node::Node(), std::get<2>(result)};
 		}
 	);
 }
@@ -109,7 +109,7 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 
 			const auto result1 = parser1->operator()(text, position);
 			if (!std::get<0>(result1)) {
-				return Result();
+				return Result{false, node::Node(), std::get<2>(result1)};
 			}
 			nodes.push_back(std::get<1>(result1));
 
@@ -118,7 +118,11 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 				std::get<2>(result1)
 			);
 			if (!std::get<0>(separator_result)) {
-				return Result();
+				return Result{
+					false,
+					node::Node(),
+					std::get<2>(separator_result)
+				};
 			}
 			nodes.push_back(std::get<1>(separator_result));
 
@@ -127,7 +131,7 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 				std::get<2>(separator_result)
 			);
 			if (!std::get<0>(result2)) {
-				return Result();
+				return Result{false, node::Node(), std::get<2>(result2)};
 			}
 			nodes.push_back(std::get<1>(result2));
 
@@ -157,7 +161,11 @@ Parser operator|(const Parser& parser1, const Parser& parser2) {
 					return result2;
 				}
 			} else {
-				return Result();
+				return Result{
+					false,
+					node::Node(),
+					std::min(std::get<2>(result1), std::get<2>(result2))
+				};
 			}
 		}
 	);
@@ -221,7 +229,7 @@ Parser operator-(const Parser& parser1, const Parser& parser2) {
 				std::get<0>(result)
 				&& !std::get<0>(parser2->operator()(text, position))
 					? result
-					: Result();
+					: Result{false, node::Node(), std::get<2>(result)};
 		}
 	);
 }
@@ -252,7 +260,7 @@ Parser boundary(void) {
 				(!std::get<0>(result_before) && std::get<0>(result))
 				|| (std::get<0>(result_before) && !std::get<0>(result))
 					? Result{true, node::Node(), position}
-					: Result();
+					: Result{false, node::Node(), position};
 		}
 	);
 }
@@ -270,7 +278,7 @@ Parser end(void) {
 		[=] (const std::string& text, const size_t position) -> Result {
 			return position == text.size()
 				? Result{true, node::Node(), position}
-				: Result();
+				: Result{false, node::Node(), position};
 		}
 	);
 }
@@ -284,7 +292,7 @@ Parser operator"" _s(const char symbol) {
 					node::Node{"", std::string(1, symbol), {}},
 					position + 1
 				}
-				: Result();
+				: Result{false, node::Node(), position + 1};
 		}
 	);
 }
@@ -314,7 +322,7 @@ Parser any(void) {
 					node::Node{"", std::string(1, text[position]), {}},
 					position + 1
 				}
-				: Result();
+				: Result{false, node::Node(), position + 1};
 		}
 	);
 }

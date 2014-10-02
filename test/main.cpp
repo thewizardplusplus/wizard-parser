@@ -42,7 +42,10 @@ int main(int number_of_arguments, char* arguments[]) try {
 
 	const auto text = arguments[1];
 	const auto parser = grammar();
-	std::cout << parse(parser, text, SimplifyLevel::AST) << std::endl;
+	std::cout
+		<< "<?xml version = \"1.0\" encoding = \"utf-8\" ?>"
+		<< parse(parser, text, SimplifyLevel::AST)
+		<< std::endl;
 } catch (std::exception& exception) {
 	std::cerr << "Error: \"" << exception.what() << "\"." << std::endl;
 	std::exit(EXIT_FAILURE);

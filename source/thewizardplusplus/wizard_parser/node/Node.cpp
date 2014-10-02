@@ -18,7 +18,7 @@ static std::string escape(const std::string& text) {
 	auto text_copy = text;
 	size_t last_index = 0;
 	while (true) {
-		last_index = text_copy.find("]]>", last_index);
+		last_index = text_copy.find(XML_CDATA_END, last_index);
 		if (last_index == std::string::npos) {
 			break;
 		}
