@@ -1,5 +1,5 @@
-#ifndef WIZARD_PARSER_NODE_HEADER
-#define WIZARD_PARSER_NODE_HEADER
+#ifndef WIZARD_PARSER_NODE_NODE_HEADER
+#define WIZARD_PARSER_NODE_NODE_HEADER
 
 #include <vector>
 #include <string>
