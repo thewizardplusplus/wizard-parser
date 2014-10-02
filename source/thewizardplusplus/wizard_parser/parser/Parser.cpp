@@ -143,10 +143,22 @@ Parser operator>>(const Parser& parser1, const Parser& parser2) {
 Parser operator|(const Parser& parser1, const Parser& parser2) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			const auto result = parser1->operator()(text, position);
-			return std::get<0>(result)
-				? result
-				: parser2->operator()(text, position);
+			const auto result1 = parser1->operator()(text, position);
+			const auto result2 = parser2->operator()(text, position);
+
+			if (std::get<0>(result1) && !std::get<0>(result2)) {
+				return result1;
+			} else if (!std::get<0>(result1) && std::get<0>(result2)) {
+				return result2;
+			} else if (std::get<0>(result1) && std::get<0>(result2)) {
+				if (std::get<2>(result1) >= std::get<2>(result2)) {
+					return result1;
+				} else {
+					return result2;
+				}
+			} else {
+				return Result();
+			}
 		}
 	);
 }

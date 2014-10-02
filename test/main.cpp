@@ -26,13 +26,13 @@ Parser grammar(void) {
 	WP_RULE(unary) *(word("new"_t) | '-'_s | word("not"_t)) >> atom WP_END
 	WP_RULE(product) list(unary, '*'_s | '/'_s) WP_END
 	WP_RULE(sum) list(product, '+'_s | '-'_s) WP_END
-	WP_RULE(comparison) list(sum, lexeme(any("<>") >> !'='_s)) WP_END
+	WP_RULE(comparison) list(sum, '<'_s | "<="_t | '>'_s | ">="_t) WP_END
 	WP_RULE(equality) list(comparison, "=="_t | "/="_t) WP_END
 	WP_RULE(conjunction) list(equality, hide(word("and"_t))) WP_END
 	WP_RULE(disjunction) list(conjunction, hide(word("or"_t))) WP_END
 	assign(expression, disjunction);
 
-	return separation(hide(*space()), expression);
+	return separation(hide(*space()), expression >> end());
 }
 
 int main(int number_of_arguments, char* arguments[]) try {
