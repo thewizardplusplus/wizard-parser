@@ -1,5 +1,5 @@
-#ifndef RESULT_H
-#define RESULT_H
+#ifndef WIZARD_PARSER_RESULT_HEADER
+#define WIZARD_PARSER_RESULT_HEADER
 
 #include "../node/Node.h"
 #include <tuple>

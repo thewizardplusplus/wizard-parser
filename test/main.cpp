@@ -1,4 +1,4 @@
-#include <parser/Parser.h>
+#include <wizard_parser/parser/Parser.h>
 #include <iostream>
 
 using namespace thewizardplusplus::wizard_parser::parser;

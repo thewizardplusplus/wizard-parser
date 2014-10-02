@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef WIZARD_PARSER_PARSER_HEADER
+#define WIZARD_PARSER_PARSER_HEADER
 
 #include "Result.h"
 #include <functional>
