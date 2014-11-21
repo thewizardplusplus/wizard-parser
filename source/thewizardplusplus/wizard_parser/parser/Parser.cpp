@@ -14,11 +14,17 @@ void assign(const Parser& parser1, const Parser& parser2) {
 	*parser1.get() = *parser2.get();
 }
 
+Parser copy(const Parser& parser) {
+	const auto parser_copy = nothing();
+	assign(parser_copy, parser);
+
+	return parser_copy;
+}
+
 Parser separation(const Parser& separator, const Parser& parser) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			const auto old_separator_copy = nothing();
-			assign(old_separator_copy, separator_parser);
+			const auto old_separator_copy = copy(separator_parser);
 
 			assign(separator_parser, separator);
 			const auto result = parser->operator()(text, position);

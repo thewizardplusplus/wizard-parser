@@ -24,6 +24,7 @@ enum class SimplifyLevel : uint8_t {
 using StringGroup = std::vector<std::string>;
 
 void assign(const Parser& parser1, const Parser& parser2);
+Parser copy(const Parser& parser);
 Parser separation(const Parser& separator, const Parser& parser);
 Parser hide(const Parser& parser);
 Parser name(const std::string& name, const Parser& parser);
