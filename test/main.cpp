@@ -12,7 +12,7 @@ using namespace thewizardplusplus::wizard_parser::parser;
  * comparison = sum, {("<" | "<=" | ">" | ">="), sum};
  * sum = product, {("+" | "-"), product};
  * product = unary, {("*" | "/"), unary};
- * unary = {"new" | "-" | "not"}, atom;
+ * unary = {"-" | "not"}, atom;
  * atom = number | ("(", expression, ")");
  * number = ? /\d+(\.\d+)?/ ?;
  */
@@ -23,7 +23,7 @@ Parser grammar(void) {
 		disable_separation(lexeme(+digit() >> !('.'_s >> +digit())))
 	WP_END
 	WP_RULE(atom) number | hide('('_s) >> expression >> hide(')'_s) WP_END
-	WP_RULE(unary) *(word("new"_t) | '-'_s | word("not"_t)) >> atom WP_END
+	WP_RULE(unary) *('-'_s | word("not"_t)) >> atom WP_END
 	WP_RULE(product) list(unary, '*'_s | '/'_s) WP_END
 	WP_RULE(sum) list(product, '+'_s | '-'_s) WP_END
 	WP_RULE(comparison) list(sum, '<'_s | "<="_t | '>'_s | ">="_t) WP_END
