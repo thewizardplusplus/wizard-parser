@@ -17,10 +17,10 @@ using namespace thewizardplusplus::wizard_parser::parser;
  * number = ? /\d+(\.\d+)?/ ?;
  */
 Parser grammar(void) {
-	const auto expression = nothing();
+	const auto expression = dummy();
 
 	WP_RULE(number)
-		separation(nothing(), lexeme(+digit() >> !('.'_s >> +digit())))
+		disable_separation(lexeme(+digit() >> !('.'_s >> +digit())))
 	WP_END
 	WP_RULE(atom) number | hide('('_s) >> expression >> hide(')'_s) WP_END
 	WP_RULE(unary) *(word("new"_t) | '-'_s | word("not"_t)) >> atom WP_END

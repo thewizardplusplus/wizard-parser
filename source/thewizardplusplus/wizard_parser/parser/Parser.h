@@ -26,6 +26,7 @@ using StringGroup = std::vector<std::string>;
 void assign(const Parser& parser1, const Parser& parser2);
 Parser copy(const Parser& parser);
 Parser separation(const Parser& separator, const Parser& parser);
+Parser disable_separation(const Parser& parser);
 Parser hide(const Parser& parser);
 Parser name(const std::string& name, const Parser& parser);
 Parser leaves(const Parser& parser);
@@ -39,6 +40,7 @@ Parser operator+(const Parser& parser);
 Parser operator-(const Parser& parser1, const Parser& parser2);
 Parser list(const Parser& parser, const Parser& separator);
 
+Parser dummy(void);
 Parser nothing(void);
 Parser boundary(void);
 Parser separator(void);
