@@ -55,7 +55,7 @@ Parser name(const std::string& name, const Parser& parser) {
 	);
 }
 
-Parser plain(const Parser& parser, const size_t level) {
+Parser leaves(const Parser& parser) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
 			const auto result = parser->operator()(text, position);
@@ -65,7 +65,7 @@ Parser plain(const Parser& parser, const size_t level) {
 					{
 						std::get<1>(result).name,
 						std::get<1>(result).value,
-						leaves(std::get<1>(result), level)
+						leaves(std::get<1>(result))
 					},
 					std::get<2>(result)
 				}
@@ -77,7 +77,7 @@ Parser plain(const Parser& parser, const size_t level) {
 Parser lexeme(const Parser& parser) {
 	return std::make_shared<ParserFunction>(
 		[=] (const std::string& text, const size_t position) -> Result {
-			const auto result = plain(parser)->operator()(text, position);
+			const auto result = leaves(parser)->operator()(text, position);
 			return std::get<0>(result)
 				? Result{
 					true,

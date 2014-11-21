@@ -27,7 +27,7 @@ void assign(const Parser& parser1, const Parser& parser2);
 Parser separation(const Parser& separator, const Parser& parser);
 Parser hide(const Parser& parser);
 Parser name(const std::string& name, const Parser& parser);
-Parser plain(const Parser& parser, const size_t level = -1);
+Parser leaves(const Parser& parser);
 Parser lexeme(const Parser& parser);
 
 Parser operator>>(const Parser& parser1, const Parser& parser2);

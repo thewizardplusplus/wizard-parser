@@ -12,7 +12,7 @@ using namespace thewizardplusplus::wizard_parser::parser;
  * comparison = sum, {("<" | "<=" | ">" | ">="), sum};
  * sum = product, {("+" | "-"), product};
  * product = unary, {("*" | "/"), unary};
- * unary = {"new" | "-" | "not"}, accessor;
+ * unary = {"new" | "-" | "not"}, atom;
  * atom = number | ("(", expression, ")");
  * number = ? /\d+(\.\d+)?/ ?;
  */

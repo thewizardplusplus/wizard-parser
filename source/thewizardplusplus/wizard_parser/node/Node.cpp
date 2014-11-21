@@ -55,19 +55,19 @@ bool is_empty(const Node& node) {
 	return node.value.empty() && node.children.empty();
 }
 
-NodeGroup leaves(const Node& node, const size_t level) {
-	return level > 0 && !node.children.empty()
+NodeGroup leaves(const Node& node) {
+	return !node.children.empty()
 		? std::accumulate(
 			node.children.begin(),
 			node.children.end(),
 			NodeGroup(),
-			[=] (
+			[] (
 				const NodeGroup& all_children,
 				const Node& node
 			) -> NodeGroup {
 				auto all_children_copy = all_children;
 
-				const auto node_children = leaves(node, level - 1);
+				const auto node_children = leaves(node);
 				std::copy(
 					node_children.begin(),
 					node_children.end(),
