@@ -13,14 +13,16 @@ std::string ParseException::formatDescription(
 ) {
 	const auto parsed_text = text.substr(0, position + 1);
 
-	const auto line = std::count(parsed_text.begin(), parsed_text.end(), '\n');
+	const auto line =
+		std::count(parsed_text.begin(), parsed_text.end(), '\n')
+		+ 1;
 
 	const auto last_line_index = parsed_text.rfind('\n');
 	const auto parsed_text_length = parsed_text.length();
 	const auto column =
 		last_line_index != std::string::npos
-			? parsed_text_length - last_line_index - 1
-			: parsed_text_length;
+			? parsed_text_length - last_line_index - 2
+			: parsed_text_length - 1;
 
 	return
 		"parse error on line "
