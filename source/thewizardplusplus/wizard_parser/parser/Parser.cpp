@@ -1,8 +1,10 @@
 #include "Parser.h"
+#include "exceptions/ParseException.h"
 #include <numeric>
 #include <algorithm>
 
 using namespace thewizardplusplus::wizard_parser::node;
+using namespace thewizardplusplus::wizard_parser::parser::exceptions;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -450,9 +452,7 @@ Node parse(
 ) {
 	const auto result = parser->operator()(text, 0);
 	if (!std::get<0>(result)) {
-		throw std::runtime_error(
-			"parse error on position " + std::to_string(std::get<2>(result))
-		);
+		throw ParseException(text, std::get<2>(result));
 	}
 
 	return simplify(std::get<1>(result), level, saved);

@@ -1,5 +1,8 @@
 SOURCE = source/thewizardplusplus/wizard_parser/
-OBJECTS = $(SOURCE)parser/Parser.o $(SOURCE)node/Node.o
+OBJECTS = \
+	$(SOURCE)parser/exceptions/ParseException.o \
+	$(SOURCE)parser/Parser.o \
+	$(SOURCE)node/Node.o
 BUILD = build/
 BUILD_HEADERS = $(BUILD)headers/wizard_parser/
 BUILD_LIBRARIES = $(BUILD)libraries/wizard_parser/
