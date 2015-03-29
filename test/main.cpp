@@ -1,4 +1,5 @@
 #include <wizard_parser/parser/Parser.h>
+#include <cstring>
 #include <iostream>
 
 using namespace thewizardplusplus::wizard_parser::parser;
@@ -32,21 +33,23 @@ Parser grammar(void) {
 	WP_RULE(disjunction) list(conjunction, hide(word("or"_t))) WP_END
 	assign(expression, disjunction);
 
-	return separation(hide(*space()), expression >> end());
+	const auto grammar = expression >> end();
+	const auto separator = hide(*space());
+	return separation(separator, grammar);
 }
 
 int main(int number_of_arguments, char* arguments[]) try {
-	if (number_of_arguments == 1) {
-		throw std::invalid_argument("not specified expression");
+	if (number_of_arguments == 1 || std::strlen(arguments[1]) == 0) {
+		throw std::invalid_argument("expression not specified");
 	}
 
-	const auto text = arguments[1];
+	const auto expression = arguments[1];
 	const auto parser = grammar();
 	std::cout
 		<< "<?xml version = \"1.0\" encoding = \"utf-8\" ?>"
-		<< parse(parser, text, SimplifyLevel::AST)
-		<< std::endl;
+		<< parse(parser, expression, SimplifyLevel::AST)
+		<< "\n";
 } catch (std::exception& exception) {
-	std::cerr << "Error: \"" << exception.what() << "\"." << std::endl;
+	std::cerr << "Error: \"" << exception.what() << "\".\n";
 	std::exit(EXIT_FAILURE);
 }
