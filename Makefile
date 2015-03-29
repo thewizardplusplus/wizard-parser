@@ -7,9 +7,10 @@ BUILD = build/
 BUILD_HEADERS = $(BUILD)headers/wizard_parser/
 BUILD_LIBRARIES = $(BUILD)libraries/wizard_parser/
 LIBRARY_NAME = $(BUILD_LIBRARIES)libWizardParser.a
+DOCS = docs/
 CXXFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -O2
 
-.PHONY: install clean
+.PHONY: install docs clean
 
 main: $(OBJECTS)
 	mkdir -p $(BUILD_LIBRARIES)
@@ -22,6 +23,10 @@ main: $(OBJECTS)
 install:
 	cp -vr $(BUILD_HEADERS) /usr/include/
 	cp $(LIBRARY_NAME) /usr/lib/
+
+docs:
+	$(RM) -r $(DOCS)html/
+	doxygen $(DOCS)Doxyfile
 
 clean:
 	find . -name "*.o" -type f -delete
