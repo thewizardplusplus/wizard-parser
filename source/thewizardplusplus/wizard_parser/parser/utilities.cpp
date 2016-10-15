@@ -4,10 +4,12 @@
 #include <unordered_set>
 #include <utility>
 
-using namespace utilities;
+using namespace thewizardplusplus::wizard_parser::utilities;
 
 const auto ignorable_nodes = std::unordered_set<std::string>{"nothing", "eoi"};
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 void append_node(std::list<ast_node>& nodes, ast_node&& node) {
@@ -24,4 +26,6 @@ void append_node(std::list<ast_node>& nodes, ast_node&& node) {
 	}
 }
 
+}
+}
 }

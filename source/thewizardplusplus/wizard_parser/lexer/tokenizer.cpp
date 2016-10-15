@@ -10,7 +10,7 @@
 #include <iterator>
 #include <cstddef>
 
-using namespace utilities;
+using namespace thewizardplusplus::wizard_parser::utilities;
 
 namespace {
 
@@ -35,6 +35,8 @@ std::string to_hex(const char symbol) {
 
 }
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 tokenizer::tokenizer(
@@ -107,4 +109,6 @@ std::pair<std::smatch, bool> tokenizer::match_lexeme(
 	return match;
 }
 
+}
+}
 }

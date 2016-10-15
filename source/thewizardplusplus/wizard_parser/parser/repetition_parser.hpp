@@ -5,6 +5,8 @@
 #include "../lexer/token_group.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct repetition_parser final: rule_parser {
@@ -20,5 +22,7 @@ private:
 
 rule_parser::pointer operator*(rule_parser::pointer parser);
 
+}
+}
 }
 #endif

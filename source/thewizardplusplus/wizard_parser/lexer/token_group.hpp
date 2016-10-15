@@ -5,11 +5,15 @@
 #include <list>
 #include <ostream>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 using token_group = std::list<token>;
 
 std::ostream& operator<<(std::ostream& out, const token_group& tokens);
 
+}
+}
 }
 #endif

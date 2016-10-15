@@ -2,8 +2,10 @@
 #include <utility>
 #include <memory>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 type_match_parser::type_match_parser(std::string lexeme_type):
@@ -18,4 +20,6 @@ rule_parser::pointer operator""_t(const char* const lexeme_type, std::size_t) {
 	return std::make_shared<type_match_parser>(lexeme_type);
 }
 
+}
+}
 }

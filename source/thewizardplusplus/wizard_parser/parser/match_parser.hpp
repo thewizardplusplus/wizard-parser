@@ -7,6 +7,8 @@
 #include "../lexer/token.hpp"
 #include <string>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct match_parser: token_parser {
@@ -24,5 +26,7 @@ protected:
 	virtual bool is_match(const lexer::token& token) const = 0;
 };
 
+}
+}
 }
 #endif

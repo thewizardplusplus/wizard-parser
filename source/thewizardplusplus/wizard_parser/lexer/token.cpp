@@ -1,8 +1,10 @@
 #include "token.hpp"
 #include "../utilities/string_utilities.hpp"
 
-using namespace utilities;
+using namespace thewizardplusplus::wizard_parser::utilities;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 std::ostream& operator<<(std::ostream& out, const token& some_token) {
@@ -14,4 +16,6 @@ std::ostream& operator<<(std::ostream& out, const token& some_token) {
 	return out;
 }
 
+}
+}
 }

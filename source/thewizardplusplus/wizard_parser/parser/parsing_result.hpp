@@ -5,6 +5,8 @@
 #include "../lexer/token_group.hpp"
 #include <cstddef>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct parsing_result {
@@ -17,5 +19,7 @@ struct parsing_result {
 	) const;
 };
 
+}
+}
 }
 #endif

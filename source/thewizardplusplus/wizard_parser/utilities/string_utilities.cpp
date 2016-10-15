@@ -8,6 +8,8 @@ const auto replacement_map = std::unordered_map<char, std::string>{
 	{'\n', R"(\n)"}
 };
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace utilities {
 
 std::string quote(const std::string& string) {
@@ -23,4 +25,6 @@ std::string quote(const std::string& string) {
 	return '"' + quoted_string + '"';
 }
 
+}
+}
 }

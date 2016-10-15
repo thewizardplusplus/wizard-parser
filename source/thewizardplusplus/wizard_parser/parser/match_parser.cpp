@@ -2,8 +2,10 @@
 #include <utility>
 #include <iterator>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 match_parser::match_parser(std::string sample):
@@ -26,4 +28,6 @@ parsing_result match_parser::parse_eoi(
 	return {false, {}, end};
 }
 
+}
+}
 }

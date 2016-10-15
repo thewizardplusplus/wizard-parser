@@ -1,7 +1,9 @@
 #include "binary_parser.hpp"
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 binary_parser::binary_parser(
@@ -38,4 +40,6 @@ parsing_result binary_parser::parse(
 	);
 }
 
+}
+}
 }

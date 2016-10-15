@@ -2,8 +2,10 @@
 #include <utility>
 #include <memory>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 hide_parser::hide_parser(rule_parser::pointer parser):
@@ -18,4 +20,6 @@ rule_parser::pointer operator&(rule_parser::pointer parser) {
 	return std::make_shared<hide_parser>(std::move(parser));
 }
 
+}
+}
 }

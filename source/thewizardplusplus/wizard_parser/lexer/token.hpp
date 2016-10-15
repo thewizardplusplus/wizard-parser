@@ -5,6 +5,8 @@
 #include <cstddef>
 #include <ostream>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 struct token {
@@ -15,5 +17,7 @@ struct token {
 
 std::ostream& operator<<(std::ostream& out, const token& some_token);
 
+}
+}
 }
 #endif

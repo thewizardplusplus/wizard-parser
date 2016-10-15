@@ -10,6 +10,8 @@
 #include <utility>
 #include <regex>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 struct tokenizer {
@@ -30,5 +32,7 @@ private:
 	std::pair<std::smatch, bool> match_lexeme(const lexeme& some_lexeme) const;
 };
 
+}
+}
 }
 #endif

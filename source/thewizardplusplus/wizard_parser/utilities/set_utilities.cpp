@@ -1,5 +1,7 @@
 #include "set_utilities.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace utilities {
 
 bool contains(
@@ -9,4 +11,6 @@ bool contains(
 	return set.count(item) != 0;
 }
 
+}
+}
 }

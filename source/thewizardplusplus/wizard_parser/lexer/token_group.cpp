@@ -1,6 +1,8 @@
 #include "token_group.hpp"
 #include <iterator>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 std::ostream& operator<<(std::ostream& out, const token_group& tokens) {
@@ -21,4 +23,6 @@ std::ostream& operator<<(std::ostream& out, const token_group& tokens) {
 	return out;
 }
 
+}
+}
 }

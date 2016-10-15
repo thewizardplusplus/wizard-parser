@@ -3,8 +3,10 @@
 #include <list>
 #include <memory>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 concatenation_parser::concatenation_parser(
@@ -54,4 +56,6 @@ rule_parser::pointer operator>>(
 	);
 }
 
+}
+}
 }

@@ -6,6 +6,8 @@
 #include <memory>
 #include <initializer_list>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct rule_parser {
@@ -20,5 +22,7 @@ struct rule_parser {
 	) const = 0;
 };
 
+}
+}
 }
 #endif

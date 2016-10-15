@@ -5,6 +5,8 @@
 #include "rule_parser.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct empty_parser: wrapping_parser {
@@ -17,5 +19,7 @@ protected:
 	virtual bool is_empty_result(const parsing_result& result) const = 0;
 };
 
+}
+}
 }
 #endif

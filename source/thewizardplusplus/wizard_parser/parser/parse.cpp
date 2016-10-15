@@ -16,8 +16,8 @@
 #include <sstream>
 #include <stdexcept>
 
-using namespace parser;
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::parser;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
 RULE(key_words) = "and"_v | "not"_v | "or"_v;
 
@@ -53,6 +53,8 @@ rule_parser::pointer make_expression_parser() {
 
 }
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 ast_node parse(token_group&& tokens) {
@@ -72,4 +74,6 @@ ast_node parse(token_group&& tokens) {
 	return ast.node;
 }
 
+}
+}
 }

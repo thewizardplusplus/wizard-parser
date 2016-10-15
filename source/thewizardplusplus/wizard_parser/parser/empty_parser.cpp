@@ -1,6 +1,8 @@
 #include "empty_parser.hpp"
 #include <utility>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 empty_parser::empty_parser(rule_parser::pointer parser):
@@ -17,4 +19,6 @@ parsing_result empty_parser::process_result(parsing_result result) const {
 		: result;
 }
 
+}
+}
 }

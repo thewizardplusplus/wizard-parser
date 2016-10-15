@@ -4,6 +4,8 @@
 #include <regex>
 #include <string>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace lexer {
 
 struct lexeme {
@@ -11,5 +13,7 @@ struct lexeme {
 	std::string type;
 };
 
+}
+}
 }
 #endif

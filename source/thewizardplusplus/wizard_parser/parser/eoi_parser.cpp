@@ -1,7 +1,9 @@
 #include "eoi_parser.hpp"
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 parsing_result eoi_parser::parse_token(
@@ -16,4 +18,6 @@ parsing_result eoi_parser::parse_eoi(
 	return {true, {"eoi", {}, {}}, end};
 }
 
+}
+}
 }

@@ -6,6 +6,8 @@
 #include <list>
 #include <ostream>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct ast_node {
@@ -17,5 +19,7 @@ struct ast_node {
 
 std::ostream& operator<<(std::ostream& out, const ast_node& ast);
 
+}
+}
 }
 #endif

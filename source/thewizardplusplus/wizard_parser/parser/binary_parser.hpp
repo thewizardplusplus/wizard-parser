@@ -6,6 +6,8 @@
 #include "parsing_result.hpp"
 #include <utility>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct binary_parser: rule_parser {
@@ -37,5 +39,7 @@ private:
 	const rule_parser::pointer right_parser;
 };
 
+}
+}
 }
 #endif

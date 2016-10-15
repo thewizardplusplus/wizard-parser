@@ -1,6 +1,8 @@
 #include "not_sequential_parser.hpp"
 #include <utility>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 not_sequential_parser::not_sequential_parser(
@@ -14,4 +16,6 @@ bool not_sequential_parser::is_sequential() const {
 	return false;
 }
 
+}
+}
 }

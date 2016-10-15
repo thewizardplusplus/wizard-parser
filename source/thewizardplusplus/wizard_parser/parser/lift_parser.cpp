@@ -2,6 +2,8 @@
 #include "ast_node_flag.hpp"
 #include <utility>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 parsing_result lift_parser::process_parsed_result(parsing_result result) const {
@@ -19,4 +21,6 @@ parsing_result lift_parser::process_parsed_result(parsing_result result) const {
 	};
 }
 
+}
+}
 }

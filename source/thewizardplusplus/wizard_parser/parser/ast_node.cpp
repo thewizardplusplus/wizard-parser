@@ -2,8 +2,10 @@
 #include "../utilities/string_utilities.hpp"
 #include <iterator>
 
-using namespace utilities;
+using namespace thewizardplusplus::wizard_parser::utilities;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 std::ostream& operator<<(std::ostream& out, const ast_node& ast) {
@@ -34,4 +36,6 @@ std::ostream& operator<<(std::ostream& out, const ast_node& ast) {
 	return out;
 }
 
+}
+}
 }

@@ -3,9 +3,13 @@
 
 #include <string>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace utilities {
 
 std::string quote(const std::string& string);
 
+}
+}
 }
 #endif

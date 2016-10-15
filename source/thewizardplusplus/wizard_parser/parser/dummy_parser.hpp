@@ -5,6 +5,8 @@
 #include "../lexer/token_group.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct dummy_parser final: rule_parser {
@@ -18,5 +20,7 @@ private:
 	rule_parser::weak_pointer parser;
 };
 
+}
+}
 }
 #endif

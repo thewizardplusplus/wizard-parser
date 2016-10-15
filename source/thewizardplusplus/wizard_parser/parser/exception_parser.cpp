@@ -1,8 +1,10 @@
 #include "exception_parser.hpp"
 #include <memory>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 exception_parser::exception_parser(
@@ -45,4 +47,6 @@ rule_parser::pointer operator-(
 	);
 }
 
+}
+}
 }

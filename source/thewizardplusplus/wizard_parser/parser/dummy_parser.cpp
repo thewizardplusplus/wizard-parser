@@ -1,8 +1,10 @@
 #include "dummy_parser.hpp"
 #include <utility>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 void dummy_parser::set_parser(rule_parser::weak_pointer parser) {
@@ -16,4 +18,6 @@ parsing_result dummy_parser::parse(
 	return parser.lock()->parse(begin, end);
 }
 
+}
+}
 }

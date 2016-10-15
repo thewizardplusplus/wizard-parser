@@ -1,8 +1,10 @@
 #include "wrapping_parser.hpp"
 #include <utility>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 wrapping_parser::wrapping_parser(rule_parser::pointer parser):
@@ -17,4 +19,6 @@ parsing_result wrapping_parser::parse(
 	return process_result(std::move(ast));
 }
 
+}
+}
 }

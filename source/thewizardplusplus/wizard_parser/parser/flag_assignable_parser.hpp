@@ -5,6 +5,8 @@
 #include "ast_node_flag.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct flag_assignable_parser final: assignable_parser {
@@ -21,5 +23,7 @@ private:
 	const ast_node_flag flag;
 };
 
+}
+}
 }
 #endif

@@ -7,6 +7,8 @@
 #include <string>
 #include <cstddef>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct type_match_parser final: match_parser {
@@ -18,5 +20,7 @@ protected:
 
 rule_parser::pointer operator""_t(const char* const lexeme_type, std::size_t);
 
+}
+}
 }
 #endif

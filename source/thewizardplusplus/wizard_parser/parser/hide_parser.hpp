@@ -5,6 +5,8 @@
 #include "rule_parser.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct hide_parser final: empty_parser {
@@ -18,5 +20,7 @@ protected:
 
 rule_parser::pointer operator&(rule_parser::pointer parser);
 
+}
+}
 }
 #endif

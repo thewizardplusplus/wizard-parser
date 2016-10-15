@@ -4,6 +4,8 @@
 #include "binary_parser.hpp"
 #include "rule_parser.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct sequential_parser: binary_parser {
@@ -16,5 +18,7 @@ protected:
 	virtual bool is_sequential() const override final;
 };
 
+}
+}
 }
 #endif

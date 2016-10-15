@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <string>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace utilities {
 
 bool contains(
@@ -11,5 +13,7 @@ bool contains(
 	const std::string& item
 );
 
+}
+}
 }
 #endif

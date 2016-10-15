@@ -1,6 +1,8 @@
 #include "sequential_parser.hpp"
 #include <utility>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 sequential_parser::sequential_parser(
@@ -14,4 +16,6 @@ bool sequential_parser::is_sequential() const {
 	return true;
 }
 
+}
+}
 }

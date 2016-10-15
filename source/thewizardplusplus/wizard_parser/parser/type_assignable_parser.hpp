@@ -5,6 +5,8 @@
 #include "parsing_result.hpp"
 #include <string>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct type_assignable_parser final: assignable_parser {
@@ -21,5 +23,7 @@ private:
 	const std::string type;
 };
 
+}
+}
 }
 #endif

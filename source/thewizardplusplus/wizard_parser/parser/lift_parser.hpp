@@ -4,6 +4,8 @@
 #include "assignable_parser.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct lift_parser final: assignable_parser {
@@ -15,5 +17,7 @@ protected:
 	) const override final;
 };
 
+}
+}
 }
 #endif

@@ -6,6 +6,8 @@
 #include "parsing_result.hpp"
 #include <memory>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct assignable_parser:
@@ -23,5 +25,7 @@ protected:
 	) const = 0;
 };
 
+}
+}
 }
 #endif

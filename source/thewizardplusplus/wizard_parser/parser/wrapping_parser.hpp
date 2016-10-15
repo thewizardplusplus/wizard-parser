@@ -5,6 +5,8 @@
 #include "../lexer/token_group.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct wrapping_parser: rule_parser {
@@ -21,5 +23,7 @@ protected:
 	virtual parsing_result process_result(parsing_result result) const = 0;
 };
 
+}
+}
 }
 #endif

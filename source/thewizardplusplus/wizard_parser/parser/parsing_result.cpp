@@ -1,8 +1,10 @@
 #include "parsing_result.hpp"
 #include <limits>
 
-using namespace lexer;
+using namespace thewizardplusplus::wizard_parser::lexer;
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 std::size_t parsing_result::get_last_token_offset(
@@ -13,4 +15,6 @@ std::size_t parsing_result::get_last_token_offset(
 		: std::numeric_limits<std::size_t>::max();
 }
 
+}
+}
 }

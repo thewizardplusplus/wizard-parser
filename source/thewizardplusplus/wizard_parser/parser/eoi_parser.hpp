@@ -5,6 +5,8 @@
 #include "../lexer/token_group.hpp"
 #include "parsing_result.hpp"
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct eoi_parser final: token_parser {
@@ -17,5 +19,7 @@ protected:
 	) const override final;
 };
 
+}
+}
 }
 #endif

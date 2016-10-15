@@ -16,9 +16,13 @@
 	*std::make_shared<flag_assignable_parser>(ast_node_flag::important) = \
 	*std::make_shared<type_assignable_parser>(#type)
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 void append_node(std::list<ast_node>& nodes, ast_node&& node);
 
+}
+}
 }
 #endif

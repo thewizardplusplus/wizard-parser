@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 enum class ast_node_flag: std::uint8_t {
@@ -14,5 +16,7 @@ enum class ast_node_flag: std::uint8_t {
 ast_node_flag operator|(const ast_node_flag flag_1, const ast_node_flag flag_2);
 bool operator&(const ast_node_flag flag_union, const ast_node_flag sought_flag);
 
+}
+}
 }
 #endif

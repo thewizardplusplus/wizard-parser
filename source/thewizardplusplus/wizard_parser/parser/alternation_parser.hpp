@@ -6,6 +6,8 @@
 #include "parsing_result.hpp"
 #include <utility>
 
+namespace thewizardplusplus {
+namespace wizard_parser {
 namespace parser {
 
 struct alternation_parser final: not_sequential_parser {
@@ -33,5 +35,7 @@ rule_parser::pointer operator|(
 	rule_parser::pointer right_parser
 );
 
+}
+}
 }
 #endif
