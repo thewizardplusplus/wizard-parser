@@ -1,5 +1,5 @@
-#ifndef PARSER_PARSE_HEADER
-#define PARSER_PARSE_HEADER
+#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSE_HEADER
+#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSE_HEADER
 
 #include "../lexer/token_group.hpp"
 #include "ast_node.hpp"
