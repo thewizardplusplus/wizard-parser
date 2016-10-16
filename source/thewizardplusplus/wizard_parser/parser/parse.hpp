@@ -5,6 +5,7 @@
 #include "../lexer/token_group.hpp"
 #include "ast_node.hpp"
 #include "../lexer/lexeme.hpp"
+#include <cstddef>
 #include <vector>
 #include <string>
 #include <unordered_set>
@@ -15,7 +16,8 @@ namespace parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
-	const lexer::token_group& tokens
+	const lexer::token_group& tokens,
+	const std::size_t code_length
 );
 ast_node parse(
 	std::vector<lexer::lexeme> lexemes,
