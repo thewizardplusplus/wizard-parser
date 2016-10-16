@@ -1,14 +1,13 @@
 #include "tokenizer.hpp"
-#include "../utilities/string_utilities.hpp"
 #include "../utilities/set_utilities.hpp"
+#include "../utilities/string_utilities.hpp"
+#include "../utilities/positional_exception.hpp"
 #include <sstream>
 #include <ios>
 #include <iomanip>
 #include <cstdint>
-#include <cctype>
-#include <stdexcept>
 #include <iterator>
-#include <cstddef>
+#include <cctype>
 
 using namespace thewizardplusplus::wizard_parser::utilities;
 
@@ -24,13 +23,6 @@ std::string to_hex(const char symbol) {
 			);
 
 	return out.str();
-}
-
-[[noreturn]] void process_invalid_symbol(const char invalid_symbol) {
-	const auto symbol_view = std::isprint(invalid_symbol)
-		? quote(std::string{1, invalid_symbol})
-		: to_hex(invalid_symbol);
-	throw std::runtime_error{"the invalid symbol " + symbol_view};
 }
 
 }
@@ -55,7 +47,7 @@ token_group tokenizer::tokenize() {
 	while (start != std::cend(code)) {
 		auto matched_token = find_longest_matched_token();
 		if (!matched_token.second) {
-			process_invalid_symbol(*start);
+			process_invalid_symbol();
 		}
 
 		std::advance(start, matched_token.first.value.size());
@@ -82,11 +74,7 @@ std::pair<token, bool> tokenizer::find_longest_matched_token() const {
 		}
 
 		matched_token = {
-			{
-				some_lexeme.type,
-				match.first.str(),
-				static_cast<std::size_t>(std::distance(std::begin(code), start))
-			},
+			{some_lexeme.type, match.first.str(), get_current_symbol_offset()},
 			true
 		};
 	}
@@ -107,6 +95,20 @@ std::pair<std::smatch, bool> tokenizer::match_lexeme(
 	);
 
 	return match;
+}
+
+std::size_t tokenizer::get_current_symbol_offset() const {
+	return static_cast<std::size_t>(std::distance(std::begin(code), start));
+}
+
+[[noreturn]] void tokenizer::process_invalid_symbol() const {
+	const auto symbol_view = std::isprint(*start)
+		? quote(std::string{1, *start})
+		: to_hex(*start);
+	throw positional_exception{
+		"invalid symbol " + symbol_view,
+		get_current_symbol_offset()
+	};
 }
 
 }
