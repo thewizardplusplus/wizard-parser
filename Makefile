@@ -1,5 +1,6 @@
 SOURCE = source/thewizardplusplus/wizard_parser/
 OBJECTS = \
+	$(SOURCE)utilities/positional_exception.o \
 	$(SOURCE)utilities/set_utilities.o \
 	$(SOURCE)utilities/string_utilities.o \
 	$(SOURCE)lexer/token_group.o \
@@ -47,6 +48,7 @@ CXXFLAGS += \
 	-Wno-global-constructors \
 	-Wno-exit-time-destructors \
 	-Wno-padded \
+	-Wno-weak-vtables \
 	-O3
 
 .PHONY: install docs clean
