@@ -4,6 +4,7 @@
 #include "token_parser.hpp"
 #include "../lexer/token_group.hpp"
 #include "parsing_result.hpp"
+#include "rule_parser.hpp"
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -18,6 +19,8 @@ protected:
 		const lexer::token_group::const_iterator& end
 	) const override final;
 };
+
+rule_parser::pointer eoi();
 
 }
 }
