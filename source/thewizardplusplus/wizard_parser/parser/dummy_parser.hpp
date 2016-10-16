@@ -4,6 +4,7 @@
 #include "rule_parser.hpp"
 #include "../lexer/token_group.hpp"
 #include "parsing_result.hpp"
+#include <memory>
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -19,6 +20,8 @@ struct dummy_parser final: rule_parser {
 private:
 	rule_parser::weak_pointer parser;
 };
+
+std::shared_ptr<dummy_parser> dummy();
 
 }
 }

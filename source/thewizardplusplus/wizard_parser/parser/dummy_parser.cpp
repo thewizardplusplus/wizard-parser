@@ -18,6 +18,10 @@ parsing_result dummy_parser::parse(
 	return parser.lock()->parse(begin, end);
 }
 
+std::shared_ptr<dummy_parser> dummy() {
+	return std::make_shared<dummy_parser>();
+}
+
 }
 }
 }
