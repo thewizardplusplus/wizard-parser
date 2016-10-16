@@ -1,0 +1,12 @@
+@startuml
+!include empty_parser_hierarchy.plantuml
+!include assignable_parser_hierarchy.plantuml
+
+abstract class wrapping_parser {
+	+ <i>final</i> parse()
+	# <i>virtual</i> process_result()
+}
+
+wrapping_parser <|-- empty_parser
+wrapping_parser <|-- assignable_parser
+@enduml

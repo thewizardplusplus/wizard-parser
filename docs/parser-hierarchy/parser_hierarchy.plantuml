@@ -1,0 +1,26 @@
+@startuml
+!include token_parser_hierarchy.plantuml
+!include binary_parser_hierarchy.plantuml
+!include wrapping_parser_hierarchy.plantuml
+
+hide empty fields
+
+interface rule_parser {
+	+ parse()
+}
+
+class repetition_parser {
+	+ <i>final</i> parse()
+}
+
+class dummy_parser {
+	+ set_parser()
+	+ <i>final</i> parse()
+}
+
+rule_parser <|-- token_parser
+rule_parser <|-- binary_parser
+rule_parser <|-- repetition_parser
+rule_parser <|-- wrapping_parser
+rule_parser <|-- dummy_parser
+@enduml

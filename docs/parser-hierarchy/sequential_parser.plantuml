@@ -1,0 +1,16 @@
+@startuml
+abstract class sequential_parser {
+	# <i>final</i> is_sequential()
+	# <i>virtual</i> process_left_result()
+	# <i>virtual</i> process_right_result()
+	# <i>virtual</i> combine_results()
+}
+
+class concatenation_parser {
+	# <i>final</i> process_left_result()
+	# <i>final</i> process_right_result()
+	# <i>final</i> combine_results()
+}
+
+sequential_parser <|-- concatenation_parser
+@enduml

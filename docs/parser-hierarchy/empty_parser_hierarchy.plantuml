@@ -1,0 +1,17 @@
+@startuml
+abstract class empty_parser {
+	# <i>final</i> process_result()
+	# <i>virtual</i> is_empty_result()
+}
+
+class optional_parser {
+	# <i>final</i> is_empty_result()
+}
+
+class hide_parser {
+	# <i>final</i> is_empty_result()
+}
+
+empty_parser <|-- optional_parser
+empty_parser <|-- hide_parser
+@enduml
