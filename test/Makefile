@@ -1,5 +1,16 @@
-OBJECTS = main.o
-CXXFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -O2
+OBJECTS = source/main.o
+CXX = clang++
+CXXFLAGS += \
+	-std=c++14 \
+	-Weverything \
+	-Wno-c++98-compat \
+	-Wno-c++98-compat-pedantic \
+	-Wno-shadow \
+	-Wno-global-constructors \
+	-Wno-exit-time-destructors \
+	-Wno-padded \
+	-Wno-weak-vtables \
+	-O3
 LDFLAGS += -lWizardParser
 
 .PHONY: clean
