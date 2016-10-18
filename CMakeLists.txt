@@ -35,3 +35,17 @@ install(
 	FILES_MATCHING PATTERN "*.hpp"
 )
 install(TARGETS ${PROJECT_NAME} ARCHIVE DESTINATION lib)
+
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+	set(DOXYGEN_INPUT "${CMAKE_SOURCE_DIR}")
+	set(DOXYGEN_OUTPUT "${CMAKE_SOURCE_DIR}")
+	set(DOXYFILE_PATH "${CMAKE_SOURCE_DIR}/Doxyfile")
+	configure_file("${DOXYFILE_PATH}.in" "${DOXYFILE_PATH}")
+	add_custom_target(docs COMMAND "${DOXYGEN_EXECUTABLE}" "${DOXYFILE_PATH}")
+else()
+	message(
+		WARNING
+		"The Doxygen hasn't been found - the reference manual won't be created"
+	)
+endif()
