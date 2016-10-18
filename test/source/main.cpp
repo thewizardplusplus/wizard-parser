@@ -1,7 +1,7 @@
-#include <wizard_parser/lexer/lexeme.hpp>
-#include <wizard_parser/parser/parsers.hpp>
-#include <wizard_parser/parser/macroses.hpp>
-#include <wizard_parser/parser/parse.hpp>
+#include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
+#include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
+#include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
+#include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <regex>
 #include <vector>
 #include <string>

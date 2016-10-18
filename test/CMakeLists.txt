@@ -6,7 +6,7 @@ project(${PROJECT_NAME}_project LANGUAGES CXX)
 
 file(GLOB_RECURSE PROJECT_SOURCE "${PROJECT_SOURCE_DIR}/source/*.cpp")
 add_executable(${PROJECT_NAME} "${PROJECT_SOURCE}")
-target_link_libraries(${PROJECT_NAME} WizardParser)
+target_link_libraries(${PROJECT_NAME} wizard_parser)
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	set(
 		CMAKE_CXX_FLAGS
