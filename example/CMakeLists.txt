@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2.2)
 
 get_filename_component(PROJECT_NAME "${CMAKE_SOURCE_DIR}" NAME)
 string(MAKE_C_IDENTIFIER "${PROJECT_NAME}" PROJECT_NAME)
-project(${PROJECT_NAME}_project LANGUAGES CXX)
+project(${PROJECT_NAME} LANGUAGES CXX)
 
 file(GLOB_RECURSE PROJECT_SOURCE "${PROJECT_SOURCE_DIR}/source/*.cpp")
 add_executable(${PROJECT_NAME} "${PROJECT_SOURCE}")
