@@ -16,10 +16,13 @@ bool value_match_parser::is_match(const token& token) const {
 	return token.value == sample;
 }
 
+namespace operators {
+
 rule_parser::pointer operator""_v(const char* const string, std::size_t) {
 	return std::make_shared<value_match_parser>(string);
 }
 
+}
 }
 }
 }

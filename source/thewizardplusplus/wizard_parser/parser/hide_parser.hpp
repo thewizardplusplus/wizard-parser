@@ -18,8 +18,11 @@ protected:
 	) const override final;
 };
 
+namespace operators {
+
 rule_parser::pointer operator&(rule_parser::pointer parser);
 
+}
 }
 }
 }

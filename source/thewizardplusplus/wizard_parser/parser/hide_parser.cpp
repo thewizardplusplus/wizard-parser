@@ -16,10 +16,13 @@ bool hide_parser::is_empty_result(const parsing_result& result) const {
 	return result.is_parsed;
 }
 
+namespace operators {
+
 rule_parser::pointer operator&(rule_parser::pointer parser) {
 	return std::make_shared<hide_parser>(std::move(parser));
 }
 
+}
 }
 }
 }

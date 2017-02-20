@@ -20,8 +20,11 @@ private:
 	const rule_parser::pointer parser;
 };
 
+namespace operators {
+
 rule_parser::pointer operator*(rule_parser::pointer parser);
 
+}
 }
 }
 }

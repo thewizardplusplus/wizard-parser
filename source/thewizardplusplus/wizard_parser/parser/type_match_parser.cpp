@@ -16,10 +16,13 @@ bool type_match_parser::is_match(const token& token) const {
 	return token.type == sample;
 }
 
+namespace operators {
+
 rule_parser::pointer operator""_t(const char* const lexeme_type, std::size_t) {
 	return std::make_shared<type_match_parser>(lexeme_type);
 }
 
+}
 }
 }
 }

@@ -42,6 +42,8 @@ parsing_result alternation_parser::combine_results(
 		: right_result;
 }
 
+namespace operators {
+
 rule_parser::pointer operator|(
 	rule_parser::pointer left_parser,
 	rule_parser::pointer right_parser
@@ -52,6 +54,7 @@ rule_parser::pointer operator|(
 	);
 }
 
+}
 }
 }
 }

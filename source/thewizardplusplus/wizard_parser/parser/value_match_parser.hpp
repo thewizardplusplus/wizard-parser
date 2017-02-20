@@ -18,8 +18,11 @@ protected:
 	virtual bool is_match(const lexer::token& token) const override final;
 };
 
+namespace operators {
+
 rule_parser::pointer operator""_v(const char* const string, std::size_t);
 
+}
 }
 }
 }

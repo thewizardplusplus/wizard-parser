@@ -14,6 +14,7 @@
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
+using namespace thewizardplusplus::wizard_parser::parser::operators;
 
 const auto lexemes = std::vector<lexeme>{
 	{std::regex{"=="}, "equal"},

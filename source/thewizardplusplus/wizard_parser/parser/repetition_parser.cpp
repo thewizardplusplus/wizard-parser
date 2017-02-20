@@ -33,10 +33,13 @@ parsing_result repetition_parser::parse(
 	return {true, {"sequence", {}, std::move(nodes)}, start};
 }
 
+namespace operators {
+
 rule_parser::pointer operator*(rule_parser::pointer parser) {
 	return std::make_shared<repetition_parser>(std::move(parser));
 }
 
+}
 }
 }
 }
