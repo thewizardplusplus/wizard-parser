@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Wizard Parser: Исходный файл source/thewizardplusplus/wizard_parser/parser/binary_parser.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Wizard Parser
+   &#160;<span id="projectnumber">v2.0</span>
+   </div>
+   <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li class="current"><a href="files.html"><span>Файлы</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Файлы</span></a></li>
+      <li><a href="globals.html"><span>Список&#160;членов&#160;всех&#160;файлов</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Пространства имен</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Определения типов</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Макросы</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_6e4fd1e426cd04538e50fb33e55e0d3b.html">source</a></li><li class="navelem"><a class="el" href="dir_4b301999a2a8b999751e7e139902d2d8.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="dir_e84dff02e03b0b04542df0f75fdffab1.html">wizard_parser</a></li><li class="navelem"><a class="el" href="dir_1f08743542fa819d6508418bcdabbbf7.html">parser</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">binary_parser.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="binary__parser_8hpp.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_BINARY_PARSER_HEADER</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_BINARY_PARSER_HEADER</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rule__parser_8hpp.html">rule_parser.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../lexer/token_group.hpp&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="parsing__result_8hpp.html">parsing_result.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>thewizardplusplus {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>wizard_parser {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>parser {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html">   13</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html">binary_parser</a>: <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html">rule_parser</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a95730d419b9c5ce246c4ca032817ebd2">binary_parser</a>(</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> left_parser,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> right_parser</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    );</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#ad2c9602e1b5e7f0d965192add8ba8f33">parse</a>(</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">const</span> lexer::token_group::const_iterator&amp; begin,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">const</span> lexer::token_group::const_iterator&amp; end</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ) <span class="keyword">const</span> <span class="keyword">override</span> <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a5c643c7e267633d9eeda983914bb0cac">is_sequential</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> std::pair&lt;parsing_result, bool&gt; <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a08120212d31948f5cebb089844fd28ef">process_left_result</a>(</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> result</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> std::pair&lt;parsing_result, bool&gt; <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#ab369aba7022b04a7361bffcb36294a4d">process_right_result</a>(</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> result</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    ) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#ae3d72f75636e8af5f43efb521e29ca7d">combine_results</a>(</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> left_result,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> right_result,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">const</span> lexer::token_group::const_iterator&amp; end</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    ) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> left_parser;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> right_parser;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html_ae3d72f75636e8af5f43efb521e29ca7d"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#ae3d72f75636e8af5f43efb521e29ca7d">thewizardplusplus::wizard_parser::parser::binary_parser::combine_results</a></div><div class="ttdeci">virtual parsing_result combine_results(parsing_result left_result, parsing_result right_result, const lexer::token_group::const_iterator &amp;end) const =0</div></div>
+<div class="ttc" id="parsing__result_8hpp_html"><div class="ttname"><a href="parsing__result_8hpp.html">parsing_result.hpp</a></div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html">thewizardplusplus::wizard_parser::parser::binary_parser</a></div><div class="ttdef"><b>Definition:</b> binary_parser.hpp:13</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html_ab369aba7022b04a7361bffcb36294a4d"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#ab369aba7022b04a7361bffcb36294a4d">thewizardplusplus::wizard_parser::parser::binary_parser::process_right_result</a></div><div class="ttdeci">virtual std::pair&lt; parsing_result, bool &gt; process_right_result(parsing_result result) const =0</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html_a95730d419b9c5ce246c4ca032817ebd2"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a95730d419b9c5ce246c4ca032817ebd2">thewizardplusplus::wizard_parser::parser::binary_parser::binary_parser</a></div><div class="ttdeci">binary_parser(rule_parser::pointer left_parser, rule_parser::pointer right_parser)</div><div class="ttdef"><b>Definition:</b> binary_parser.cpp:9</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html_a5c643c7e267633d9eeda983914bb0cac"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a5c643c7e267633d9eeda983914bb0cac">thewizardplusplus::wizard_parser::parser::binary_parser::is_sequential</a></div><div class="ttdeci">virtual bool is_sequential() const =0</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html">thewizardplusplus::wizard_parser::parser::rule_parser</a></div><div class="ttdef"><b>Definition:</b> rule_parser.hpp:13</div></div>
+<div class="ttc" id="rule__parser_8hpp_html"><div class="ttname"><a href="rule__parser_8hpp.html">rule_parser.hpp</a></div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html_a08120212d31948f5cebb089844fd28ef"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a08120212d31948f5cebb089844fd28ef">thewizardplusplus::wizard_parser::parser::binary_parser::process_left_result</a></div><div class="ttdeci">virtual std::pair&lt; parsing_result, bool &gt; process_left_result(parsing_result result) const =0</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">thewizardplusplus::wizard_parser::parser::parsing_result</a></div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:12</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser_html_af9bcac0e9a8c29e4549a143c70c9cc86"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">thewizardplusplus::wizard_parser::parser::rule_parser::pointer</a></div><div class="ttdeci">std::shared_ptr&lt; const rule_parser &gt; pointer</div><div class="ttdef"><b>Definition:</b> rule_parser.hpp:14</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser_html_ad2c9602e1b5e7f0d965192add8ba8f33"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#ad2c9602e1b5e7f0d965192add8ba8f33">thewizardplusplus::wizard_parser::parser::binary_parser::parse</a></div><div class="ttdeci">virtual parsing_result parse(const lexer::token_group::const_iterator &amp;begin, const lexer::token_group::const_iterator &amp;end) const overridefinal</div><div class="ttdef"><b>Definition:</b> binary_parser.cpp:17</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>

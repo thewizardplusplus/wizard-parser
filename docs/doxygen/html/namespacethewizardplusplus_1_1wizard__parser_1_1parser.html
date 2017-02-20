@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Wizard Parser: Пространство имен thewizardplusplus::wizard_parser::parser</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Wizard Parser
+   &#160;<span id="projectnumber">v2.0</span>
+   </div>
+   <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li class="current"><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li><a href="files.html"><span>Файлы</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
+      <li><a href="namespacemembers.html"><span>Члены&#160;пространств&#160;имен</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Пространства имен</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Определения типов</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Макросы</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacethewizardplusplus.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser.html">wizard_parser</a></li><li class="navelem"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">parser</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">Пространства имен</a> &#124;
+<a href="#nested-classes">Классы</a> &#124;
+<a href="#enum-members">Перечисления</a> &#124;
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle">
+<div class="title">Пространство имен thewizardplusplus::wizard_parser::parser</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Пространства имен</h2></td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html">operators</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1alternation__parser.html">alternation_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1assignable__parser.html">assignable_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html">binary_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1concatenation__parser.html">concatenation_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1dummy__parser.html">dummy_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1empty__parser.html">empty_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1eoi__parser.html">eoi_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1exception__parser.html">exception_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1flag__assignable__parser.html">flag_assignable_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1hide__parser.html">hide_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1lift__parser.html">lift_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1match__parser.html">match_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1not__sequential__parser.html">not_sequential_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1optional__parser.html">optional_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1repetition__parser.html">repetition_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html">rule_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1sequential__parser.html">sequential_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1token__parser.html">token_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1type__assignable__parser.html">type_assignable_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1type__match__parser.html">type_match_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1value__match__parser.html">value_match_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1wrapping__parser.html">wrapping_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:a89bcb273786c26d6cdff5f37dfa59995"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> : std::uint8_t { <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8">ast_node_flag::none</a>, 
+<a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a72b49a243cef20220b110e1a0ccbb93c">ast_node_flag::named</a>, 
+<a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a48818f3da3d36ad762480b319b56f588">ast_node_flag::important</a>
+ }</td></tr>
+<tr class="separator:a89bcb273786c26d6cdff5f37dfa59995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:acb3742008bba474c8ad9848f3b38a0d8"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;ast)</td></tr>
+<tr class="separator:acb3742008bba474c8ad9848f3b38a0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df397d18822ab345d1fa9d562770bd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a7df397d18822ab345d1fa9d562770bd2">operator|</a> (const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> flag_1, const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> flag_2)</td></tr>
+<tr class="separator:a7df397d18822ab345d1fa9d562770bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b86c24ae9f236b71ecdf31b14c5e93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a53b86c24ae9f236b71ecdf31b14c5e93">operator&amp;</a> (const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> flag_union, const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> sought_flag)</td></tr>
+<tr class="separator:a53b86c24ae9f236b71ecdf31b14c5e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd0d75b9141d5e23aa36db009fce97e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1dummy__parser.html">dummy_parser</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a8bd0d75b9141d5e23aa36db009fce97e">dummy</a> ()</td></tr>
+<tr class="separator:a8bd0d75b9141d5e23aa36db009fce97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addd555cf482d0090b8d0448f5c083ba4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#addd555cf482d0090b8d0448f5c083ba4">eoi</a> ()</td></tr>
+<tr class="separator:addd555cf482d0090b8d0448f5c083ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a253b69157cdef7228718d35770bd7162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a253b69157cdef7228718d35770bd7162">parse</a> (const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> &amp;rule, const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">token_group</a> &amp;tokens, const std::size_t code_length)</td></tr>
+<tr class="separator:a253b69157cdef7228718d35770bd7162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20830c9479b3fc12210537a76eae3b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#af20830c9479b3fc12210537a76eae3b2">parse</a> (std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt; lexemes, std::unordered_set&lt; std::string &gt; ignorable_tokens, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> &amp;rule, std::string code)</td></tr>
+<tr class="separator:af20830c9479b3fc12210537a76eae3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1816cf1090796acaae8b758073f24ba5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a1816cf1090796acaae8b758073f24ba5">parse</a> (std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexer::lexeme</a> &gt; lexemes, std::unordered_set&lt; std::string &gt; ignorable_tokens, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> &amp;rule, std::string code)</td></tr>
+<tr class="separator:a1816cf1090796acaae8b758073f24ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a001e0ce6b5947520bdf1ba1f9c5ddd90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a001e0ce6b5947520bdf1ba1f9c5ddd90">append_node</a> (std::list&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &gt; &amp;nodes, <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;&amp;node)</td></tr>
+<tr class="separator:a001e0ce6b5947520bdf1ba1f9c5ddd90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Перечисления</h2>
+<a class="anchor" id="a89bcb273786c26d6cdff5f37dfa59995"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">thewizardplusplus::wizard_parser::parser::ast_node_flag</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a89bcb273786c26d6cdff5f37dfa59995a72b49a243cef20220b110e1a0ccbb93c"></a>named</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a89bcb273786c26d6cdff5f37dfa59995a48818f3da3d36ad762480b319b56f588"></a>important</em>&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Функции</h2>
+<a class="anchor" id="a001e0ce6b5947520bdf1ba1f9c5ddd90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void thewizardplusplus::wizard_parser::parser::append_node </td>
+          <td>(</td>
+          <td class="paramtype">std::list&lt; ast_node &gt; &amp;&#160;</td>
+          <td class="paramname"><em>nodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ast_node &amp;&amp;&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8bd0d75b9141d5e23aa36db009fce97e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1dummy__parser.html">dummy_parser</a> &gt; thewizardplusplus::wizard_parser::parser::dummy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="addd555cf482d0090b8d0448f5c083ba4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a> thewizardplusplus::wizard_parser::parser::eoi </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a53b86c24ae9f236b71ecdf31b14c5e93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool thewizardplusplus::wizard_parser::parser::operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype">const ast_node_flag&#160;</td>
+          <td class="paramname"><em>flag_union</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ast_node_flag&#160;</td>
+          <td class="paramname"><em>sought_flag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acb3742008bba474c8ad9848f3b38a0d8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; thewizardplusplus::wizard_parser::parser::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ast_node &amp;&#160;</td>
+          <td class="paramname"><em>ast</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7df397d18822ab345d1fa9d562770bd2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> thewizardplusplus::wizard_parser::parser::operator| </td>
+          <td>(</td>
+          <td class="paramtype">const ast_node_flag&#160;</td>
+          <td class="paramname"><em>flag_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ast_node_flag&#160;</td>
+          <td class="paramname"><em>flag_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a253b69157cdef7228718d35770bd7162"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> thewizardplusplus::wizard_parser::parser::parse </td>
+          <td>(</td>
+          <td class="paramtype">const rule_parser::pointer &amp;&#160;</td>
+          <td class="paramname"><em>rule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">token_group</a> &amp;&#160;</td>
+          <td class="paramname"><em>tokens</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::size_t&#160;</td>
+          <td class="paramname"><em>code_length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1816cf1090796acaae8b758073f24ba5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> thewizardplusplus::wizard_parser::parser::parse </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; lexer::lexeme &gt;&#160;</td>
+          <td class="paramname"><em>lexemes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_set&lt; std::string &gt;&#160;</td>
+          <td class="paramname"><em>ignorable_tokens</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const rule_parser::pointer &amp;&#160;</td>
+          <td class="paramname"><em>rule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>code</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af20830c9479b3fc12210537a76eae3b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> thewizardplusplus::wizard_parser::parser::parse </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt;&#160;</td>
+          <td class="paramname"><em>lexemes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_set&lt; std::string &gt;&#160;</td>
+          <td class="paramname"><em>ignorable_tokens</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const rule_parser::pointer &amp;&#160;</td>
+          <td class="paramname"><em>rule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>code</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>
