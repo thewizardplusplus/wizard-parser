@@ -16,6 +16,7 @@ struct token {
 };
 
 std::ostream& operator<<(std::ostream& out, const token& some_token);
+std::string to_string(const token& some_token);
 
 }
 }
