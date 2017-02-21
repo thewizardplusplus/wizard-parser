@@ -1,12 +1,19 @@
 #include "token_group.hpp"
 #include <iterator>
 
+using namespace std::string_literals;
+
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace lexer {
 
 std::ostream& operator<<(std::ostream& out, const token_group& tokens) {
-	out << '[';
+	out << to_string(tokens);
+	return out;
+}
+
+std::string to_string(const token_group& tokens) {
+	auto result = "["s;
 
 	for (
 		auto token = std::cbegin(tokens);
@@ -14,13 +21,13 @@ std::ostream& operator<<(std::ostream& out, const token_group& tokens) {
 		++token
 	) {
 		if (token != std::cbegin(tokens)) {
-			out << ',';
+			result += ',';
 		}
-		out << *token;
+		result += to_string(*token);
 	}
 
-	out << ']';
-	return out;
+	result += ']';
+	return result;
 }
 
 }
