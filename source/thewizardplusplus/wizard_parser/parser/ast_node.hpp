@@ -18,6 +18,7 @@ struct ast_node {
 };
 
 std::ostream& operator<<(std::ostream& out, const ast_node& ast);
+std::string to_string(const ast_node& ast);
 
 }
 }
