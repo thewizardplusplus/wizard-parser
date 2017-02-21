@@ -1,9 +1,8 @@
 #include "ast_node.hpp"
-#include "../utilities/string_utilities.hpp"
 #include <iterator>
+#include <algorithm>
 
-using namespace std::string_literals;
-using namespace thewizardplusplus::wizard_parser::utilities;
+using namespace nlohmann;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -15,30 +14,25 @@ std::ostream& operator<<(std::ostream& out, const ast_node& ast) {
 }
 
 std::string to_string(const ast_node& ast) {
-	auto result = "{"s + R"("type":)" + quote(ast.type);
+	return to_json(ast).dump();
+}
 
+json to_json(const ast_node& ast) {
+	auto result = json{{"type", ast.type}};
 	if (!ast.value.empty()) {
-		result += ","s + R"("value":)" + quote(ast.value);
+		result["value"] = ast.value;
 	}
-
 	if (!ast.children.empty()) {
-		result += ","s + R"("children":)" + '[';
-
-		for (
-			auto child = std::cbegin(ast.children);
-			child != std::cend(ast.children);
-			++child
-		) {
-			if (child != std::cbegin(ast.children)) {
-				result += ',';
+		result["children"] = json{};
+		std::for_each(
+			std::cbegin(ast.children),
+			std::cend(ast.children),
+			[&result] (const auto& child) {
+				result["children"].push_back(to_json(child));
 			}
-			result += to_string(*child);
-		}
-
-		result += ']';
+		);
 	}
 
-	result += '}';
 	return result;
 }
 
