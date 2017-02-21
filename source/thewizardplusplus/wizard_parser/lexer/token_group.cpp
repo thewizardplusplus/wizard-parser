@@ -1,7 +1,8 @@
 #include "token_group.hpp"
 #include <iterator>
+#include <algorithm>
 
-using namespace std::string_literals;
+using namespace nlohmann;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -13,20 +14,19 @@ std::ostream& operator<<(std::ostream& out, const token_group& tokens) {
 }
 
 std::string to_string(const token_group& tokens) {
-	auto result = "["s;
+	return to_json(tokens).dump();
+}
 
-	for (
-		auto token = std::cbegin(tokens);
-		token != std::cend(tokens);
-		++token
-	) {
-		if (token != std::cbegin(tokens)) {
-			result += ',';
+json to_json(const token_group& tokens) {
+	auto result = json{};
+	std::for_each(
+		std::cbegin(tokens),
+		std::cend(tokens),
+		[&result] (const auto& token) {
+			result.push_back(to_json(token));
 		}
-		result += to_string(*token);
-	}
+	);
 
-	result += ']';
 	return result;
 }
 
