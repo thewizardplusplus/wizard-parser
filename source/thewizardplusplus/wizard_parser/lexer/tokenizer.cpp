@@ -1,31 +1,11 @@
 #include "tokenizer.hpp"
-#include "../utilities/set_utilities.hpp"
-#include "../utilities/string_utilities.hpp"
 #include "../utilities/positional_exception.hpp"
-#include <sstream>
-#include <ios>
-#include <iomanip>
-#include <cstdint>
+#include "../utilities/set_utilities.hpp"
+#include "../vendor/json.hpp"
 #include <iterator>
-#include <cctype>
 
 using namespace thewizardplusplus::wizard_parser::utilities;
-
-namespace {
-
-std::string to_hex(const char symbol) {
-	auto out = std::ostringstream{};
-	out << std::showbase << std::hex
-		<< std::setw(4) << std::setfill('0') << std::internal
-		// http://stackoverflow.com/a/5042335
-		<< static_cast<std::uint64_t>(
-				reinterpret_cast<const std::uint8_t&>(symbol)
-			);
-
-	return out.str();
-}
-
-}
+using namespace nlohmann;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -47,7 +27,10 @@ token_group tokenizer::tokenize() {
 	while (start != std::cend(code)) {
 		auto matched_token = find_longest_matched_token();
 		if (!matched_token.second) {
-			process_invalid_symbol();
+			throw positional_exception{
+				"invalid symbol " + json(std::string{*start}).dump(),
+				get_current_symbol_offset()
+			};
 		}
 
 		std::advance(start, matched_token.first.value.size());
@@ -99,16 +82,6 @@ std::pair<std::smatch, bool> tokenizer::match_lexeme(
 
 std::size_t tokenizer::get_current_symbol_offset() const {
 	return static_cast<std::size_t>(std::distance(std::begin(code), start));
-}
-
-[[noreturn]] void tokenizer::process_invalid_symbol() const {
-	const auto symbol_view = std::isprint(*start)
-		? quote(std::string{1, *start})
-		: to_hex(*start);
-	throw positional_exception{
-		"invalid symbol " + symbol_view,
-		get_current_symbol_offset()
-	};
 }
 
 }

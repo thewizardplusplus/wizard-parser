@@ -32,7 +32,6 @@ private:
 	std::pair<token, bool> find_longest_matched_token() const;
 	std::pair<std::smatch, bool> match_lexeme(const lexeme& some_lexeme) const;
 	std::size_t get_current_symbol_offset() const;
-	[[noreturn]] void process_invalid_symbol() const;
 };
 
 }
