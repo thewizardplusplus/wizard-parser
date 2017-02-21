@@ -2,8 +2,6 @@
 #include "../utilities/positional_exception.hpp"
 #include "../lexer/tokenizer.hpp"
 #include <iterator>
-#include <sstream>
-#include <stdexcept>
 #include <utility>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
@@ -21,11 +19,8 @@ ast_node parse(
 	const auto ast = rule->parse(std::cbegin(tokens), std::cend(tokens));
 	if (!ast.is_parsed) {
 		if (ast.last_token != std::cend(tokens)) {
-			auto out = std::ostringstream{};
-			out << *ast.last_token;
-
 			throw positional_exception{
-				"unexpected token " + out.str(),
+				"unexpected token " + to_string(*ast.last_token),
 				ast.last_token->offset
 			};
 		} else {
