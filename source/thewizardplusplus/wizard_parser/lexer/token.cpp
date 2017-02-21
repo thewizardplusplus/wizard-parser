@@ -1,8 +1,6 @@
 #include "token.hpp"
-#include "../utilities/string_utilities.hpp"
 
-using namespace std::string_literals;
-using namespace thewizardplusplus::wizard_parser::utilities;
+using namespace nlohmann;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -14,10 +12,14 @@ std::ostream& operator<<(std::ostream& out, const token& some_token) {
 }
 
 std::string to_string(const token& some_token) {
-	return "{"s
-			+ R"("type":)" + quote(some_token.type) + ','
-			+ R"("value":)" + quote(some_token.value)
-		+ '}';
+	return to_json(some_token).dump();
+}
+
+json to_json(const token& some_token) {
+	return {
+		{"type", some_token.type},
+		{"value", some_token.value}
+	};
 }
 
 }

@@ -1,6 +1,7 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKEN_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKEN_HEADER
 
+#include "../vendor/json.hpp"
 #include <string>
 #include <cstddef>
 #include <ostream>
@@ -17,6 +18,7 @@ struct token {
 
 std::ostream& operator<<(std::ostream& out, const token& some_token);
 std::string to_string(const token& some_token);
+nlohmann::json to_json(const token& some_token);
 
 }
 }
