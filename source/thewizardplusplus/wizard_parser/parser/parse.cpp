@@ -1,11 +1,13 @@
 #include "parse.hpp"
 #include "../utilities/positional_exception.hpp"
 #include "../lexer/tokenizer.hpp"
+#include "../vendor/fmt/format.hpp"
 #include <iterator>
 #include <utility>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
+using namespace fmt;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -20,7 +22,7 @@ ast_node parse(
 	if (!ast.node) {
 		if (ast.last_token != std::cend(tokens)) {
 			throw positional_exception{
-				"unexpected token " + to_string(*ast.last_token),
+				format("unexpected token {:s}", to_string(*ast.last_token)),
 				ast.last_token->offset
 			};
 		} else {

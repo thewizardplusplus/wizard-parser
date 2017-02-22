@@ -1,10 +1,12 @@
 #include "tokenizer.hpp"
 #include "../utilities/positional_exception.hpp"
 #include "../vendor/json.hpp"
+#include "../vendor/fmt/format.hpp"
 #include <iterator>
 
 using namespace thewizardplusplus::wizard_parser::utilities;
 using namespace nlohmann;
+using namespace fmt;
 using namespace std::experimental;
 
 namespace thewizardplusplus {
@@ -28,7 +30,7 @@ token_group tokenizer::tokenize() {
 		auto matched_token = find_longest_matched_token();
 		if (!matched_token) {
 			throw positional_exception{
-				"invalid symbol " + json(std::string{*start}).dump(),
+				format("invalid symbol {:s}", json(std::string{*start}).dump()),
 				get_current_symbol_offset()
 			};
 		}
