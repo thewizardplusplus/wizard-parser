@@ -13,12 +13,12 @@ type_assignable_parser::type_assignable_parser(std::string type):
 parsing_result type_assignable_parser::process_parsed_result(
 	parsing_result result
 ) const {
-	if (result.node.flags & ast_node_flag::named) {
+	if (result.node->flags & ast_node_flag::named) {
 		return result;
 	}
 
-	result.node.type = type;
-	result.node.flags = result.node.flags | ast_node_flag::named;
+	result.node->type = type;
+	result.node->flags = result.node->flags | ast_node_flag::named;
 
 	return result;
 }

@@ -1,5 +1,6 @@
 #include "repetition_parser.hpp"
 #include "utilities.hpp"
+#include "ast_node.hpp"
 #include <utility>
 #include <list>
 #include <memory>
@@ -22,15 +23,15 @@ parsing_result repetition_parser::parse(
 	auto start = begin;
 	while (true) {
 		auto ast = parser->parse(start, end);
-		if (!ast.is_parsed) {
+		if (!ast.node) {
 			break;
 		}
 
-		append_node(nodes, std::move(ast.node));
+		append_node(nodes, std::move(*ast.node));
 		start = ast.last_token;
 	}
 
-	return {true, {"sequence", {}, std::move(nodes)}, start};
+	return {ast_node{"sequence", {}, std::move(nodes)}, start};
 }
 
 namespace operators {

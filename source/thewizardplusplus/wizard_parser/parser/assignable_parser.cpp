@@ -11,7 +11,7 @@ rule_parser::pointer assignable_parser::operator=(rule_parser::pointer parser) {
 }
 
 parsing_result assignable_parser::process_result(parsing_result result) const {
-	return result.is_parsed ? process_parsed_result(std::move(result)) : result;
+	return result.node ? process_parsed_result(std::move(result)) : result;
 }
 
 }

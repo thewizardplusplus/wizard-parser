@@ -1,4 +1,5 @@
 #include "eoi_parser.hpp"
+#include "ast_node.hpp"
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
@@ -10,13 +11,13 @@ namespace parser {
 parsing_result eoi_parser::parse_token(
 	const token_group::const_iterator& token
 ) const {
-	return {false, {}, token};
+	return {{}, token};
 }
 
 parsing_result eoi_parser::parse_eoi(
 	const token_group::const_iterator& end
 ) const {
-	return {true, {"eoi", {}, {}}, end};
+	return {ast_node{"eoi", {}, {}}, end};
 }
 
 rule_parser::pointer eoi() {

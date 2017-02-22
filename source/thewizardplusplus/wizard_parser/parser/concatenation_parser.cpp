@@ -1,5 +1,6 @@
 #include "concatenation_parser.hpp"
 #include "utilities.hpp"
+#include "ast_node.hpp"
 #include <list>
 #include <memory>
 
@@ -19,13 +20,13 @@ concatenation_parser::concatenation_parser(
 std::pair<parsing_result, bool> concatenation_parser::process_left_result(
 	parsing_result result
 ) const {
-	return {std::move(result), result.is_parsed};
+	return {std::move(result), static_cast<bool>(result.node)};
 }
 
 std::pair<parsing_result, bool> concatenation_parser::process_right_result(
 	parsing_result result
 ) const {
-	return {std::move(result), result.is_parsed};
+	return {std::move(result), static_cast<bool>(result.node)};
 }
 
 parsing_result concatenation_parser::combine_results(
@@ -36,12 +37,11 @@ parsing_result concatenation_parser::combine_results(
 	static_cast<void>(end);
 
 	auto nodes = std::list<ast_node>{};
-	append_node(nodes, std::move(left_result.node));
-	append_node(nodes, std::move(right_result.node));
+	append_node(nodes, std::move(*left_result.node));
+	append_node(nodes, std::move(*right_result.node));
 
 	return {
-		true,
-		{"sequence", {}, std::move(nodes)},
+		ast_node{"sequence", {}, std::move(nodes)},
 		std::move(right_result.last_token)
 	};
 }

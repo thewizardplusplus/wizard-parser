@@ -17,7 +17,7 @@ ast_node parse(
 	const std::size_t code_length
 ) {
 	const auto ast = rule->parse(std::cbegin(tokens), std::cend(tokens));
-	if (!ast.is_parsed) {
+	if (!ast.node) {
 		if (ast.last_token != std::cend(tokens)) {
 			throw positional_exception{
 				"unexpected token " + to_string(*ast.last_token),
@@ -28,7 +28,7 @@ ast_node parse(
 		}
 	}
 
-	return ast.node;
+	return *ast.node;
 }
 
 ast_node parse(

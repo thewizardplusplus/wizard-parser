@@ -13,7 +13,7 @@ optional_parser::optional_parser(rule_parser::pointer parser):
 {}
 
 bool optional_parser::is_empty_result(const parsing_result& result) const {
-	return !result.is_parsed;
+	return !result.node;
 }
 
 namespace operators {

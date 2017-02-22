@@ -32,8 +32,8 @@ parsing_result alternation_parser::combine_results(
 	parsing_result right_result,
 	const token_group::const_iterator& end
 ) const {
-	if (!left_result.is_parsed || !right_result.is_parsed) {
-		return left_result.is_parsed ? left_result : right_result;
+	if (!left_result.node || !right_result.node) {
+		return left_result.node ? left_result : right_result;
 	}
 
 	return left_result.get_last_token_offset(end)

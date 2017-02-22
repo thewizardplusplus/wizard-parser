@@ -17,13 +17,13 @@ exception_parser::exception_parser(
 std::pair<parsing_result, bool> exception_parser::process_left_result(
 	parsing_result result
 ) const {
-	return {std::move(result), result.is_parsed};
+	return {std::move(result), static_cast<bool>(result.node)};
 }
 
 std::pair<parsing_result, bool> exception_parser::process_right_result(
 	parsing_result result
 ) const {
-	return {{false, {}, std::move(result.last_token)}, !result.is_parsed};
+	return {{{}, std::move(result.last_token)}, !result.node};
 }
 
 parsing_result exception_parser::combine_results(

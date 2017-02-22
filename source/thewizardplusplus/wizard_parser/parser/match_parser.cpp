@@ -1,4 +1,5 @@
 #include "match_parser.hpp"
+#include "ast_node.hpp"
 #include <utility>
 #include <iterator>
 
@@ -16,16 +17,16 @@ parsing_result match_parser::parse_token(
 	const token_group::const_iterator& token
 ) const {
 	if (!is_match(*token)) {
-		return {false, {}, token};
+		return {{}, token};
 	}
 
-	return {true, {token->type, token->value, {}}, std::next(token)};
+	return {ast_node{token->type, token->value, {}}, std::next(token)};
 }
 
 parsing_result match_parser::parse_eoi(
 	const token_group::const_iterator& end
 ) const {
-	return {false, {}, end};
+	return {{}, end};
 }
 
 }

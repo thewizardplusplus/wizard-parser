@@ -1,4 +1,5 @@
 #include "empty_parser.hpp"
+#include "ast_node.hpp"
 #include <utility>
 
 namespace thewizardplusplus {
@@ -12,8 +13,7 @@ empty_parser::empty_parser(rule_parser::pointer parser):
 parsing_result empty_parser::process_result(parsing_result result) const {
 	return is_empty_result(result)
 		? parsing_result{
-			true,
-			{"nothing", {}, {}},
+			ast_node{"nothing", {}, {}},
 			std::move(result.last_token)
 		}
 		: result;

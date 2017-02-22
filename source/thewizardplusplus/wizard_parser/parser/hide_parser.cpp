@@ -13,7 +13,7 @@ hide_parser::hide_parser(rule_parser::pointer parser):
 {}
 
 bool hide_parser::is_empty_result(const parsing_result& result) const {
-	return result.is_parsed;
+	return static_cast<bool>(result.node);
 }
 
 namespace operators {
