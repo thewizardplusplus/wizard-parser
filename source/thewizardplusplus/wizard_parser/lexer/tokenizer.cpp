@@ -1,6 +1,5 @@
 #include "tokenizer.hpp"
 #include "../utilities/positional_exception.hpp"
-#include "../utilities/set_utilities.hpp"
 #include "../vendor/json.hpp"
 #include <iterator>
 
@@ -34,11 +33,9 @@ token_group tokenizer::tokenize() {
 		}
 
 		std::advance(start, matched_token.first.value.size());
-		if (contains(ignorable_tokens, matched_token.first.type)) {
-			continue;
+		if (ignorable_tokens.count(matched_token.first.type) == 0) {
+			tokens.push_back(std::move(matched_token.first));
 		}
-
-		tokens.push_back(std::move(matched_token.first));
 	}
 
 	return tokens;

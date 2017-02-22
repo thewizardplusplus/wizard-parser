@@ -1,10 +1,7 @@
 #include "utilities.hpp"
-#include "../utilities/set_utilities.hpp"
 #include <string>
 #include <unordered_set>
 #include <utility>
-
-using namespace thewizardplusplus::wizard_parser::utilities;
 
 const auto ignorable_nodes = std::unordered_set<std::string>{"nothing", "eoi"};
 
@@ -15,13 +12,11 @@ namespace parser {
 void append_node(std::list<ast_node>& nodes, ast_node&& node) {
 	if (node.type == "sequence") {
 		for (auto&& child_node: node.children) {
-			if (contains(ignorable_nodes, child_node.type)) {
-				continue;
+			if (ignorable_nodes.count(child_node.type) == 0) {
+				nodes.push_back(std::move(child_node));
 			}
-
-			nodes.push_back(std::move(child_node));
 		}
-	} else if (!contains(ignorable_nodes, node.type)) {
+	} else if (ignorable_nodes.count(node.type) == 0) {
 		nodes.push_back(std::move(node));
 	}
 }
