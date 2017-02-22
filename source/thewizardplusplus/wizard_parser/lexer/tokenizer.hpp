@@ -4,6 +4,7 @@
 #include "lexeme.hpp"
 #include "token_group.hpp"
 #include "token.hpp"
+#include "../vendor/optional.hpp"
 #include <vector>
 #include <string>
 #include <unordered_set>
@@ -29,8 +30,8 @@ private:
 	const std::string code;
 	std::string::const_iterator start;
 
-	std::pair<token, bool> find_longest_matched_token() const;
-	std::pair<std::smatch, bool> match_lexeme(const lexeme& some_lexeme) const;
+	std::experimental::optional<token> find_longest_matched_token() const;
+	std::smatch match_lexeme(const lexeme& some_lexeme) const;
 	std::size_t get_current_symbol_offset() const;
 };
 
