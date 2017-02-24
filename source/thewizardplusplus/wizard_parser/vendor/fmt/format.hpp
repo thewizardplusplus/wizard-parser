@@ -25,6 +25,8 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#pragma clang system_header
+
 #ifndef FMT_FORMAT_H_
 #define FMT_FORMAT_H_
 
