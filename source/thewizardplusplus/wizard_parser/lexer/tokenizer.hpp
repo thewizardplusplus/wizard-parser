@@ -4,6 +4,7 @@
 #include "lexeme.hpp"
 #include "token_group.hpp"
 #include "token.hpp"
+#include "../vendor/gsl/string_span.hpp"
 #include "../vendor/optional.hpp"
 #include <vector>
 #include <string>
@@ -27,11 +28,13 @@ struct tokenizer {
 private:
 	const std::vector<lexeme> lexemes;
 	const std::unordered_set<std::string> ignorable_tokens;
-	const std::string code;
-	std::string::const_iterator start;
+	std::string code;
+	gsl::string_span<> rest_code;
 
 	std::experimental::optional<token> find_longest_matched_token() const;
-	std::smatch match_lexeme(const lexeme& some_lexeme) const;
+	std::match_results<gsl::string_span<>::const_iterator> match_lexeme(
+		const lexeme& some_lexeme
+	) const;
 	std::size_t get_current_symbol_offset() const;
 };
 

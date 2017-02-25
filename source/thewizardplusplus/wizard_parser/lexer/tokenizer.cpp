@@ -7,6 +7,7 @@
 using namespace thewizardplusplus::wizard_parser::utilities;
 using namespace nlohmann;
 using namespace fmt;
+using namespace gsl;
 using namespace std::experimental;
 
 namespace thewizardplusplus {
@@ -21,21 +22,26 @@ tokenizer::tokenizer(
 	lexemes{std::move(lexemes)},
 	ignorable_tokens{std::move(ignorable_tokens)},
 	code{std::move(code)},
-	start{std::cbegin(this->code)}
+	rest_code{this->code}
 {}
 
 token_group tokenizer::tokenize() {
 	auto tokens = token_group{};
-	while (start != std::cend(code)) {
+	while (!rest_code.empty()) {
 		auto matched_token = find_longest_matched_token();
 		if (!matched_token) {
 			throw positional_exception{
-				format("invalid symbol {:s}", json(std::string{*start}).dump()),
+				format(
+					"invalid symbol {:s}",
+					json(std::string{rest_code[0]}).dump()
+				),
 				get_current_symbol_offset()
 			};
 		}
 
-		std::advance(start, matched_token->value.size());
+		rest_code = rest_code.subspan(
+			static_cast<string_span<>::index_type>(matched_token->value.size())
+		);
 		if (ignorable_tokens.count(matched_token->type) == 0) {
 			tokens.push_back(std::move(*matched_token));
 		}
@@ -65,11 +71,15 @@ optional<token> tokenizer::find_longest_matched_token() const {
 	return matched_token;
 }
 
-std::smatch tokenizer::match_lexeme(const lexeme& some_lexeme) const {
-	auto match = std::smatch{};
+std::match_results<string_span<>::const_iterator> tokenizer::match_lexeme(
+	const lexeme& some_lexeme
+) const {
+	auto match = std::match_results<string_span<>::const_iterator>{};
 	std::regex_search(
-		start,
-		std::cend(code),
+		// std::cbegin() returns not constant iterator for gsl::string_span
+		rest_code.cbegin(),
+		// std::cend() returns not constant iterator for gsl::string_span
+		rest_code.cend(),
 		match,
 		some_lexeme.pattern,
 		std::regex_constants::match_continuous
@@ -79,7 +89,7 @@ std::smatch tokenizer::match_lexeme(const lexeme& some_lexeme) const {
 }
 
 std::size_t tokenizer::get_current_symbol_offset() const {
-	return static_cast<std::size_t>(std::distance(std::begin(code), start));
+	return static_cast<std::size_t>(rest_code.data() - code.data());
 }
 
 }
