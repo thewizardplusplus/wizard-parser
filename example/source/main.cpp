@@ -1,3 +1,4 @@
+#include "vendor/docopt/docopt.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
@@ -16,6 +17,13 @@ using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
 
+const auto usage =
+R"(Usage:
+  ./example -h | --help
+  ./example <expressions>
+
+Options:
+  -h, --help  - show this message.)";
 const auto lexemes = std::vector<lexeme>{
 	{std::regex{"=="}, "equal"},
 	{std::regex{"/="}, "not_equal"},
@@ -70,12 +78,15 @@ rule_parser::pointer make_expression_parser() {
 }
 
 int main(int argc, char* argv[]) try {
-	if (argc < 2 || std::strlen(argv[1]) == 0) {
-		throw std::invalid_argument{"the expression isn't specified"};
-	}
+	const auto options = docopt::docopt(usage, {argv + 1, argv + argc}, true);
 
 	RULE(expression) = make_expression_parser();
-	const auto ast = parse(lexemes, ignorable_tokens, expression, argv[1]);
+	const auto ast = parse(
+		lexemes,
+		ignorable_tokens,
+		expression,
+		options.at("<expressions>").asString()
+	);
 	std::cout << ast << '\n';
 } catch (const std::exception& exception) {
 	std::cerr << "error: " << exception.what() << '\n';
