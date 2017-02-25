@@ -2,14 +2,15 @@
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
+#include <thewizardplusplus/wizard_parser/lexer/tokenizer.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <regex>
 #include <vector>
 #include <string>
 #include <unordered_set>
 #include <iostream>
-#include <exception>
 #include <cstdlib>
+#include <exception>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
@@ -18,10 +19,11 @@ using namespace thewizardplusplus::wizard_parser::parser::operators;
 const auto usage =
 R"(Usage:
   ./example -h | --help
-  ./example <expressions>
+  ./example [-t | --tokens] <expressions>
 
 Options:
-  -h, --help  - show this message.)";
+  -h, --help    - show this message;
+  -t, --tokens  - show a token list instead an AST.)";
 const auto lexemes = std::vector<lexeme>{
 	{std::regex{"=="}, "equal"},
 	{std::regex{"/="}, "not_equal"},
@@ -77,14 +79,15 @@ rule_parser::pointer make_expression_parser() {
 
 int main(int argc, char* argv[]) try {
 	const auto options = docopt::docopt(usage, {argv + 1, argv + argc}, true);
+	const auto code = options.at("<expressions>").asString();
+	const auto tokens = tokenizer{lexemes, ignorable_tokens, code}.tokenize();
+	if (options.at("--tokens").asBool()) {
+		std::cout << tokens << '\n';
+		std::exit(EXIT_SUCCESS);
+	}
 
 	RULE(expression) = make_expression_parser();
-	const auto ast = parse(
-		lexemes,
-		ignorable_tokens,
-		expression,
-		options.at("<expressions>").asString()
-	);
+	const auto ast = parse(expression, tokens, code.size());
 	std::cout << ast << '\n';
 } catch (const std::exception& exception) {
 	std::cerr << "error: " << exception.what() << '\n';
