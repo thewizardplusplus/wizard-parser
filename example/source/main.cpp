@@ -20,7 +20,7 @@ using namespace thewizardplusplus::wizard_parser::parser::operators;
 const auto usage =
 R"(Usage:
   ./example -h | --help
-  ./example [-t | --tokens] <expressions>
+  ./example [-t | --tokens] <expression>
   ./example [-t | --tokens] (-s | --stdin)
 
 Options:
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) try {
 	auto code = std::string{};
 	const auto options = docopt::docopt(usage, {argv + 1, argv + argc}, true);
 	if (!options.at("--stdin").asBool()) {
-		code = options.at("<expressions>").asString();
+		code = options.at("<expression>").asString();
 	} else {
 		code = std::string{std::istreambuf_iterator<char>{std::cin}, {}};
 	}
