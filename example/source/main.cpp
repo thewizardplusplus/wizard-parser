@@ -9,6 +9,7 @@
 #include <string>
 #include <unordered_set>
 #include <iostream>
+#include <iterator>
 #include <cstdlib>
 #include <exception>
 
@@ -20,10 +21,12 @@ const auto usage =
 R"(Usage:
   ./example -h | --help
   ./example [-t | --tokens] <expressions>
+  ./example [-t | --tokens] (-s | --stdin)
 
 Options:
   -h, --help    - show this message;
-  -t, --tokens  - show a token list instead an AST.)";
+  -t, --tokens  - show a token list instead an AST;
+  -s, --stdin   - read an expression from stdin.)";
 const auto lexemes = std::vector<lexeme>{
 	{std::regex{"=="}, "equal"},
 	{std::regex{"/="}, "not_equal"},
@@ -78,8 +81,14 @@ rule_parser::pointer make_expression_parser() {
 }
 
 int main(int argc, char* argv[]) try {
+	auto code = std::string{};
 	const auto options = docopt::docopt(usage, {argv + 1, argv + argc}, true);
-	const auto code = options.at("<expressions>").asString();
+	if (!options.at("--stdin").asBool()) {
+		code = options.at("<expressions>").asString();
+	} else {
+		code = std::string{std::istreambuf_iterator<char>{std::cin}, {}};
+	}
+
 	const auto tokens = tokenizer{lexemes, ignorable_tokens, code}.tokenize();
 	if (options.at("--tokens").asBool()) {
 		std::cout << tokens << '\n';
