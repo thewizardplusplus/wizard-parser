@@ -2,7 +2,7 @@
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
-#include <thewizardplusplus/wizard_parser/lexer/tokenizer.hpp>
+#include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <regex>
 #include <vector>
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) try {
 		code = std::string{std::istreambuf_iterator<char>{std::cin}, {}};
 	}
 
-	const auto tokens = tokenizer{lexemes, ignorable_tokens, code}.tokenize();
+	const auto tokens = tokenize(lexemes, ignorable_tokens, code);
 	if (options.at("--tokens").asBool()) {
 		std::cout << tokens << '\n';
 		std::exit(EXIT_SUCCESS);
