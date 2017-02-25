@@ -1,9 +1,8 @@
 #include "parse.hpp"
 #include "../utilities/positional_exception.hpp"
-#include "../lexer/tokenizer.hpp"
+#include "../lexer/tokenize.hpp"
 #include "../vendor/fmt/format.hpp"
 #include <iterator>
-#include <utility>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
@@ -34,19 +33,13 @@ ast_node parse(
 }
 
 ast_node parse(
-	std::vector<lexeme> lexemes,
-	std::unordered_set<std::string> ignorable_tokens,
+	const std::vector<lexeme>& lexemes,
+	const std::unordered_set<std::string>& ignorable_tokens,
 	const rule_parser::pointer& rule,
 	std::string code
 ) {
-	const auto code_length = code.size();
-	const auto tokens = tokenizer{
-			std::move(lexemes),
-			std::move(ignorable_tokens),
-			std::move(code)
-		}
-		.tokenize();
-	return parse(rule, tokens, code_length);
+	const auto tokens = tokenize(lexemes, ignorable_tokens, code);
+	return parse(rule, tokens, code.size());
 }
 
 }

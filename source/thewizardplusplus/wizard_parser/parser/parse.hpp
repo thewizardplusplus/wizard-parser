@@ -20,8 +20,8 @@ ast_node parse(
 	const std::size_t code_length
 );
 ast_node parse(
-	std::vector<lexer::lexeme> lexemes,
-	std::unordered_set<std::string> ignorable_tokens,
+	const std::vector<lexer::lexeme>& lexemes,
+	const std::unordered_set<std::string>& ignorable_tokens,
 	const rule_parser::pointer& rule,
 	std::string code
 );
