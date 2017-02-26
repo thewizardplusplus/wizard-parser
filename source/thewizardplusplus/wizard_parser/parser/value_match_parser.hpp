@@ -1,9 +1,10 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_VALUE_MATCH_PARSER_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_VALUE_MATCH_PARSER_HEADER
 
-#include "match_parser.hpp"
-#include "../lexer/token.hpp"
 #include "rule_parser.hpp"
+#include "../lexer/token.hpp"
+#include "parsing_result.hpp"
+#include "../vendor/gsl/span.hpp"
 #include <string>
 #include <cstddef>
 
@@ -11,16 +12,17 @@ namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-struct value_match_parser final: match_parser {
-	explicit value_match_parser(std::string string);
+struct value_match_parser final: rule_parser {
+	explicit value_match_parser(std::string sample);
+	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
 
-protected:
-	virtual bool is_match(const lexer::token& token) const override final;
+private:
+	const std::string sample;
 };
 
 namespace operators {
 
-rule_parser::pointer operator""_v(const char* const string, std::size_t);
+rule_parser::pointer operator""_v(const char* const sample, std::size_t);
 
 }
 }

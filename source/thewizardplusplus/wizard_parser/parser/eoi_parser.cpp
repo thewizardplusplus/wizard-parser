@@ -9,11 +9,11 @@ namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-parsing_result eoi_parser::parse_token(const span<token>& tokens) const {
-	return {{}, tokens};
-}
+parsing_result eoi_parser::parse(const span<token>& tokens) const {
+	if (!tokens.empty()) {
+		return {{}, tokens};
+	}
 
-parsing_result eoi_parser::parse_eoi() const {
 	return {ast_node{"eoi", {}, {}}, {}};
 }
 
