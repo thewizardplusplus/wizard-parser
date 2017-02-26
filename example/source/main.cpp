@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) try {
 		code = std::string{std::istreambuf_iterator<char>{std::cin}, {}};
 	}
 
-	const auto tokens = tokenize(lexemes, ignorable_tokens, code);
+	auto tokens = tokenize(lexemes, ignorable_tokens, code);
 	if (options.at("--tokens").asBool()) {
 		std::cout << tokens << '\n';
 		std::exit(EXIT_SUCCESS);
