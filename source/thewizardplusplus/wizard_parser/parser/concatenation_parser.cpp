@@ -31,18 +31,15 @@ std::pair<parsing_result, bool> concatenation_parser::process_right_result(
 
 parsing_result concatenation_parser::combine_results(
 	parsing_result left_result,
-	parsing_result right_result,
-	const token_group::const_iterator& end
+	parsing_result right_result
 ) const {
-	static_cast<void>(end);
-
 	auto nodes = std::list<ast_node>{};
 	append_node(nodes, std::move(*left_result.node));
 	append_node(nodes, std::move(*right_result.node));
 
 	return {
 		ast_node{"sequence", {}, std::move(nodes)},
-		std::move(right_result.last_token)
+		std::move(right_result.rest_tokens)
 	};
 }
 

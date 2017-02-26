@@ -23,16 +23,14 @@ std::pair<parsing_result, bool> exception_parser::process_left_result(
 std::pair<parsing_result, bool> exception_parser::process_right_result(
 	parsing_result result
 ) const {
-	return {{{}, std::move(result.last_token)}, !result.node};
+	return {{{}, std::move(result.rest_tokens)}, !result.node};
 }
 
 parsing_result exception_parser::combine_results(
 	parsing_result left_result,
-	parsing_result right_result,
-	const token_group::const_iterator& end
+	parsing_result right_result
 ) const {
 	static_cast<void>(right_result);
-	static_cast<void>(end);
 
 	return left_result;
 }

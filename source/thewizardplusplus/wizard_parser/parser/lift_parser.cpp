@@ -16,7 +16,7 @@ parsing_result lift_parser::process_parsed_result(parsing_result result) const {
 
 	return {
 		std::move(result.node->children.front()),
-		std::move(result.last_token)
+		std::move(result.rest_tokens)
 	};
 }
 

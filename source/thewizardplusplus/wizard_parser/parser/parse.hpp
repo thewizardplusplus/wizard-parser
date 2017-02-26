@@ -2,9 +2,10 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSE_HEADER
 
 #include "rule_parser.hpp"
-#include "../lexer/token_group.hpp"
+#include "../lexer/token.hpp"
 #include "ast_node.hpp"
 #include "../lexer/lexeme.hpp"
+#include "../vendor/gsl/span.hpp"
 #include <cstddef>
 #include <vector>
 #include <string>
@@ -16,7 +17,7 @@ namespace parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
-	const lexer::token_group& tokens,
+	const gsl::span<lexer::token>& tokens,
 	const std::size_t code_length
 );
 ast_node parse(

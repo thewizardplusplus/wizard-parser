@@ -6,6 +6,7 @@
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
+using namespace gsl;
 using namespace fmt;
 
 namespace thewizardplusplus {
@@ -14,15 +15,15 @@ namespace parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
-	const token_group& tokens,
+	const span<token>& tokens,
 	const std::size_t code_length
 ) {
-	const auto ast = rule->parse(std::cbegin(tokens), std::cend(tokens));
+	const auto ast = rule->parse(tokens);
 	if (!ast.node) {
-		if (ast.last_token != std::cend(tokens)) {
+		if (!ast.rest_tokens.empty()) {
 			throw positional_exception{
-				format("unexpected token {:s}", to_string(*ast.last_token)),
-				ast.last_token->offset
+				format("unexpected token {:s}", to_string(ast.rest_tokens[0])),
+				ast.rest_tokens[0].offset
 			};
 		} else {
 			throw positional_exception{"the unexpected EOI", code_length};
@@ -38,7 +39,7 @@ ast_node parse(
 	const rule_parser::pointer& rule,
 	std::string code
 ) {
-	const auto tokens = tokenize(lexemes, ignorable_tokens, code);
+	auto tokens = tokenize(lexemes, ignorable_tokens, code);
 	return parse(rule, tokens, code.size());
 }
 

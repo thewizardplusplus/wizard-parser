@@ -25,8 +25,7 @@ protected:
 	) const override final;
 	virtual parsing_result combine_results(
 		parsing_result left_result,
-		parsing_result right_result,
-		const lexer::token_group::const_iterator& end
+		parsing_result right_result
 	) const override final;
 };
 

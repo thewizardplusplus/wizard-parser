@@ -2,6 +2,7 @@
 #include <utility>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
+using namespace gsl;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -11,11 +12,8 @@ void dummy_parser::set_parser(rule_parser::weak_pointer parser) {
 	this->parser = std::move(parser);
 }
 
-parsing_result dummy_parser::parse(
-	const token_group::const_iterator& begin,
-	const token_group::const_iterator& end
-) const {
-	return parser.lock()->parse(begin, end);
+parsing_result dummy_parser::parse(const span<token>& tokens) const {
+	return parser.lock()->parse(tokens);
 }
 
 std::shared_ptr<dummy_parser> dummy() {

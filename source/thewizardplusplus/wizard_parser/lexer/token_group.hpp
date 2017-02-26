@@ -3,7 +3,7 @@
 
 #include "token.hpp"
 #include "../vendor/json.hpp"
-#include <list>
+#include <vector>
 #include <ostream>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace thewizardplusplus {
 namespace wizard_parser {
 namespace lexer {
 
-using token_group = std::list<token>;
+using token_group = std::vector<token>;
 
 std::ostream& operator<<(std::ostream& out, const token_group& tokens);
 std::string to_string(const token_group& tokens);

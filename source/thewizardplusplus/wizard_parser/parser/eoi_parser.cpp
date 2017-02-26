@@ -3,21 +3,18 @@
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
+using namespace gsl;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-parsing_result eoi_parser::parse_token(
-	const token_group::const_iterator& token
-) const {
-	return {{}, token};
+parsing_result eoi_parser::parse_token(const span<token>& tokens) const {
+	return {{}, tokens};
 }
 
-parsing_result eoi_parser::parse_eoi(
-	const token_group::const_iterator& end
-) const {
-	return {ast_node{"eoi", {}, {}}, end};
+parsing_result eoi_parser::parse_eoi() const {
+	return {ast_node{"eoi", {}, {}}, {}};
 }
 
 rule_parser::pointer eoi() {

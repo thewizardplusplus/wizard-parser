@@ -2,9 +2,9 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MATCH_PARSER_HEADER
 
 #include "token_parser.hpp"
-#include "../lexer/token_group.hpp"
-#include "parsing_result.hpp"
 #include "../lexer/token.hpp"
+#include "parsing_result.hpp"
+#include "../vendor/gsl/span.hpp"
 #include <string>
 
 namespace thewizardplusplus {
@@ -18,11 +18,9 @@ protected:
 	const std::string sample;
 
 	virtual parsing_result parse_token(
-		const lexer::token_group::const_iterator& token
+		const gsl::span<lexer::token>& tokens
 	) const override final;
-	virtual parsing_result parse_eoi(
-		const lexer::token_group::const_iterator& end
-	) const override final;
+	virtual parsing_result parse_eoi() const override final;
 	virtual bool is_match(const lexer::token& token) const = 0;
 };
 

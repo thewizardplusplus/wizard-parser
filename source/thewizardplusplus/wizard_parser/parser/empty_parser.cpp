@@ -14,7 +14,7 @@ parsing_result empty_parser::process_result(parsing_result result) const {
 	return is_empty_result(result)
 		? parsing_result{
 			ast_node{"nothing", {}, {}},
-			std::move(result.last_token)
+			std::move(result.rest_tokens)
 		}
 		: result;
 }

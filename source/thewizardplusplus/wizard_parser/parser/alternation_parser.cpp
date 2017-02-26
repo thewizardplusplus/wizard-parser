@@ -29,15 +29,14 @@ std::pair<parsing_result, bool> alternation_parser::process_right_result(
 
 parsing_result alternation_parser::combine_results(
 	parsing_result left_result,
-	parsing_result right_result,
-	const token_group::const_iterator& end
+	parsing_result right_result
 ) const {
 	if (!left_result.node || !right_result.node) {
 		return left_result.node ? left_result : right_result;
 	}
 
-	return left_result.get_last_token_offset(end)
-		>= right_result.get_last_token_offset(end)
+	return left_result.get_last_token_offset()
+		>= right_result.get_last_token_offset()
 		? left_result
 		: right_result;
 }
