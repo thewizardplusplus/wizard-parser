@@ -1,7 +1,9 @@
 #include "exception_parser.hpp"
+#include <utility>
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
+using namespace gsl;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -11,28 +13,22 @@ exception_parser::exception_parser(
 	rule_parser::pointer left_parser,
 	rule_parser::pointer right_parser
 ):
-	not_sequential_parser{std::move(left_parser), std::move(right_parser)}
+	left_parser{std::move(left_parser)},
+	right_parser{std::move(right_parser)}
 {}
 
-std::pair<parsing_result, bool> exception_parser::process_left_result(
-	parsing_result result
-) const {
-	return {std::move(result), static_cast<bool>(result.node)};
-}
+parsing_result exception_parser::parse(const span<token>& tokens) const {
+	auto left_ast = left_parser->parse(tokens);
+	if (!left_ast.node) {
+		return left_ast;
+	}
 
-std::pair<parsing_result, bool> exception_parser::process_right_result(
-	parsing_result result
-) const {
-	return {{{}, std::move(result.rest_tokens)}, !result.node};
-}
+	auto right_ast = right_parser->parse(tokens);
+	if (right_ast.node) {
+		return {{}, std::move(right_ast.rest_tokens)};
+	}
 
-parsing_result exception_parser::combine_results(
-	parsing_result left_result,
-	parsing_result right_result
-) const {
-	static_cast<void>(right_result);
-
-	return left_result;
+	return left_ast;
 }
 
 namespace operators {

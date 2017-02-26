@@ -1,10 +1,12 @@
 #include "concatenation_parser.hpp"
 #include "utilities.hpp"
 #include "ast_node.hpp"
+#include <utility>
 #include <list>
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
+using namespace gsl;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -14,32 +16,28 @@ concatenation_parser::concatenation_parser(
 	rule_parser::pointer left_parser,
 	rule_parser::pointer right_parser
 ):
-	sequential_parser{std::move(left_parser), std::move(right_parser)}
+	left_parser{std::move(left_parser)},
+	right_parser{std::move(right_parser)}
 {}
 
-std::pair<parsing_result, bool> concatenation_parser::process_left_result(
-	parsing_result result
-) const {
-	return {std::move(result), static_cast<bool>(result.node)};
-}
+parsing_result concatenation_parser::parse(const span<token>& tokens) const {
+	auto left_ast = left_parser->parse(tokens);
+	if (!left_ast.node) {
+		return left_ast;
+	}
 
-std::pair<parsing_result, bool> concatenation_parser::process_right_result(
-	parsing_result result
-) const {
-	return {std::move(result), static_cast<bool>(result.node)};
-}
+	auto right_ast = right_parser->parse(left_ast.rest_tokens);
+	if (!right_ast.node) {
+		return right_ast;
+	}
 
-parsing_result concatenation_parser::combine_results(
-	parsing_result left_result,
-	parsing_result right_result
-) const {
 	auto nodes = std::list<ast_node>{};
-	append_node(nodes, std::move(*left_result.node));
-	append_node(nodes, std::move(*right_result.node));
+	append_node(nodes, std::move(*left_ast.node));
+	append_node(nodes, std::move(*right_ast.node));
 
 	return {
 		ast_node{"sequence", {}, std::move(nodes)},
-		std::move(right_result.rest_tokens)
+		std::move(right_ast.rest_tokens)
 	};
 }
 

@@ -1,8 +1,9 @@
 #include "alternation_parser.hpp"
-#include <iterator>
+#include <utility>
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
+using namespace gsl;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
@@ -12,33 +13,21 @@ alternation_parser::alternation_parser(
 	rule_parser::pointer left_parser,
 	rule_parser::pointer right_parser
 ):
-	not_sequential_parser{std::move(left_parser), std::move(right_parser)}
+	left_parser{std::move(left_parser)},
+	right_parser{std::move(right_parser)}
 {}
 
-std::pair<parsing_result, bool> alternation_parser::process_left_result(
-	parsing_result result
-) const {
-	return {std::move(result), true};
-}
-
-std::pair<parsing_result, bool> alternation_parser::process_right_result(
-	parsing_result result
-) const {
-	return {std::move(result), true};
-}
-
-parsing_result alternation_parser::combine_results(
-	parsing_result left_result,
-	parsing_result right_result
-) const {
-	if (!left_result.node || !right_result.node) {
-		return left_result.node ? left_result : right_result;
+parsing_result alternation_parser::parse(const span<token>& tokens) const {
+	const auto left_ast = left_parser->parse(tokens);
+	const auto right_ast = right_parser->parse(tokens);
+	if (!left_ast.node || !right_ast.node) {
+		return left_ast.node ? left_ast : right_ast;
 	}
 
-	return left_result.get_last_token_offset()
-		>= right_result.get_last_token_offset()
-		? left_result
-		: right_result;
+	return left_ast.get_last_token_offset()
+		>= right_ast.get_last_token_offset()
+		? left_ast
+		: right_ast;
 }
 
 namespace operators {

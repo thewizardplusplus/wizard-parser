@@ -1,32 +1,25 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_CONCATENATION_PARSER_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_CONCATENATION_PARSER_HEADER
 
-#include "sequential_parser.hpp"
 #include "rule_parser.hpp"
+#include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include <utility>
+#include "../vendor/gsl/span.hpp"
 
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-struct concatenation_parser final: sequential_parser {
+struct concatenation_parser final: rule_parser {
 	concatenation_parser(
 		rule_parser::pointer left_parser,
 		rule_parser::pointer right_parser
 	);
+	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
 
-protected:
-	virtual std::pair<parsing_result, bool> process_left_result(
-		parsing_result result
-	) const override final;
-	virtual std::pair<parsing_result, bool> process_right_result(
-		parsing_result result
-	) const override final;
-	virtual parsing_result combine_results(
-		parsing_result left_result,
-		parsing_result right_result
-	) const override final;
+private:
+	const rule_parser::pointer left_parser;
+	const rule_parser::pointer right_parser;
 };
 
 namespace operators {
