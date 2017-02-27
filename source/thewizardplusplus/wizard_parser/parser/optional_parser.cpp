@@ -3,17 +3,26 @@
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
+using namespace gsl;
 
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
 optional_parser::optional_parser(rule_parser::pointer parser):
-	empty_parser{std::move(parser)}
+	parser{std::move(parser)}
 {}
 
-bool optional_parser::is_empty_result(const parsing_result& result) const {
-	return !result.node;
+parsing_result optional_parser::parse(const span<token>& tokens) const {
+	auto ast = parser->parse(tokens);
+	if (ast.node) {
+		return ast;
+	}
+
+	return parsing_result{
+		ast_node{"nothing", {}, {}},
+		std::move(ast.rest_tokens)
+	};
 }
 
 namespace operators {
