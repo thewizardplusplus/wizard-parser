@@ -1,20 +1,25 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_LIFT_PARSER_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_LIFT_PARSER_HEADER
 
-#include "assignable_parser.hpp"
+#include "rule_parser.hpp"
+#include "../lexer/token.hpp"
 #include "parsing_result.hpp"
+#include "../vendor/gsl/span.hpp"
+#include <memory>
 
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-struct lift_parser final: assignable_parser {
-	using assignable_parser::operator=;
+struct lift_parser final:
+	rule_parser,
+	std::enable_shared_from_this<lift_parser>
+{
+	rule_parser::pointer operator=(rule_parser::pointer parser);
+	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
 
-protected:
-	virtual parsing_result process_parsed_result(
-		parsing_result result
-	) const override final;
+private:
+	rule_parser::pointer parser;
 };
 
 }
