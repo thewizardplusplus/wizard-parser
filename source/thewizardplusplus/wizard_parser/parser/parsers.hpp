@@ -2,8 +2,7 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSERS_HEADER
 
 #include "eoi_parser.hpp"
-#include "type_match_parser.hpp"
-#include "value_match_parser.hpp"
+#include "match_parser.hpp"
 #include "concatenation_parser.hpp"
 #include "alternation_parser.hpp"
 #include "repetition_parser.hpp"
