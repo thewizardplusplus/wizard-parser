@@ -5,24 +5,43 @@
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
 #include "../vendor/gsl/span.hpp"
+#include <cstddef>
 
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
 struct repetition_parser final: rule_parser {
-	explicit repetition_parser(rule_parser::pointer parser);
+	explicit repetition_parser(
+		rule_parser::pointer parser,
+		const std::size_t minimal_number,
+		const std::size_t maximal_number
+	);
 	virtual parsing_result parse(
 		const gsl::span<lexer::token>& tokens
 	) const override final;
 
 private:
 	const rule_parser::pointer parser;
+	const std::size_t minimal_number;
+	const std::size_t maximal_number;
 };
+
+rule_parser::pointer rep(
+	rule_parser::pointer parser,
+	const std::size_t minimal_number,
+	const std::size_t maximal_number
+);
 
 namespace operators {
 
+rule_parser::pointer operator-(rule_parser::pointer parser);
+rule_parser::pointer operator*(
+	rule_parser::pointer parser,
+	const std::size_t number
+);
 rule_parser::pointer operator*(rule_parser::pointer parser);
+rule_parser::pointer operator+(rule_parser::pointer parser);
 
 }
 }
