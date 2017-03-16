@@ -1,6 +1,7 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSERS_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSERS_HEADER
 
+#include "empty_parser.hpp"
 #include "eoi_parser.hpp"
 #include "match_parser.hpp"
 #include "concatenation_parser.hpp"
