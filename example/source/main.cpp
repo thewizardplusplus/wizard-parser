@@ -55,7 +55,7 @@ rule_parser::pointer make_atom_parser(const rule_parser::pointer& expression) {
 	RULE(key_words) = "and"_v | "not"_v | "or"_v;
 	RULE(identifier) = "base_identifier"_t - key_words;
 	IMPORTANT_RULE(function_call) = identifier >> &"("_v >>
-		-(expression >> *(&","_v >> expression))
+		-(expression % &","_v)
 	>> &")"_v;
 	return number_constant
 		| identifier
@@ -67,12 +67,12 @@ rule_parser::pointer make_expression_parser() {
 	const auto expression_dummy = dummy();
 	RULE(atom) = make_atom_parser(expression_dummy);
 	RULE(unary) = *("-"_v | "not"_v) >> atom;
-	RULE(product) = unary >> *(("*"_v | "/"_v | "%"_v) >> unary);
-	RULE(sum) = product >> *(("+"_v | "-"_v) >> product);
-	RULE(comparison) = sum >> *(("<"_v | "<="_v | ">"_v | ">="_v) >> sum);
-	RULE(equality) = comparison >> *(("=="_v | "/="_v) >> comparison);
-	RULE(conjunction) = equality >> *(&"and"_v >> equality);
-	RULE(disjunction) = conjunction >> *(&"or"_v >> conjunction);
+	RULE(product) = unary % ("*"_v | "/"_v | "%"_v);
+	RULE(sum) = product % ("+"_v | "-"_v);
+	RULE(comparison) = sum % ("<"_v | "<="_v | ">"_v | ">="_v);
+	RULE(equality) = comparison % ("=="_v | "/="_v);
+	RULE(conjunction) = equality % &"and"_v;
+	RULE(disjunction) = conjunction % &"or"_v;
 	expression_dummy->set_parser(disjunction);
 
 	return disjunction >> eoi();

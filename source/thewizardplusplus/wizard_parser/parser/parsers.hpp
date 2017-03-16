@@ -9,4 +9,20 @@
 #include "exception_parser.hpp"
 #include "lookahead_parser.hpp"
 #include "dummy_parser.hpp"
+#include "rule_parser.hpp"
+
+namespace thewizardplusplus {
+namespace wizard_parser {
+namespace parser {
+namespace operators {
+
+rule_parser::pointer operator%(
+	rule_parser::pointer left_parser,
+	rule_parser::pointer right_parser
+);
+
+}
+}
+}
+}
 #endif
