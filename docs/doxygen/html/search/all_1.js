@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['binary_5fparser',['binary_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html',1,'thewizardplusplus::wizard_parser::parser']]],
-  ['binary_5fparser',['binary_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1binary__parser.html#a95730d419b9c5ce246c4ca032817ebd2',1,'thewizardplusplus::wizard_parser::parser::binary_parser']]],
-  ['binary_5fparser_2ecpp',['binary_parser.cpp',['../binary__parser_8cpp.html',1,'']]],
-  ['binary_5fparser_2ehpp',['binary_parser.hpp',['../binary__parser_8hpp.html',1,'']]]
+  ['by_5ftype',['by_type',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146aabb5c8b00699517bb959b132c3aa540e2',1,'thewizardplusplus::wizard_parser::parser']]],
+  ['by_5fvalue',['by_value',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146aab1fc8b12a2b69b2660923b1c0bf91ec1',1,'thewizardplusplus::wizard_parser::parser']]]
 ];

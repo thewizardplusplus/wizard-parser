@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -95,11 +95,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="parse_8hpp_source.html">parse.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="positional__exception_8hpp_source.html">../utilities/positional_exception.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="tokenizer_8hpp_source.html">../lexer/tokenizer.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="tokenize_8hpp_source.html">../lexer/tokenize.hpp</a>&quot;</code><br/>
+<code>#include &quot;../vendor/fmt/format.hpp&quot;</code><br/>
 <code>#include &lt;iterator&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
-<code>#include &lt;stdexcept&gt;</code><br/>
-<code>#include &lt;utility&gt;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Пространства имен</h2></td></tr>
@@ -112,15 +110,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
-<tr class="memitem:a253b69157cdef7228718d35770bd7162"><td class="memItemLeft" align="right" valign="top">ast_node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a253b69157cdef7228718d35770bd7162">thewizardplusplus::wizard_parser::parser::parse</a> (const rule_parser::pointer &amp;rule, const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">token_group</a> &amp;tokens, const std::size_t code_length)</td></tr>
-<tr class="separator:a253b69157cdef7228718d35770bd7162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af20830c9479b3fc12210537a76eae3b2"><td class="memItemLeft" align="right" valign="top">ast_node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#af20830c9479b3fc12210537a76eae3b2">thewizardplusplus::wizard_parser::parser::parse</a> (std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt; lexemes, std::unordered_set&lt; std::string &gt; ignorable_tokens, const rule_parser::pointer &amp;rule, std::string code)</td></tr>
-<tr class="separator:af20830c9479b3fc12210537a76eae3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab136e1d42b4bed0dee306b1f855c1e36"><td class="memItemLeft" align="right" valign="top">ast_node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#ab136e1d42b4bed0dee306b1f855c1e36">thewizardplusplus::wizard_parser::parser::parse</a> (const rule_parser::pointer &amp;rule, const span&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &gt; &amp;tokens, const std::size_t code_length)</td></tr>
+<tr class="separator:ab136e1d42b4bed0dee306b1f855c1e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8376d1ab6bc00e7315ca392c6003f1c"><td class="memItemLeft" align="right" valign="top">ast_node&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#ab8376d1ab6bc00e7315ca392c6003f1c">thewizardplusplus::wizard_parser::parser::parse</a> (const std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt; &amp;lexemes, const std::unordered_set&lt; std::string &gt; &amp;ignorable_tokens, const rule_parser::pointer &amp;rule, std::string code)</td></tr>
+<tr class="separator:ab8376d1ab6bc00e7315ca392c6003f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

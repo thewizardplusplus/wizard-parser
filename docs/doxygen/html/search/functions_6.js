@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['get_5flast_5ftoken_5foffset',['get_last_token_offset',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a8c842fa143f5357b156046e02357c605',1,'thewizardplusplus::wizard_parser::parser::parsing_result']]]
+  ['match_5fparser',['match_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1match__parser.html#abe7004b623aa9c40b00ea3e2c6ef7a72',1,'thewizardplusplus::wizard_parser::parser::match_parser']]]
 ];

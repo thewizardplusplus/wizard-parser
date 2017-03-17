@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -95,8 +95,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="rule__parser_8hpp_source.html">rule_parser.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="token__group_8hpp_source.html">../lexer/token_group.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="token_8hpp_source.html">../lexer/token.hpp</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="parsing__result_8hpp_source.html">parsing_result.hpp</a>&quot;</code><br/>
+<code>#include &quot;../vendor/gsl/span.hpp&quot;</code><br/>
+<code>#include &lt;cstddef&gt;</code><br/>
 </div>
 <p><a href="repetition__parser_8hpp_source.html">См. исходные тексты.</a></p>
 <table class="memberdecls">
@@ -118,13 +120,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
+<tr class="memitem:a87b5373f4991be9e8cb433e44c5fa231"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a87b5373f4991be9e8cb433e44c5fa231">thewizardplusplus::wizard_parser::parser::rep</a> (rule_parser::pointer parser, const std::size_t minimal_number, const std::size_t maximal_number)</td></tr>
+<tr class="separator:a87b5373f4991be9e8cb433e44c5fa231"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d6fb36a4d54a93adc17c05fcc5e292"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html#a09d6fb36a4d54a93adc17c05fcc5e292">thewizardplusplus::wizard_parser::parser::operators::operator-</a> (rule_parser::pointer parser)</td></tr>
+<tr class="separator:a09d6fb36a4d54a93adc17c05fcc5e292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f2d80a02ec05f09ae120c09329c5a9"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html#a36f2d80a02ec05f09ae120c09329c5a9">thewizardplusplus::wizard_parser::parser::operators::operator*</a> (rule_parser::pointer parser, const std::size_t number)</td></tr>
+<tr class="separator:a36f2d80a02ec05f09ae120c09329c5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a738f237ab8a993284ee0b93a4484726a"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html#a738f237ab8a993284ee0b93a4484726a">thewizardplusplus::wizard_parser::parser::operators::operator*</a> (rule_parser::pointer parser)</td></tr>
 <tr class="separator:a738f237ab8a993284ee0b93a4484726a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a716cbab87eba04ec409f8acd920eef24"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html#a716cbab87eba04ec409f8acd920eef24">thewizardplusplus::wizard_parser::parser::operators::operator+</a> (rule_parser::pointer parser)</td></tr>
+<tr class="separator:a716cbab87eba04ec409f8acd920eef24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

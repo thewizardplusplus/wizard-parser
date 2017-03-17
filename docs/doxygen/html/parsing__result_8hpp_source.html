@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -94,38 +94,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_PARSING_RESULT_HEADER</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ast__node_8hpp.html">ast_node.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../lexer/token_group.hpp&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>thewizardplusplus {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>wizard_parser {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>parser {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">   12</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a975a37bf5499c749a59156a307eebf85">   13</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a975a37bf5499c749a59156a307eebf85">is_parsed</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#af8d4242bf29c61dccacee3f88b0163a3">   14</a></span>&#160;    <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#af8d4242bf29c61dccacee3f88b0163a3">node</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a34452440c291abc6e16a64b5a4a3416a">   15</a></span>&#160;    lexer::token_group::const_iterator <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a34452440c291abc6e16a64b5a4a3416a">last_token</a>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::size_t <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a8c842fa143f5357b156046e02357c605">get_last_token_offset</a>(</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">const</span> lexer::token_group::const_iterator&amp; end</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../lexer/token.hpp&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../vendor/optional.hpp&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../vendor/gsl/span.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>thewizardplusplus {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>wizard_parser {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>parser {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">parsing_result</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a2c79e330425de4354c3a10d0d62d320f">   15</a></span>&#160;    std::experimental::optional&lt;ast_node&gt; <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a2c79e330425de4354c3a10d0d62d320f">node</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#aaf1a25f4d52ceb68b2a56bc18a567e40">   16</a></span>&#160;    gsl::span&lt;lexer::token&gt; <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#aaf1a25f4d52ceb68b2a56bc18a567e40">rest_tokens</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::size_t <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a247f07a55c9f975bebff85882a39ff86">get_last_token_offset</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_af8d4242bf29c61dccacee3f88b0163a3"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#af8d4242bf29c61dccacee3f88b0163a3">thewizardplusplus::wizard_parser::parser::parsing_result::node</a></div><div class="ttdeci">ast_node node</div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:14</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::parser::ast_node</a></div><div class="ttdef"><b>Definition:</b> ast_node.hpp:13</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_a975a37bf5499c749a59156a307eebf85"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a975a37bf5499c749a59156a307eebf85">thewizardplusplus::wizard_parser::parser::parsing_result::is_parsed</a></div><div class="ttdeci">bool is_parsed</div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:13</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_a34452440c291abc6e16a64b5a4a3416a"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a34452440c291abc6e16a64b5a4a3416a">thewizardplusplus::wizard_parser::parser::parsing_result::last_token</a></div><div class="ttdeci">lexer::token_group::const_iterator last_token</div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:15</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_a8c842fa143f5357b156046e02357c605"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a8c842fa143f5357b156046e02357c605">thewizardplusplus::wizard_parser::parser::parsing_result::get_last_token_offset</a></div><div class="ttdeci">std::size_t get_last_token_offset(const lexer::token_group::const_iterator &amp;end) const </div><div class="ttdef"><b>Definition:</b> parsing_result.cpp:10</div></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_a2c79e330425de4354c3a10d0d62d320f"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a2c79e330425de4354c3a10d0d62d320f">thewizardplusplus::wizard_parser::parser::parsing_result::node</a></div><div class="ttdeci">std::experimental::optional&lt; ast_node &gt; node</div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:15</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_a247f07a55c9f975bebff85882a39ff86"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a247f07a55c9f975bebff85882a39ff86">thewizardplusplus::wizard_parser::parser::parsing_result::get_last_token_offset</a></div><div class="ttdeci">std::size_t get_last_token_offset() const </div><div class="ttdef"><b>Definition:</b> parsing_result.cpp:8</div></div>
 <div class="ttc" id="ast__node_8hpp_html"><div class="ttname"><a href="ast__node_8hpp.html">ast_node.hpp</a></div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">thewizardplusplus::wizard_parser::parser::parsing_result</a></div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:12</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html">thewizardplusplus::wizard_parser::parser::parsing_result</a></div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:14</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result_html_aaf1a25f4d52ceb68b2a56bc18a567e40"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#aaf1a25f4d52ceb68b2a56bc18a567e40">thewizardplusplus::wizard_parser::parser::parsing_result::rest_tokens</a></div><div class="ttdeci">gsl::span&lt; lexer::token &gt; rest_tokens</div><div class="ttdef"><b>Definition:</b> parsing_result.hpp:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

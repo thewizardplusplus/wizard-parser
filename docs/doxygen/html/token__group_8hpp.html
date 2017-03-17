@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -95,8 +95,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="token_8hpp_source.html">token.hpp</a>&quot;</code><br/>
-<code>#include &lt;list&gt;</code><br/>
+<code>#include &quot;../vendor/json.hpp&quot;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;ostream&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
 </div>
 <p><a href="token__group_8hpp_source.html">См. исходные тексты.</a></p>
 <table class="memberdecls">
@@ -111,18 +113,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Определения типов</h2></td></tr>
-<tr class="memitem:ae32f97e2e7d34a771276b5d330c4d93c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">thewizardplusplus::wizard_parser::lexer::token_group</a> = std::list&lt; token &gt;</td></tr>
-<tr class="separator:ae32f97e2e7d34a771276b5d330c4d93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48cc53b07bbfe8ca2af2c90c9e8a9f24"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">thewizardplusplus::wizard_parser::lexer::token_group</a> = std::vector&lt; token &gt;</td></tr>
+<tr class="separator:a48cc53b07bbfe8ca2af2c90c9e8a9f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
 <tr class="memitem:a5732b7a0bb53745cc13a917f76cf6e50"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a5732b7a0bb53745cc13a917f76cf6e50">thewizardplusplus::wizard_parser::lexer::operator&lt;&lt;</a> (std::ostream &amp;out, const token_group &amp;tokens)</td></tr>
 <tr class="separator:a5732b7a0bb53745cc13a917f76cf6e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80d7f9e478535445e1e68b1779a4277"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aa80d7f9e478535445e1e68b1779a4277">thewizardplusplus::wizard_parser::lexer::to_string</a> (const token_group &amp;tokens)</td></tr>
+<tr class="separator:aa80d7f9e478535445e1e68b1779a4277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ecce9eb95dcefb1b361790550bd1bcb"><td class="memItemLeft" align="right" valign="top">json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9ecce9eb95dcefb1b361790550bd1bcb">thewizardplusplus::wizard_parser::lexer::to_json</a> (const token_group &amp;tokens)</td></tr>
+<tr class="separator:a9ecce9eb95dcefb1b361790550bd1bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

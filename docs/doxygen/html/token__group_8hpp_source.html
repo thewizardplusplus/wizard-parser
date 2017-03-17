@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -94,28 +94,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKEN_GROUP_HEADER</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="token_8hpp.html">token.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>thewizardplusplus {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>wizard_parser {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>lexer {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">   12</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">token_group</a> = std::list&lt;token&gt;;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../vendor/json.hpp&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>thewizardplusplus {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>wizard_parser {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>lexer {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;std::ostream&amp; <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#af050ac64e66d2ce57b19877c6d99f5d2">operator&lt;&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">token_group</a>&amp; tokens);</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">   14</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> = std::vector&lt;token&gt;;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1lexer_html_af050ac64e66d2ce57b19877c6d99f5d2"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#af050ac64e66d2ce57b19877c6d99f5d2">thewizardplusplus::wizard_parser::lexer::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const token &amp;some_token)</div><div class="ttdef"><b>Definition:</b> token.cpp:10</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;std::ostream&amp; <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#af050ac64e66d2ce57b19877c6d99f5d2">operator&lt;&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a>&amp; tokens);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;std::string <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aca0e94632c71097ee77acdc826960146">to_string</a>(<span class="keyword">const</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a>&amp; tokens);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;nlohmann::json <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aed2defa6927e7c2681dbca78ef728502">to_json</a>(<span class="keyword">const</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a>&amp; tokens);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1lexer_html_af050ac64e66d2ce57b19877c6d99f5d2"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#af050ac64e66d2ce57b19877c6d99f5d2">thewizardplusplus::wizard_parser::lexer::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const token &amp;some_token)</div><div class="ttdef"><b>Definition:</b> token.cpp:9</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1lexer_html_aca0e94632c71097ee77acdc826960146"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aca0e94632c71097ee77acdc826960146">thewizardplusplus::wizard_parser::lexer::to_string</a></div><div class="ttdeci">std::string to_string(const token &amp;some_token)</div><div class="ttdef"><b>Definition:</b> token.cpp:14</div></div>
 <div class="ttc" id="token_8hpp_html"><div class="ttname"><a href="token_8hpp.html">token.hpp</a></div></div>
-<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1lexer_html_ae32f97e2e7d34a771276b5d330c4d93c"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae32f97e2e7d34a771276b5d330c4d93c">thewizardplusplus::wizard_parser::lexer::token_group</a></div><div class="ttdeci">std::list&lt; token &gt; token_group</div><div class="ttdef"><b>Definition:</b> token_group.hpp:12</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1lexer_html_a48cc53b07bbfe8ca2af2c90c9e8a9f24"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">thewizardplusplus::wizard_parser::lexer::token_group</a></div><div class="ttdeci">std::vector&lt; token &gt; token_group</div><div class="ttdef"><b>Definition:</b> token_group.hpp:14</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1lexer_html_aed2defa6927e7c2681dbca78ef728502"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aed2defa6927e7c2681dbca78ef728502">thewizardplusplus::wizard_parser::lexer::to_json</a></div><div class="ttdeci">json to_json(const token &amp;some_token)</div><div class="ttdef"><b>Definition:</b> token.cpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

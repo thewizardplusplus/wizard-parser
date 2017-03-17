@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -95,31 +95,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lift__parser_8hpp.html">lift_parser.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type__assignable__parser_8hpp.html">type_assignable_parser.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ast__node__flag_8hpp.html">ast_node_flag.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flag__assignable__parser_8hpp.html">flag_assignable_parser.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="macroses_8hpp.html#a3753b6793f77321e67c4818d8407b3a1">   10</a></span>&#160;<span class="preprocessor">#define RULE(type) const auto type = \</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">    *std::make_shared&lt; \</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">        thewizardplusplus::wizard_parser::parser::type_assignable_parser \</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    &gt;(#type) = \</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    *std::make_shared&lt;thewizardplusplus::wizard_parser::parser::lift_parser&gt;()</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="macroses_8hpp.html#a270396d2a6de1d962ec4806e555ad025">   15</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IMPORTANT_RULE(type) const auto type = \</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">    *std::make_shared&lt; \</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">        thewizardplusplus::wizard_parser::parser::flag_assignable_parser \</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">    &gt;(thewizardplusplus::wizard_parser::parser::ast_node_flag::important) = \</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">    *std::make_shared&lt; \</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">        thewizardplusplus::wizard_parser::parser::type_assignable_parser \</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">    &gt;(#type)</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="flag__assignable__parser_8hpp_html"><div class="ttname"><a href="flag__assignable__parser_8hpp.html">flag_assignable_parser.hpp</a></div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="important__assignable__parser_8hpp.html">important_assignable_parser.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="macroses_8hpp.html#a3753b6793f77321e67c4818d8407b3a1">    9</a></span>&#160;<span class="preprocessor">#define RULE(type) const auto type = \</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">    *std::make_shared&lt; \</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">        thewizardplusplus::wizard_parser::parser::type_assignable_parser \</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">    &gt;(#type) = \</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    *std::make_shared&lt;thewizardplusplus::wizard_parser::parser::lift_parser&gt;()</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="macroses_8hpp.html#a270396d2a6de1d962ec4806e555ad025">   14</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IMPORTANT_RULE(type) const auto type = \</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">    *std::make_shared&lt; \</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">        thewizardplusplus::wizard_parser::parser::important_assignable_parser \</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">    &gt;() = \</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">    *std::make_shared&lt; \</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">        thewizardplusplus::wizard_parser::parser::type_assignable_parser \</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">    &gt;(#type)</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="lift__parser_8hpp_html"><div class="ttname"><a href="lift__parser_8hpp.html">lift_parser.hpp</a></div></div>
+<div class="ttc" id="important__assignable__parser_8hpp_html"><div class="ttname"><a href="important__assignable__parser_8hpp.html">important_assignable_parser.hpp</a></div></div>
 <div class="ttc" id="type__assignable__parser_8hpp_html"><div class="ttname"><a href="type__assignable__parser_8hpp.html">type_assignable_parser.hpp</a></div></div>
-<div class="ttc" id="ast__node__flag_8hpp_html"><div class="ttname"><a href="ast__node__flag_8hpp.html">ast_node_flag.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

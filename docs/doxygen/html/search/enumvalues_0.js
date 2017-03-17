@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['important',['important',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a48818f3da3d36ad762480b319b56f588',1,'thewizardplusplus::wizard_parser::parser']]]
+  ['by_5ftype',['by_type',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146aabb5c8b00699517bb959b132c3aa540e2',1,'thewizardplusplus::wizard_parser::parser']]],
+  ['by_5fvalue',['by_value',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146aab1fc8b12a2b69b2660923b1c0bf91ec1',1,'thewizardplusplus::wizard_parser::parser']]]
 ];

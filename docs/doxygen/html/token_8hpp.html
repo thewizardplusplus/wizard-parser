@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.0</span>
+   &#160;<span id="projectnumber">v2.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -94,7 +94,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="title">Файл token.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br/>
+<div class="textblock"><code>#include &quot;../vendor/json.hpp&quot;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;cstddef&gt;</code><br/>
 <code>#include &lt;ostream&gt;</code><br/>
 </div>
@@ -118,11 +119,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 Функции</h2></td></tr>
 <tr class="memitem:af050ac64e66d2ce57b19877c6d99f5d2"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#af050ac64e66d2ce57b19877c6d99f5d2">thewizardplusplus::wizard_parser::lexer::operator&lt;&lt;</a> (std::ostream &amp;out, const token &amp;some_token)</td></tr>
 <tr class="separator:af050ac64e66d2ce57b19877c6d99f5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca0e94632c71097ee77acdc826960146"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aca0e94632c71097ee77acdc826960146">thewizardplusplus::wizard_parser::lexer::to_string</a> (const token &amp;some_token)</td></tr>
+<tr class="separator:aca0e94632c71097ee77acdc826960146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2defa6927e7c2681dbca78ef728502"><td class="memItemLeft" align="right" valign="top">json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aed2defa6927e7c2681dbca78ef728502">thewizardplusplus::wizard_parser::lexer::to_json</a> (const token &amp;some_token)</td></tr>
+<tr class="separator:aed2defa6927e7c2681dbca78ef728502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вт 21 Фев 2017 11:31:37. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['concatenation_5fparser',['concatenation_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1concatenation__parser.html',1,'thewizardplusplus::wizard_parser::parser']]]
+  ['dummy_5fparser',['dummy_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1dummy__parser.html',1,'thewizardplusplus::wizard_parser::parser']]]
 ];
