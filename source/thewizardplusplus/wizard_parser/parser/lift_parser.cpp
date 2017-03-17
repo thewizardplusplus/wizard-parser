@@ -2,29 +2,22 @@
 #include "ast_node_flag.hpp"
 #include <utility>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-rule_parser::pointer lift_parser::operator=(rule_parser::pointer parser) {
-	this->parser = std::move(parser);
-	return shared_from_this();
-}
-
-parsing_result lift_parser::parse(const span<token>& tokens) const {
-	auto ast = parser->parse(tokens);
+parsing_result lift_parser::process_parsed_result(parsing_result result) const {
 	if (
-		!ast.node
-		|| ast.node->flags & ast_node_flag::important
-		|| ast.node->children.size() != 1
+		result.node->flags & ast_node_flag::important
+		|| result.node->children.size() != 1
 	) {
-		return ast;
+		return result;
 	}
 
-	return {std::move(ast.node->children.front()), std::move(ast.rest_tokens)};
+	return {
+		std::move(result.node->children.front()),
+		std::move(result.rest_tokens)
+	};
 }
 
 }

@@ -1,5 +1,5 @@
-#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_LIFT_PARSER_HEADER
-#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_LIFT_PARSER_HEADER
+#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_IMPORTANT_ASSIGNABLE_PARSER_HEADER
+#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_IMPORTANT_ASSIGNABLE_PARSER_HEADER
 
 #include "assignable_parser.hpp"
 #include "parsing_result.hpp"
@@ -8,7 +8,7 @@ namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-struct lift_parser final: assignable_parser {
+struct important_assignable_parser final: assignable_parser {
 	using assignable_parser::operator=;
 
 protected:
