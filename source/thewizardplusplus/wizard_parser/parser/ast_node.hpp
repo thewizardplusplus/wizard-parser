@@ -4,7 +4,7 @@
 #include "ast_node_flag.hpp"
 #include "../vendor/json.hpp"
 #include <string>
-#include <list>
+#include <vector>
 #include <ostream>
 
 namespace thewizardplusplus {
@@ -14,7 +14,7 @@ namespace parser {
 struct ast_node {
 	std::string type;
 	std::string value;
-	std::list<ast_node> children;
+	std::vector<ast_node> children;
 	ast_node_flag flags = ast_node_flag::none;
 };
 

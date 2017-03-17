@@ -9,7 +9,7 @@ namespace thewizardplusplus {
 namespace wizard_parser {
 namespace parser {
 
-void append_node(std::list<ast_node>& nodes, ast_node&& node) {
+void append_node(std::vector<ast_node>& nodes, ast_node&& node) {
 	if (node.type == "sequence") {
 		for (auto&& child_node: node.children) {
 			if (ignorable_nodes.count(child_node.type) == 0) {

@@ -2,7 +2,7 @@
 #include "utilities.hpp"
 #include "ast_node.hpp"
 #include <utility>
-#include <list>
+#include <vector>
 #include <memory>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
@@ -31,7 +31,7 @@ parsing_result concatenation_parser::parse(const span<token>& tokens) const {
 		return right_ast;
 	}
 
-	auto nodes = std::list<ast_node>{};
+	auto nodes = std::vector<ast_node>{};
 	append_node(nodes, std::move(*left_ast.node));
 	append_node(nodes, std::move(*right_ast.node));
 

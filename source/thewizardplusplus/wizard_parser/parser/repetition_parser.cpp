@@ -2,7 +2,7 @@
 #include "utilities.hpp"
 #include "ast_node.hpp"
 #include <utility>
-#include <list>
+#include <vector>
 #include <memory>
 #include <limits>
 
@@ -24,7 +24,7 @@ repetition_parser::repetition_parser(
 {}
 
 parsing_result repetition_parser::parse(const span<token>& tokens) const {
-	auto nodes = std::list<ast_node>{};
+	auto nodes = std::vector<ast_node>{};
 	auto rest_tokens = tokens;
 	auto repetition_number = std::size_t{};
 	for (; repetition_number < maximal_number; ++repetition_number) {
