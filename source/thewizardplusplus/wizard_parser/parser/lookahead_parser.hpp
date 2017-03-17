@@ -11,10 +11,7 @@ namespace wizard_parser {
 namespace parser {
 
 struct lookahead_parser final: rule_parser {
-	explicit lookahead_parser(
-		rule_parser::pointer parser,
-		const bool expected_result
-	);
+	lookahead_parser(rule_parser::pointer parser, const bool expected_result);
 	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
 
 private:

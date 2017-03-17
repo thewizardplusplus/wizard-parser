@@ -12,7 +12,7 @@ namespace wizard_parser {
 namespace parser {
 
 struct repetition_parser final: rule_parser {
-	explicit repetition_parser(
+	repetition_parser(
 		rule_parser::pointer parser,
 		const std::size_t minimal_number,
 		const std::size_t maximal_number

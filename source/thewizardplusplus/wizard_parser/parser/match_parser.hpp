@@ -14,7 +14,7 @@ namespace wizard_parser {
 namespace parser {
 
 struct match_parser final: rule_parser {
-	explicit match_parser(const match_type match_kind, std::string sample);
+	match_parser(const match_type match_kind, std::string sample);
 	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
 
 private:
