@@ -5,9 +5,7 @@
 #include <string>
 #include <cstddef>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace utilities {
+namespace thewizardplusplus::wizard_parser::utilities {
 
 struct positional_exception: std::runtime_error {
 	const std::string description;
@@ -16,7 +14,5 @@ struct positional_exception: std::runtime_error {
 	positional_exception(std::string description, const std::size_t offset);
 };
 
-}
-}
 }
 #endif

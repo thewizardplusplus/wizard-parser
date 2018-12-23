@@ -53,9 +53,7 @@ std::optional<token> find_longest_matched_token(
 
 }
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace lexer {
+namespace thewizardplusplus::wizard_parser::lexer {
 
 token_group tokenize(
 	const std::vector<lexeme>& lexemes,
@@ -92,6 +90,4 @@ token_group tokenize(
 	return tokens;
 }
 
-}
-}
 }

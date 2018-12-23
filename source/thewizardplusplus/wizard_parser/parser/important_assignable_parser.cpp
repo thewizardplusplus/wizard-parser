@@ -1,9 +1,7 @@
 #include "important_assignable_parser.hpp"
 #include "ast_node_flag.hpp"
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 parsing_result important_assignable_parser::process_parsed_result(
 	parsing_result result
@@ -12,6 +10,4 @@ parsing_result important_assignable_parser::process_parsed_result(
 	return result;
 }
 
-}
-}
 }

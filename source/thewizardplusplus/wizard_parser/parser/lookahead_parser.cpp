@@ -5,9 +5,7 @@
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace gsl;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 lookahead_parser::lookahead_parser(
 	rule_parser::pointer parser,
@@ -36,7 +34,5 @@ rule_parser::pointer operator!(rule_parser::pointer parser) {
 	return std::make_shared<lookahead_parser>(std::move(parser), false);
 }
 
-}
-}
 }
 }

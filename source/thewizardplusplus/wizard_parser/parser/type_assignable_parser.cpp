@@ -2,9 +2,7 @@
 #include "ast_node_flag.hpp"
 #include <utility>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 type_assignable_parser::type_assignable_parser(std::string type):
 	type{std::move(type)}
@@ -23,6 +21,4 @@ parsing_result type_assignable_parser::process_parsed_result(
 	return result;
 }
 
-}
-}
 }

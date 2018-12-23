@@ -6,9 +6,7 @@
 #include "parsing_result.hpp"
 #include "../vendor/gsl/span.hpp"
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct lookahead_parser final: rule_parser {
 	lookahead_parser(rule_parser::pointer parser, const bool expected_result);
@@ -24,8 +22,6 @@ namespace operators {
 rule_parser::pointer operator&(rule_parser::pointer parser);
 rule_parser::pointer operator!(rule_parser::pointer parser);
 
-}
-}
 }
 }
 #endif

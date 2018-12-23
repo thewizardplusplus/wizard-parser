@@ -4,9 +4,7 @@
 
 using namespace fmt;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace utilities {
+namespace thewizardplusplus::wizard_parser::utilities {
 
 positional_exception::positional_exception(
 	std::string description,
@@ -17,6 +15,4 @@ positional_exception::positional_exception(
 	offset{offset}
 {}
 
-}
-}
 }

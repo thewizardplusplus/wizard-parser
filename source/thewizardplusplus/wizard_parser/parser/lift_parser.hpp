@@ -4,9 +4,7 @@
 #include "assignable_parser.hpp"
 #include "parsing_result.hpp"
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct lift_parser final: assignable_parser {
 	using assignable_parser::operator=;
@@ -15,7 +13,5 @@ protected:
 	parsing_result process_parsed_result(parsing_result result) const override;
 };
 
-}
-}
 }
 #endif

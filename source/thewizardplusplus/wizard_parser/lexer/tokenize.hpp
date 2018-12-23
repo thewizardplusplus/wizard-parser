@@ -8,9 +8,7 @@
 #include <unordered_set>
 #include <string_view>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace lexer {
+namespace thewizardplusplus::wizard_parser::lexer {
 
 token_group tokenize(
 	const std::vector<lexeme>& lexemes,
@@ -18,7 +16,5 @@ token_group tokenize(
 	const std::string_view& code
 );
 
-}
-}
 }
 #endif

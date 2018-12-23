@@ -4,9 +4,7 @@
 
 using namespace nlohmann;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 std::ostream& operator<<(std::ostream& out, const ast_node& ast) {
 	out << to_string(ast);
@@ -36,6 +34,4 @@ json to_json(const ast_node& ast) {
 	return result;
 }
 
-}
-}
 }

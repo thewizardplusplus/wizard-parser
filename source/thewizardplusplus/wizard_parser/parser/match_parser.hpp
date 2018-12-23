@@ -9,9 +9,7 @@
 #include <string>
 #include <cstddef>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct match_parser final: rule_parser {
 	match_parser(const match_type match_kind, std::string sample);
@@ -27,8 +25,6 @@ namespace operators {
 rule_parser::pointer operator""_t(const char* const sample, std::size_t);
 rule_parser::pointer operator""_v(const char* const sample, std::size_t);
 
-}
-}
 }
 }
 #endif

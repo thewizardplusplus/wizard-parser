@@ -7,9 +7,7 @@
 #include "../vendor/gsl/span.hpp"
 #include <cstddef>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct repetition_parser final: rule_parser {
 	repetition_parser(
@@ -43,8 +41,6 @@ rule_parser::pointer operator*(
 rule_parser::pointer operator*(rule_parser::pointer parser);
 rule_parser::pointer operator+(rule_parser::pointer parser);
 
-}
-}
 }
 }
 #endif

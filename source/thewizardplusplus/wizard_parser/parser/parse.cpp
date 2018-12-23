@@ -9,9 +9,7 @@ using namespace thewizardplusplus::wizard_parser::utilities;
 using namespace gsl;
 using namespace fmt;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
@@ -43,6 +41,4 @@ ast_node parse(
 	return parse(rule, tokens, code.size());
 }
 
-}
-}
 }

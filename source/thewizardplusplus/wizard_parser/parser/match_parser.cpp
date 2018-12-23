@@ -6,9 +6,7 @@
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace gsl;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 match_parser::match_parser(const match_type match_kind, std::string sample):
 	match_kind{match_kind},
@@ -46,7 +44,5 @@ rule_parser::pointer operator""_v(const char* const sample, std::size_t) {
 	return std::make_shared<match_parser>(match_type::by_value, sample);
 }
 
-}
-}
 }
 }

@@ -5,9 +5,7 @@
 
 const auto ignorable_nodes = std::unordered_set<std::string>{"nothing", "eoi"};
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 void append_node(std::vector<ast_node>& nodes, ast_node&& node) {
 	if (node.type == "sequence") {
@@ -21,6 +19,4 @@ void append_node(std::vector<ast_node>& nodes, ast_node&& node) {
 	}
 }
 
-}
-}
 }

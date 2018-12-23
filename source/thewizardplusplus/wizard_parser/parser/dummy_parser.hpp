@@ -7,9 +7,7 @@
 #include "../vendor/gsl/span.hpp"
 #include <memory>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct dummy_parser final: rule_parser {
 	void set_parser(rule_parser::weak_pointer parser);
@@ -23,7 +21,5 @@ private:
 
 std::shared_ptr<dummy_parser> dummy();
 
-}
-}
 }
 #endif

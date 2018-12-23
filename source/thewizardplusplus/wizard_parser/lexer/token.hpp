@@ -6,9 +6,7 @@
 #include <cstddef>
 #include <ostream>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace lexer {
+namespace thewizardplusplus::wizard_parser::lexer {
 
 struct token {
 	std::string type;
@@ -20,7 +18,5 @@ std::ostream& operator<<(std::ostream& out, const token& some_token);
 std::string to_string(const token& some_token);
 nlohmann::json to_json(const token& some_token);
 
-}
-}
 }
 #endif

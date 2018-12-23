@@ -7,9 +7,7 @@
 #include <cstddef>
 #include <optional>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct parsing_result {
 	std::optional<ast_node> node;
@@ -18,7 +16,5 @@ struct parsing_result {
 	std::size_t get_last_token_offset() const;
 };
 
-}
-}
 }
 #endif

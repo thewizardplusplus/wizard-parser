@@ -1,9 +1,7 @@
 #include "parsing_result.hpp"
 #include <limits>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 std::size_t parsing_result::get_last_token_offset() const {
 	return !this->rest_tokens.empty()
@@ -11,6 +9,4 @@ std::size_t parsing_result::get_last_token_offset() const {
 		: std::numeric_limits<std::size_t>::max();
 }
 
-}
-}
 }

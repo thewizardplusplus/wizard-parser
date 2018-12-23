@@ -1,11 +1,7 @@
 #include "rule_parser.hpp"
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 rule_parser::~rule_parser() {}
 
-}
-}
 }

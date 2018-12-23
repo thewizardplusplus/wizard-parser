@@ -7,9 +7,7 @@
 #include <memory>
 #include <initializer_list>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct rule_parser {
 	using pointer = std::shared_ptr<const rule_parser>;
@@ -22,7 +20,5 @@ struct rule_parser {
 	) const = 0;
 };
 
-}
-}
 }
 #endif

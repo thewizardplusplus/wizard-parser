@@ -4,16 +4,12 @@
 #include <regex>
 #include <string>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace lexer {
+namespace thewizardplusplus::wizard_parser::lexer {
 
 struct lexeme {
 	std::regex pattern;
 	std::string type;
 };
 
-}
-}
 }
 #endif

@@ -7,9 +7,7 @@
 #include <ostream>
 #include <string>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace lexer {
+namespace thewizardplusplus::wizard_parser::lexer {
 
 using token_group = std::vector<token>;
 
@@ -17,7 +15,5 @@ std::ostream& operator<<(std::ostream& out, const token_group& tokens);
 std::string to_string(const token_group& tokens);
 nlohmann::json to_json(const token_group& tokens);
 
-}
-}
 }
 #endif

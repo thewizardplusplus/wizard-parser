@@ -5,9 +5,7 @@
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace gsl;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 parsing_result eoi_parser::parse(const span<token>& tokens) const {
 	if (!tokens.empty()) {
@@ -21,6 +19,4 @@ rule_parser::pointer eoi() {
 	return std::make_shared<eoi_parser>();
 }
 
-}
-}
 }

@@ -11,9 +11,7 @@
 #include <string>
 #include <unordered_set>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
@@ -27,7 +25,5 @@ ast_node parse(
 	std::string code
 );
 
-}
-}
 }
 #endif

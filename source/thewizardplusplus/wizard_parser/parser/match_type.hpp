@@ -3,16 +3,12 @@
 
 #include <cstdint>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 enum class match_type: std::uint8_t {
 	by_type,
 	by_value
 };
 
-}
-}
 }
 #endif

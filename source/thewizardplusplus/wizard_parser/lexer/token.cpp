@@ -2,9 +2,7 @@
 
 using namespace nlohmann;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace lexer {
+namespace thewizardplusplus::wizard_parser::lexer {
 
 std::ostream& operator<<(std::ostream& out, const token& some_token) {
 	out << to_string(some_token);
@@ -22,6 +20,4 @@ json to_json(const token& some_token) {
 	};
 }
 
-}
-}
 }

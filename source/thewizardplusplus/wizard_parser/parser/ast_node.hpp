@@ -7,9 +7,7 @@
 #include <vector>
 #include <ostream>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct ast_node {
 	std::string type;
@@ -22,7 +20,5 @@ std::ostream& operator<<(std::ostream& out, const ast_node& ast);
 std::string to_string(const ast_node& ast);
 nlohmann::json to_json(const ast_node& ast);
 
-}
-}
 }
 #endif

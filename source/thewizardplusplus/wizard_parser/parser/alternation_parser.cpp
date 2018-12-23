@@ -5,9 +5,7 @@
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace gsl;
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 alternation_parser::alternation_parser(
 	rule_parser::pointer left_parser,
@@ -42,7 +40,5 @@ rule_parser::pointer operator|(
 	);
 }
 
-}
-}
 }
 }

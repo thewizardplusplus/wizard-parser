@@ -4,13 +4,9 @@
 #include "ast_node.hpp"
 #include <vector>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 void append_node(std::vector<ast_node>& nodes, ast_node&& node);
 
-}
-}
 }
 #endif

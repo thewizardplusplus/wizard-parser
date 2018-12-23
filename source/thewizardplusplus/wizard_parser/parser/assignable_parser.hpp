@@ -7,9 +7,7 @@
 #include "../vendor/gsl/span.hpp"
 #include <memory>
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct assignable_parser:
 	rule_parser,
@@ -27,7 +25,5 @@ private:
 	rule_parser::pointer parser;
 };
 
-}
-}
 }
 #endif

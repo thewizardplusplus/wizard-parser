@@ -1,8 +1,6 @@
 #include "ast_node_flag.hpp"
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 ast_node_flag operator|(
 	const ast_node_flag flag_1,
@@ -21,6 +19,4 @@ bool operator&(
 		& static_cast<std::uint8_t>(sought_flag);
 }
 
-}
-}
 }

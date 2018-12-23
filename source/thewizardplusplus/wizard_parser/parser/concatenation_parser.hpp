@@ -6,9 +6,7 @@
 #include "parsing_result.hpp"
 #include "../vendor/gsl/span.hpp"
 
-namespace thewizardplusplus {
-namespace wizard_parser {
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 struct concatenation_parser final: rule_parser {
 	concatenation_parser(
@@ -29,8 +27,6 @@ rule_parser::pointer operator>>(
 	rule_parser::pointer right_parser
 );
 
-}
-}
 }
 }
 #endif
