@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Jared Grubb. All rights reserved.
 //
 
-#pragma clang system_header
-
-#ifndef docopt_docopt_util_h
-#define docopt_docopt_util_h
+#ifndef docopt_docopt_util_hpp
+#define docopt_docopt_util_hpp
 
 #if DOCTOPT_USE_BOOST_REGEX
 #include <boost/regex.hpp>
@@ -21,8 +19,10 @@ namespace std {
 #include <regex>
 #endif
 
+#if 0
 #pragma mark -
 #pragma mark General utility
+#endif
 
 namespace {
 	bool starts_with(std::string const& str, std::string const& prefix)

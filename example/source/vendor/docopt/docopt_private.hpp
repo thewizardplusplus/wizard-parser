@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Jared Grubb. All rights reserved.
 //
 
-#pragma clang system_header
-
-#ifndef docopt_docopt_private_h
-#define docopt_docopt_private_h
+#ifndef docopt_docopt_private_hpp
+#define docopt_docopt_private_hpp
 
 #include <vector>
 #include <memory>
@@ -324,8 +322,10 @@ namespace docopt {
 		bool match(PatternList& left, std::vector<std::shared_ptr<LeafPattern>>& collected) const override;
 	};
 
+#if 0
 #pragma mark -
 #pragma mark inline implementations
+#endif
 
 	inline std::vector<LeafPattern*> Pattern::leaves()
 	{

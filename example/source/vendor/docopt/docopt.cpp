@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Jared Grubb. All rights reserved.
 //
 
-#pragma clang diagnostic ignored "-Wmissing-prototypes"
-
 #include "docopt.hpp"
 #include "docopt_util.hpp"
 #include "docopt_private.hpp"
@@ -56,8 +54,10 @@ std::ostream& docopt::operator<<(std::ostream& os, value const& val)
 	return os;
 }
 
+#if 0
 #pragma mark -
 #pragma mark Parsing stuff
+#endif
 
 class Tokens {
 public:
