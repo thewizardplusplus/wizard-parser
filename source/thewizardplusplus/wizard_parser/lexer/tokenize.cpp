@@ -1,16 +1,15 @@
 #include "tokenize.hpp"
 #include "../utilities/positional_exception.hpp"
-#include "../vendor/optional.hpp"
 #include "../vendor/json.hpp"
 #include "../vendor/fmt/format.hpp"
 #include <regex>
 #include <cstddef>
 #include <utility>
+#include <optional>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
 using namespace gsl;
-using namespace std::experimental;
 using namespace nlohmann;
 using namespace fmt;
 
@@ -34,12 +33,12 @@ std::match_results<string_span<>::const_iterator> match_lexeme(
 	return match;
 }
 
-optional<token> find_longest_matched_token(
+std::optional<token> find_longest_matched_token(
 	const std::vector<lexeme>& lexemes,
 	const string_span<>& code,
 	const std::size_t offset
 ) {
-	auto matched_token = optional<token>{};
+	auto matched_token = std::optional<token>{};
 	for (const auto& some_lexeme: lexemes) {
 		const auto match = match_lexeme(some_lexeme, code);
 		if (
