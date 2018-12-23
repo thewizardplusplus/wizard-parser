@@ -1,9 +1,9 @@
 CC BY 4.0
 
-Copyright (C) 2016 thewizardplusplus <thewizardplusplus@yandex.ru>
+Copyright (C) 2015, 2017, 2018 thewizardplusplus <thewizardplusplus@yandex.ru>
 
-This documentation is licensed under a
-Creative Commons Attribution 4.0 International License.
+This documentation is licensed under the Creative Commons Attribution 4.0
+International License.
 
-You should have received a copy of the license along with this
-work. If not, see <http://creativecommons.org/licenses/by/4.0/>.
+You should have received a copy of the license along with this work. If not, see
+<http://creativecommons.org/licenses/by/4.0/>.
