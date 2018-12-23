@@ -28,6 +28,6 @@ if(DOXYGEN_FOUND)
 else()
 	message(
 		WARNING
-		"The Doxygen hasn't been found - the reference manual won't be created"
+		"Doxygen tool not found; therefore, the reference manual won't be generated."
 	)
 endif()
