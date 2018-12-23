@@ -9,22 +9,19 @@
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
-using namespace gsl;
 using namespace nlohmann;
 using namespace fmt;
 
 namespace {
 
-std::match_results<string_span<>::const_iterator> match_lexeme(
+std::match_results<std::string_view::const_iterator> match_lexeme(
 	const lexeme& some_lexeme,
-	const string_span<>& code
+	const std::string_view& code
 ) {
-	auto match = std::match_results<string_span<>::const_iterator>{};
+	auto match = std::match_results<std::string_view::const_iterator>{};
 	std::regex_search(
-		// std::cbegin() returns not constant iterator for gsl::string_span
-		code.cbegin(),
-		// std::cend() returns not constant iterator for gsl::string_span
-		code.cend(),
+		std::cbegin(code),
+		std::cend(code),
 		match,
 		some_lexeme.pattern,
 		std::regex_constants::match_continuous
@@ -35,7 +32,7 @@ std::match_results<string_span<>::const_iterator> match_lexeme(
 
 std::optional<token> find_longest_matched_token(
 	const std::vector<lexeme>& lexemes,
-	const string_span<>& code,
+	const std::string_view& code,
 	const std::size_t offset
 ) {
 	auto matched_token = std::optional<token>{};
@@ -63,7 +60,7 @@ namespace lexer {
 token_group tokenize(
 	const std::vector<lexeme>& lexemes,
 	const std::unordered_set<std::string>& ignorable_tokens,
-	const string_span<>& code
+	const std::string_view& code
 ) {
 	auto tokens = token_group{};
 	auto rest_code = code;
@@ -84,9 +81,7 @@ token_group tokenize(
 			};
 		}
 
-		rest_code = rest_code.subspan(
-			static_cast<string_span<>::index_type>(matched_token->value.size())
-		);
+		rest_code = rest_code.substr(matched_token->value.size());
 		offset += matched_token->value.size();
 
 		if (ignorable_tokens.count(matched_token->type) == 0) {
