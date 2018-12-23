@@ -3,16 +3,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.6"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Wizard Parser: Исходный файл source/thewizardplusplus/wizard_parser/parser/ast_node.hpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() { searchBox.OnSelectItem(0); });
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,9 +20,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td style="padding-left: 0.5em;">
+  <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.1</span>
+   &#160;<span id="projectnumber">v2.2</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -32,46 +31,28 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.6 -->
+<!-- Создано системой Doxygen 1.8.14 -->
 <script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
 </script>
-  <div id="navrow1" class="tabs">
-    <ul class="tablist">
-      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
-      <li><a href="namespaces.html"><span>Пространства&#160;имен</span></a></li>
-      <li><a href="annotated.html"><span>Классы</span></a></li>
-      <li class="current"><a href="files.html"><span>Файлы</span></a></li>
-      <li>
-        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <img id="MSearchSelect" src="search/mag_sel.png"
-               onmouseover="return searchBox.OnSearchSelectShow()"
-               onmouseout="return searchBox.OnSearchSelectHide()"
-               alt=""/>
-          <input type="text" id="MSearchField" value="Поиск" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
-          </span>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>Файлы</span></a></li>
-      <li><a href="globals.html"><span>Список&#160;членов&#160;всех&#160;файлов</span></a></li>
-    </ul>
-  </div>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Пространства имен</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Определения типов</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Макросы</a></div>
+</div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_6e4fd1e426cd04538e50fb33e55e0d3b.html">source</a></li><li class="navelem"><a class="el" href="dir_4b301999a2a8b999751e7e139902d2d8.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="dir_e84dff02e03b0b04542df0f75fdffab1.html">wizard_parser</a></li><li class="navelem"><a class="el" href="dir_1f08743542fa819d6508418bcdabbbf7.html">parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_3f59cb33ca77b8afa9cb7e595642545b.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="dir_0e8cdca62bc04c6693971f236b26614a.html">wizard_parser</a></li><li class="navelem"><a class="el" href="dir_b173904b4736a5b69c0431da82d76d19.html">parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,51 +71,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="title">ast_node.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="ast__node_8hpp.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ast__node__flag_8hpp.html">ast_node_flag.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../vendor/json.hpp&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>thewizardplusplus {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>wizard_parser {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>parser {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a4ea54e91646824be629e478ede0b614c">   15</a></span>&#160;    std::string <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a4ea54e91646824be629e478ede0b614c">type</a>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761">   16</a></span>&#160;    std::string <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761">value</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a11663057ac9e222e6270dbe5d971960c">   17</a></span>&#160;    std::vector&lt;ast_node&gt; <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a11663057ac9e222e6270dbe5d971960c">children</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ae56b581d91ac5b09e55dc74b778c48af">   18</a></span>&#160;    <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ae56b581d91ac5b09e55dc74b778c48af">flags</a> = <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8">ast_node_flag::none</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;std::ostream&amp; <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">operator&lt;&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&amp; ast);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;std::string <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aeb54d9376069a45465a9f9f4074013eb">to_string</a>(<span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&amp; ast);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;nlohmann::json <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aa1f744482927cb84441dfa1bf26532d3">to_json</a>(<span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&amp; ast);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::parser::ast_node</a></div><div class="ttdef"><b>Definition:</b> ast_node.hpp:14</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_a4ea54e91646824be629e478ede0b614c"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a4ea54e91646824be629e478ede0b614c">thewizardplusplus::wizard_parser::parser::ast_node::type</a></div><div class="ttdeci">std::string type</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:15</div></div>
-<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_aa1f744482927cb84441dfa1bf26532d3"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aa1f744482927cb84441dfa1bf26532d3">thewizardplusplus::wizard_parser::parser::to_json</a></div><div class="ttdeci">json to_json(const ast_node &amp;ast)</div><div class="ttdef"><b>Definition:</b> ast_node.cpp:20</div></div>
-<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_aeb54d9376069a45465a9f9f4074013eb"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aeb54d9376069a45465a9f9f4074013eb">thewizardplusplus::wizard_parser::parser::to_string</a></div><div class="ttdeci">std::string to_string(const ast_node &amp;ast)</div><div class="ttdef"><b>Definition:</b> ast_node.cpp:16</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_a11663057ac9e222e6270dbe5d971960c"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a11663057ac9e222e6270dbe5d971960c">thewizardplusplus::wizard_parser::parser::ast_node::children</a></div><div class="ttdeci">std::vector&lt; ast_node &gt; children</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:17</div></div>
-<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_acb3742008bba474c8ad9848f3b38a0d8"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">thewizardplusplus::wizard_parser::parser::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const ast_node &amp;ast)</div><div class="ttdef"><b>Definition:</b> ast_node.cpp:11</div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_ae56b581d91ac5b09e55dc74b778c48af"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ae56b581d91ac5b09e55dc74b778c48af">thewizardplusplus::wizard_parser::parser::ast_node::flags</a></div><div class="ttdeci">ast_node_flag flags</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:18</div></div>
-<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_a89bcb273786c26d6cdff5f37dfa59995"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">thewizardplusplus::wizard_parser::parser::ast_node_flag</a></div><div class="ttdeci">ast_node_flag</div><div class="ttdef"><b>Definition:</b> ast_node_flag.hpp:10</div></div>
+<a href="ast__node_8hpp.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ast__node__flag_8hpp.html">ast_node_flag.hpp</a>&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../vendor/json.hpp&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a> {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">   12</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> {</div><div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a4ea54e91646824be629e478ede0b614c">   13</a></span>&#160;    std::string <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a4ea54e91646824be629e478ede0b614c">type</a>;</div><div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761">   14</a></span>&#160;    std::string <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761">value</a>;</div><div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a11663057ac9e222e6270dbe5d971960c">   15</a></span>&#160;    std::vector&lt;ast_node&gt; <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a11663057ac9e222e6270dbe5d971960c">children</a>;</div><div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ae56b581d91ac5b09e55dc74b778c48af">   16</a></span>&#160;    <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">ast_node_flag</a> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ae56b581d91ac5b09e55dc74b778c48af">flags</a> = <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8">ast_node_flag::none</a>;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;std::ostream&amp; <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">operator&lt;&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&amp; ast);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;std::string <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aeb54d9376069a45465a9f9f4074013eb">to_string</a>(<span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&amp; ast);</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;nlohmann::json <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aa1f744482927cb84441dfa1bf26532d3">to_json</a>(<span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&amp; ast);</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::parser::ast_node</a></div><div class="ttdef"><b>Definition:</b> ast_node.hpp:12</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_a4ea54e91646824be629e478ede0b614c"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a4ea54e91646824be629e478ede0b614c">thewizardplusplus::wizard_parser::parser::ast_node::type</a></div><div class="ttdeci">std::string type</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:13</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_aa1f744482927cb84441dfa1bf26532d3"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aa1f744482927cb84441dfa1bf26532d3">thewizardplusplus::wizard_parser::parser::to_json</a></div><div class="ttdeci">json to_json(const ast_node &amp;ast)</div><div class="ttdef"><b>Definition:</b> ast_node.cpp:18</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_aeb54d9376069a45465a9f9f4074013eb"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aeb54d9376069a45465a9f9f4074013eb">thewizardplusplus::wizard_parser::parser::to_string</a></div><div class="ttdeci">std::string to_string(const ast_node &amp;ast)</div><div class="ttdef"><b>Definition:</b> ast_node.cpp:14</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_a11663057ac9e222e6270dbe5d971960c"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a11663057ac9e222e6270dbe5d971960c">thewizardplusplus::wizard_parser::parser::ast_node::children</a></div><div class="ttdeci">std::vector&lt; ast_node &gt; children</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:15</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_acb3742008bba474c8ad9848f3b38a0d8"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">thewizardplusplus::wizard_parser::parser::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const ast_node &amp;ast)</div><div class="ttdef"><b>Definition:</b> ast_node.cpp:9</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_ae56b581d91ac5b09e55dc74b778c48af"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ae56b581d91ac5b09e55dc74b778c48af">thewizardplusplus::wizard_parser::parser::ast_node::flags</a></div><div class="ttdeci">ast_node_flag flags</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:16</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></div><div class="ttdef"><b>Definition:</b> alternation_parser.cpp:8</div></div>
+<div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_a89bcb273786c26d6cdff5f37dfa59995"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">thewizardplusplus::wizard_parser::parser::ast_node_flag</a></div><div class="ttdeci">ast_node_flag</div><div class="ttdef"><b>Definition:</b> ast_node_flag.hpp:8</div></div>
 <div class="ttc" id="ast__node__flag_8hpp_html"><div class="ttname"><a href="ast__node__flag_8hpp.html">ast_node_flag.hpp</a></div></div>
 <div class="ttc" id="namespacethewizardplusplus_1_1wizard__parser_1_1parser_html_a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8">thewizardplusplus::wizard_parser::parser::ast_node_flag::none</a></div></div>
-<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_acd9117af4ae864518668035949b3d761"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761">thewizardplusplus::wizard_parser::parser::ast_node::value</a></div><div class="ttdeci">std::string value</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:16</div></div>
+<div class="ttc" id="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html_acd9117af4ae864518668035949b3d761"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761">thewizardplusplus::wizard_parser::parser::ast_node::value</a></div><div class="ttdeci">std::string value</div><div class="ttdef"><b>Definition:</b> ast_node.hpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Пт 17 Мар 2017 21:26:44. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Сб 1 Дек 2018 13:48:15. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.6
+</a> 1.8.14
 </small></address>
 </body>
 </html>
