@@ -14,34 +14,28 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#pragma once
-
 #ifndef GSL_UTIL_H
 #define GSL_UTIL_H
 
-#include "gsl_assert.hpp" // Ensures/Expects
+#include "gsl_assert.hpp" // for Expects
+
 #include <array>
-#include <exception>
-#include <type_traits>
-#include <utility>
+#include <cstddef>          // for ptrdiff_t, size_t
+#include <exception>        // for exception
+#include <initializer_list> // for initializer_list
+#include <type_traits>      // for is_signed, integral_constant
+#include <utility>          // for forward
 
 #if defined(_MSC_VER)
- #pragma warning(push)
- #pragma warning(disable : 4127) // conditional expression is constant
 
- #if _MSC_VER < 1910
-  #pragma push_macro("constexpr")
-  #define constexpr /*constexpr*/
-  // MSVC 2013 workarounds
-  #if _MSC_VER <= 1800
-   // noexcept is not understood
-   #pragma push_macro("noexcept")
-   #define noexcept /*noexcept*/
-   // turn off some misguided warnings
-   #pragma warning(disable : 4351) // warns about newly introduced aggregate initializer behavior
-  #endif // _MSC_VER <= 1800
- #endif // _MSC_VER < 1910
-#endif // _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4127) // conditional expression is constant
+
+#if _MSC_VER < 1910
+#pragma push_macro("constexpr")
+#define constexpr /*constexpr*/
+#endif            // _MSC_VER < 1910
+#endif            // _MSC_VER
 
 namespace gsl
 {
@@ -49,58 +43,56 @@ namespace gsl
 // GSL.util: utilities
 //
 
-// final_act allows you to ensure something gets run at the end of a scope
+// index type for all container indexes/subscripts/sizes
+using index = std::ptrdiff_t;
+
+// final_action allows you to ensure something gets run at the end of a scope
 template <class F>
-class final_act
+class final_action
 {
 public:
-    explicit final_act(F f) noexcept : f_(std::move(f)), invoke_(true) {}
+    explicit final_action(F f) noexcept : f_(std::move(f)) {}
 
-    final_act(final_act&& other) noexcept : f_(std::move(other.f_)), invoke_(other.invoke_)
+    final_action(final_action&& other) noexcept : f_(std::move(other.f_)), invoke_(other.invoke_)
     {
         other.invoke_ = false;
     }
 
-    final_act(const final_act&) = delete;
-    final_act& operator=(const final_act&) = delete;
+    final_action(const final_action&) = delete;
+    final_action& operator=(const final_action&) = delete;
+    final_action& operator=(final_action&&) = delete;
 
-    ~final_act() noexcept
+    GSL_SUPPRESS(f.6) // NO-FORMAT: attribute // terminate if throws
+    ~final_action() noexcept
     {
         if (invoke_) f_();
     }
 
 private:
     F f_;
-    bool invoke_;
+    bool invoke_{true};
 };
 
-// finally() - convenience function to generate a final_act
+// finally() - convenience function to generate a final_action
 template <class F>
-inline final_act<F> finally(const F& f) noexcept
+final_action<F> finally(const F& f) noexcept
 {
-    return final_act<F>(f);
+    return final_action<F>(f);
 }
 
 template <class F>
-inline final_act<F> finally(F&& f) noexcept
+final_action<F> finally(F&& f) noexcept
 {
-    return final_act<F>(std::forward<F>(f));
+    return final_action<F>(std::forward<F>(f));
 }
 
 // narrow_cast(): a searchable way to do narrowing casts of values
-#if defined(_MSC_VER) && _MSC_VER <= 1800
 template <class T, class U>
-inline constexpr T narrow_cast(U u) noexcept
-{
-    return static_cast<T>(u);
-}
-#else
-template <class T, class U>
-inline constexpr T narrow_cast(U&& u) noexcept
+GSL_SUPPRESS(type.1) // NO-FORMAT: attribute
+constexpr T narrow_cast(U&& u) noexcept
 {
     return static_cast<T>(std::forward<U>(u));
 }
-#endif
 
 struct narrowing_error : public std::exception
 {
@@ -113,63 +105,62 @@ namespace details
         : public std::integral_constant<bool, std::is_signed<T>::value == std::is_signed<U>::value>
     {
     };
-}
+} // namespace details
 
 // narrow() : a checked version of narrow_cast() that throws if the cast changed the value
 template <class T, class U>
-inline T narrow(U u)
+GSL_SUPPRESS(type.1) // NO-FORMAT: attribute
+GSL_SUPPRESS(f.6) // NO-FORMAT: attribute // TODO: MSVC /analyze does not recognise noexcept(false)
+T narrow(U u) noexcept(false)
 {
     T t = narrow_cast<T>(u);
-    if (static_cast<U>(t) != u) throw narrowing_error();
+    if (static_cast<U>(t) != u) gsl::details::throw_exception(narrowing_error());
     if (!details::is_same_signedness<T, U>::value && ((t < T{}) != (u < U{})))
-        throw narrowing_error();
+        gsl::details::throw_exception(narrowing_error());
     return t;
 }
 
 //
-// at() - Bounds-checked way of accessing static arrays, std::array, std::vector
+// at() - Bounds-checked way of accessing builtin arrays, std::array, std::vector
 //
 template <class T, std::size_t N>
-inline constexpr T& at(T (&arr)[N], std::ptrdiff_t index)
+GSL_SUPPRESS(bounds.4) // NO-FORMAT: attribute
+GSL_SUPPRESS(bounds.2) // NO-FORMAT: attribute
+constexpr T& at(T (&arr)[N], const index i)
 {
-    Expects(index >= 0 && index < narrow_cast<std::ptrdiff_t>(N));
-    return arr[static_cast<std::size_t>(index)];
-}
-
-template <class T, std::size_t N>
-inline constexpr T& at(std::array<T, N>& arr, std::ptrdiff_t index)
-{
-    Expects(index >= 0 && index < narrow_cast<std::ptrdiff_t>(N));
-    return arr[static_cast<std::size_t>(index)];
+    Expects(i >= 0 && i < narrow_cast<index>(N));
+    return arr[narrow_cast<std::size_t>(i)];
 }
 
 template <class Cont>
-inline constexpr typename Cont::value_type& at(Cont& cont, std::ptrdiff_t index)
+GSL_SUPPRESS(bounds.4) // NO-FORMAT: attribute
+GSL_SUPPRESS(bounds.2) // NO-FORMAT: attribute
+constexpr auto at(Cont& cont, const index i) -> decltype(cont[cont.size()])
 {
-    Expects(index >= 0 && index < narrow_cast<std::ptrdiff_t>(cont.size()));
-    return cont[static_cast<typename Cont::size_type>(index)];
+    Expects(i >= 0 && i < narrow_cast<index>(cont.size()));
+    using size_type = decltype(cont.size());
+    return cont[narrow_cast<size_type>(i)];
 }
 
 template <class T>
-inline constexpr const T& at(std::initializer_list<T> cont, std::ptrdiff_t index)
+GSL_SUPPRESS(bounds.1) // NO-FORMAT: attribute
+constexpr T at(const std::initializer_list<T> cont, const index i)
 {
-    Expects(index >= 0 && index < narrow_cast<std::ptrdiff_t>(cont.size()));
-    return *(cont.begin() + index);
+    Expects(i >= 0 && i < narrow_cast<index>(cont.size()));
+    return *(cont.begin() + i);
 }
 
 } // namespace gsl
 
 #if defined(_MSC_VER)
- #if _MSC_VER < 1910
-  #undef constexpr
-  #pragma pop_macro("constexpr")
+#if _MSC_VER < 1910
+#undef constexpr
+#pragma pop_macro("constexpr")
 
-  #if _MSC_VER <= 1800
-   #undef noexcept
-   #pragma pop_macro("noexcept")
-  #endif // _MSC_VER <= 1800
- #endif // _MSC_VER < 1910
- #pragma warning(pop)
+#endif // _MSC_VER < 1910
+
+#pragma warning(pop)
+
 #endif // _MSC_VER
 
 #endif // GSL_UTIL_H
