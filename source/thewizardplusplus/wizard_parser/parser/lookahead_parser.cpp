@@ -4,8 +4,8 @@
 namespace thewizardplusplus::wizard_parser::parser {
 
 lookahead_parser::lookahead_parser(
-	rule_parser::pointer parser,
-	const bool expected_result
+	const rule_parser::pointer& parser,
+	const bool& expected_result
 ):
 	parser{parser},
 	expected_result{expected_result}
@@ -22,11 +22,11 @@ parsing_result lookahead_parser::parse(const lexer::token_span& tokens) const {
 
 namespace operators {
 
-rule_parser::pointer operator&(rule_parser::pointer parser) {
+rule_parser::pointer operator&(const rule_parser::pointer& parser) {
 	return std::make_shared<lookahead_parser>(parser, true);
 }
 
-rule_parser::pointer operator!(rule_parser::pointer parser) {
+rule_parser::pointer operator!(const rule_parser::pointer& parser) {
 	return std::make_shared<lookahead_parser>(parser, false);
 }
 

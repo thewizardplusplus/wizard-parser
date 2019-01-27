@@ -7,7 +7,10 @@
 namespace thewizardplusplus::wizard_parser::parser {
 
 struct lookahead_parser final: rule_parser {
-	lookahead_parser(rule_parser::pointer parser, const bool expected_result);
+	lookahead_parser(
+		const rule_parser::pointer& parser,
+		const bool& expected_result
+	);
 	parsing_result parse(const lexer::token_span& tokens) const override;
 
 private:
@@ -17,9 +20,10 @@ private:
 
 namespace operators {
 
-rule_parser::pointer operator&(rule_parser::pointer parser);
-rule_parser::pointer operator!(rule_parser::pointer parser);
+rule_parser::pointer operator&(const rule_parser::pointer& parser);
+rule_parser::pointer operator!(const rule_parser::pointer& parser);
 
 }
+
 }
 #endif

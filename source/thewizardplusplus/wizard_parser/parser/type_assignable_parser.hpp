@@ -10,10 +10,12 @@ namespace thewizardplusplus::wizard_parser::parser {
 struct type_assignable_parser final: assignable_parser {
 	using assignable_parser::operator=;
 
-	explicit type_assignable_parser(std::string type);
+	explicit type_assignable_parser(const std::string& type);
 
 protected:
-	parsing_result process_parsed_result(parsing_result result) const override;
+	parsing_result process_parsed_result(
+		const parsing_result& result
+	) const override;
 
 private:
 	const std::string type;

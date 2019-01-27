@@ -2,7 +2,9 @@
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-rule_parser::pointer assignable_parser::operator=(rule_parser::pointer parser) {
+rule_parser::pointer assignable_parser::operator=(
+	const rule_parser::pointer& parser
+) {
 	this->parser = parser;
 	return shared_from_this();
 }

@@ -6,8 +6,8 @@
 namespace thewizardplusplus::wizard_parser::parser {
 
 concatenation_parser::concatenation_parser(
-	rule_parser::pointer left_parser,
-	rule_parser::pointer right_parser
+	const rule_parser::pointer& left_parser,
+	const rule_parser::pointer& right_parser
 ):
 	left_parser{left_parser},
 	right_parser{right_parser}
@@ -36,8 +36,8 @@ parsing_result concatenation_parser::parse(
 namespace operators {
 
 rule_parser::pointer operator>>(
-	rule_parser::pointer left_parser,
-	rule_parser::pointer right_parser
+	const rule_parser::pointer& left_parser,
+	const rule_parser::pointer& right_parser
 ) {
 	return std::make_shared<concatenation_parser>(left_parser, right_parser);
 }

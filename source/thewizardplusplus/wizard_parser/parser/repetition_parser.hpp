@@ -9,9 +9,9 @@ namespace thewizardplusplus::wizard_parser::parser {
 
 struct repetition_parser final: rule_parser {
 	repetition_parser(
-		rule_parser::pointer parser,
-		const std::size_t minimal_number,
-		const std::size_t maximal_number
+		const rule_parser::pointer& parser,
+		const std::size_t& minimal_number,
+		const std::size_t& maximal_number
 	);
 	virtual parsing_result parse(
 		const lexer::token_span& tokens
@@ -25,10 +25,11 @@ private:
 
 namespace operators {
 
-rule_parser::pointer operator-(rule_parser::pointer parser);
-rule_parser::pointer operator*(rule_parser::pointer parser);
-rule_parser::pointer operator+(rule_parser::pointer parser);
+rule_parser::pointer operator-(const rule_parser::pointer& parser);
+rule_parser::pointer operator*(const rule_parser::pointer& parser);
+rule_parser::pointer operator+(const rule_parser::pointer& parser);
 
 }
+
 }
 #endif

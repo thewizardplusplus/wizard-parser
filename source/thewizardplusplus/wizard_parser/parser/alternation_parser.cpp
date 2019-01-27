@@ -4,8 +4,8 @@
 namespace thewizardplusplus::wizard_parser::parser {
 
 alternation_parser::alternation_parser(
-	rule_parser::pointer left_parser,
-	rule_parser::pointer right_parser
+	const rule_parser::pointer& left_parser,
+	const rule_parser::pointer& right_parser
 ):
 	left_parser{left_parser},
 	right_parser{right_parser}
@@ -21,8 +21,8 @@ parsing_result alternation_parser::parse(
 namespace operators {
 
 rule_parser::pointer operator|(
-	rule_parser::pointer left_parser,
-	rule_parser::pointer right_parser
+	const rule_parser::pointer& left_parser,
+	const rule_parser::pointer& right_parser
 ) {
 	return std::make_shared<alternation_parser>(left_parser, right_parser);
 }

@@ -10,7 +10,9 @@ struct lift_parser final: assignable_parser {
 	using assignable_parser::operator=;
 
 protected:
-	parsing_result process_parsed_result(parsing_result result) const override;
+	parsing_result process_parsed_result(
+		const parsing_result& result
+	) const override;
 };
 
 }

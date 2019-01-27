@@ -8,8 +8,8 @@ namespace thewizardplusplus::wizard_parser::parser {
 
 struct exception_parser final: rule_parser {
 	exception_parser(
-		rule_parser::pointer left_parser,
-		rule_parser::pointer right_parser
+		const rule_parser::pointer& left_parser,
+		const rule_parser::pointer& right_parser
 	);
 	parsing_result parse(const lexer::token_span& tokens) const override;
 
@@ -21,10 +21,11 @@ private:
 namespace operators {
 
 rule_parser::pointer operator-(
-	rule_parser::pointer left_parser,
-	rule_parser::pointer right_parser
+	const rule_parser::pointer& left_parser,
+	const rule_parser::pointer& right_parser
 );
 
 }
+
 }
 #endif
