@@ -3,7 +3,6 @@
 
 #include "ast_node.hpp"
 #include "../lexer/token.hpp"
-#include <cstddef>
 #include <optional>
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -11,8 +10,6 @@ namespace thewizardplusplus::wizard_parser::parser {
 struct parsing_result {
 	std::optional<ast_node> node;
 	lexer::token_span rest_tokens;
-
-	std::size_t get_last_token_offset() const;
 };
 
 }

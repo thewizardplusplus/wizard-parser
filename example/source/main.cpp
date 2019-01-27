@@ -58,8 +58,8 @@ rule_parser::pointer make_atom_parser(const rule_parser::pointer& expression) {
 		-(expression % &","_v)
 	>> &")"_v;
 	return number_constant
-		| identifier
 		| function_call
+		| identifier
 		| (&"("_v >> expression >> &")"_v);
 }
 
