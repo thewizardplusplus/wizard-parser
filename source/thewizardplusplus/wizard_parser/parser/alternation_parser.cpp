@@ -1,5 +1,4 @@
 #include "alternation_parser.hpp"
-#include <utility>
 #include <memory>
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -8,8 +7,8 @@ alternation_parser::alternation_parser(
 	rule_parser::pointer left_parser,
 	rule_parser::pointer right_parser
 ):
-	left_parser{std::move(left_parser)},
-	right_parser{std::move(right_parser)}
+	left_parser{left_parser},
+	right_parser{right_parser}
 {}
 
 parsing_result alternation_parser::parse(
@@ -25,11 +24,9 @@ rule_parser::pointer operator|(
 	rule_parser::pointer left_parser,
 	rule_parser::pointer right_parser
 ) {
-	return std::make_shared<alternation_parser>(
-		std::move(left_parser),
-		std::move(right_parser)
-	);
+	return std::make_shared<alternation_parser>(left_parser, right_parser);
 }
 
 }
+
 }

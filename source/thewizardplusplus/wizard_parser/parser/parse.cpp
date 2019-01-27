@@ -1,7 +1,7 @@
 #include "parse.hpp"
 #include "../utilities/unexpected_token_exception.hpp"
 #include "../utilities/unexpected_eoi_exception.hpp"
-#include <limits>
+#include "common.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -14,9 +14,7 @@ ast_node parse(
 		if (!ast.rest_tokens.empty()) {
 			throw utilities::unexpected_token_exception{ast.rest_tokens[0].offset};
 		} else {
-			throw utilities::unexpected_eoi_exception{
-				std::numeric_limits<std::size_t>::max()
-			};
+			throw utilities::unexpected_eoi_exception{integral_infinity};
 		}
 	}
 

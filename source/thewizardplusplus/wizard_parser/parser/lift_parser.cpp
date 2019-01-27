@@ -1,6 +1,5 @@
 #include "lift_parser.hpp"
 #include "ast_node.hpp"
-#include <utility>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -12,10 +11,7 @@ parsing_result lift_parser::process_parsed_result(parsing_result result) const {
 		return result;
 	}
 
-	return {
-		std::move(result.node->children.front()),
-		std::move(result.rest_tokens)
-	};
+	return {result.node->children.front(), result.rest_tokens};
 }
 
 }

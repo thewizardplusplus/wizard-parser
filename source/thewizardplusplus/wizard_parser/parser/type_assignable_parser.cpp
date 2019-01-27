@@ -1,12 +1,9 @@
 #include "type_assignable_parser.hpp"
 #include "ast_node.hpp"
-#include <utility>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-type_assignable_parser::type_assignable_parser(std::string type):
-	type{std::move(type)}
-{}
+type_assignable_parser::type_assignable_parser(std::string type): type{type} {}
 
 parsing_result type_assignable_parser::process_parsed_result(
 	parsing_result result
