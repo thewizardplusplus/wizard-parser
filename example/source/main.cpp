@@ -55,7 +55,7 @@ const auto lexemes = lexeme_group{
 	{std::regex{R"(\()"}, "opening_parenthesis"},
 	{std::regex{R"(\))"}, "closing_parenthesis"},
 	{std::regex{","}, "comma"},
-	{std::regex{R"(\d+(?:\.\d+)?(?:e-?\d+)?)"}, "number_constant"},
+	{std::regex{R"(\d+(?:\.\d+)?(?:e-?\d+)?)"}, "number"},
 	{std::regex{R"([A-Za-z_]\w*)"}, "base_identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
@@ -93,13 +93,13 @@ void stop(const int& code, std::ostream& stream, const std::string& message) {
 
 rule_parser::pointer make_parser() {
 	const auto expression_dummy = dummy();
-	RULE(number_constant) = "number_constant"_t;
-	RULE(key_words) = "and"_v | "not"_v | "or"_v;
+	RULE(number) = "number"_t;
+	RULE(key_words) = "not"_v | "and"_v | "or"_v;
 	RULE(identifier) = "base_identifier"_t - key_words;
 	IMPORTANT_RULE(function_call) = identifier >> &"("_v >>
 		-(expression_dummy >> *(&","_v >> expression_dummy))
 	>> &")"_v;
-	RULE(atom) = number_constant
+	RULE(atom) = number
 		| function_call
 		| identifier
 		| (&"("_v >> expression_dummy >> &")"_v);

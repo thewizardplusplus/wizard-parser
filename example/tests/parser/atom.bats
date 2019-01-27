@@ -2,9 +2,9 @@ load "../common/io_test"
 
 declare -gra OPTIONS=("--stdin")
 
-@test "parser: number_constant" {
+@test "parser: number" {
 	declare -r INPUT="5"
-	declare -r OUTPUT='{"type": "number_constant", "value": "5"}'
+	declare -r OUTPUT='{"type": "number", "value": "5"}'
 	io_test
 }
 
@@ -29,7 +29,7 @@ declare -gra OPTIONS=("--stdin")
 		"type": "function_call",
 		"children": [
 			{"type": "identifier", "value": "test"},
-			{"type": "number_constant", "value": "5"}
+			{"type": "number", "value": "5"}
 		]
 	}'
 	io_test
@@ -41,8 +41,8 @@ declare -gra OPTIONS=("--stdin")
 		"type": "function_call",
 		"children": [
 			{"type": "identifier", "value": "test"},
-			{"type": "number_constant", "value": "5"},
-			{"type": "number_constant", "value": "12"}
+			{"type": "number", "value": "5"},
+			{"type": "number", "value": "12"}
 		]
 	}'
 	io_test
@@ -54,9 +54,9 @@ declare -gra OPTIONS=("--stdin")
 		"type": "function_call",
 		"children": [
 			{"type": "identifier", "value": "test"},
-			{"type": "number_constant", "value": "5"},
-			{"type": "number_constant", "value": "12"},
-			{"type": "number_constant", "value": "23"}
+			{"type": "number", "value": "5"},
+			{"type": "number", "value": "12"},
+			{"type": "number", "value": "23"}
 		]
 	}'
 	io_test
@@ -64,6 +64,6 @@ declare -gra OPTIONS=("--stdin")
 
 @test "parser: atom, with a grouping" {
 	declare -r INPUT="(5)"
-	declare -r OUTPUT='{"type": "number_constant", "value": "5"}'
+	declare -r OUTPUT='{"type": "number", "value": "5"}'
 	io_test
 }
