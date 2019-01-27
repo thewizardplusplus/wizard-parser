@@ -1,7 +1,7 @@
 #include "positional_exception.hpp"
 #include "../vendor/fmt/format.hpp"
 
-namespace thewizardplusplus::wizard_parser::utilities {
+namespace thewizardplusplus::wizard_parser::exceptions {
 
 positional_exception::positional_exception(
 	const std::string& description,

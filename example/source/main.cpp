@@ -12,7 +12,7 @@
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
-#include <thewizardplusplus/wizard_parser/utilities/unexpected_entity_exception.hpp>
+#include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <regex>
 #include <vector>
 #include <string>
@@ -24,7 +24,7 @@
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
-using namespace thewizardplusplus::wizard_parser::utilities;
+using namespace thewizardplusplus::wizard_parser::exceptions;
 
 const auto usage =
 R"(Usage:

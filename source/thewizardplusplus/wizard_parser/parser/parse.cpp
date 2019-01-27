@@ -1,5 +1,5 @@
 #include "parse.hpp"
-#include "../utilities/unexpected_entity_exception.hpp"
+#include "../exceptions/unexpected_entity_exception.hpp"
 #include "common.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -10,7 +10,7 @@ ast_node parse(
 ) {
 	const auto ast = rule->parse(tokens);
 	if (!ast.node) {
-		using namespace utilities;
+		using namespace exceptions;
 
 		if (!ast.rest_tokens.empty()) {
 			throw unexpected_entity_exception<entity_type::token>{

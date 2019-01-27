@@ -1,5 +1,5 @@
-#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_UTILITIES_UNEXPECTED_ENTITY_EXCEPTION_HEADER
-#define THEWIZARDPLUSPLUS_WIZARD_PARSER_UTILITIES_UNEXPECTED_ENTITY_EXCEPTION_HEADER
+#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_EXCEPTIONS_UNEXPECTED_ENTITY_EXCEPTION_HEADER
+#define THEWIZARDPLUSPLUS_WIZARD_PARSER_EXCEPTIONS_UNEXPECTED_ENTITY_EXCEPTION_HEADER
 
 #include "positional_exception.hpp"
 #include "../vendor/better-enums/enum_strict.hpp"
@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace thewizardplusplus::wizard_parser::utilities {
+namespace thewizardplusplus::wizard_parser::exceptions {
 
 BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi)
 
