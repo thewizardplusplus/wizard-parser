@@ -1,5 +1,5 @@
 #include "lift_parser.hpp"
-#include "ast_node_flag.hpp"
+#include "ast_node.hpp"
 #include <utility>
 
 namespace thewizardplusplus::wizard_parser::parser {
