@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/ast_node.hpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.2</span>
+   &#160;<span id="projectnumber">v3.0</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -31,7 +31,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.14 -->
+<!-- Создано системой Doxygen 1.8.16 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
@@ -70,44 +70,59 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Классы</a> &#124;
 <a href="#namespaces">Пространства имен</a> &#124;
-<a href="#func-members">Функции</a>  </div>
+<a href="#typedef-members">Определения типов</a> &#124;
+<a href="#enum-members">Перечисления</a>  </div>
   <div class="headertitle">
 <div class="title">Файл ast_node.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="ast__node__flag_8hpp_source.html">ast_node_flag.hpp</a>&quot;</code><br />
-<code>#include &quot;../vendor/json.hpp&quot;</code><br />
+<div class="textblock"><code>#include &quot;../vendor/better-enums/enum_strict.hpp&quot;</code><br />
+<code>#include &quot;../vendor/enum-flags/flags.hpp&quot;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;ostream&gt;</code><br />
 </div>
 <p><a href="ast__node_8hpp_source.html">См. исходные тексты.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Классы</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::parser::ast_node</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser::ast_node</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Пространства имен</h2></td></tr>
+<tr class="memitem:namespacethewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus.html">thewizardplusplus</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser.html">thewizardplusplus::wizard_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus.html">thewizardplusplus::wizard_parser::thewizardplusplus</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser.html">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Функции</h2></td></tr>
-<tr class="memitem:acb3742008bba474c8ad9848f3b38a0d8"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">thewizardplusplus::wizard_parser::parser::operator&lt;&lt;</a> (std::ostream &amp;out, const ast_node &amp;ast)</td></tr>
-<tr class="separator:acb3742008bba474c8ad9848f3b38a0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb54d9376069a45465a9f9f4074013eb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aeb54d9376069a45465a9f9f4074013eb">thewizardplusplus::wizard_parser::parser::to_string</a> (const ast_node &amp;ast)</td></tr>
-<tr class="separator:aeb54d9376069a45465a9f9f4074013eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1f744482927cb84441dfa1bf26532d3"><td class="memItemLeft" align="right" valign="top">json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aa1f744482927cb84441dfa1bf26532d3">thewizardplusplus::wizard_parser::parser::to_json</a> (const ast_node &amp;ast)</td></tr>
-<tr class="separator:aa1f744482927cb84441dfa1bf26532d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Определения типов</h2></td></tr>
+<tr class="memitem:acaad61bb5766df265c82882e44d76678"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser.html#acaad61bb5766df265c82882e44d76678">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser::ast_node_group</a> = std::vector&lt; ast_node &gt;</td></tr>
+<tr class="separator:acaad61bb5766df265c82882e44d76678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Перечисления</h2></td></tr>
+<tr class="memitem:a89bcb273786c26d6cdff5f37dfa59995"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">thewizardplusplus::wizard_parser::parser::ast_node_flag</a> : std::uint8_t { <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8">thewizardplusplus::wizard_parser::parser::ast_node_flag::none</a> = 1 &lt;&lt; 0, 
+<a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a72b49a243cef20220b110e1a0ccbb93c">thewizardplusplus::wizard_parser::parser::ast_node_flag::named</a> = 1 &lt;&lt; 1, 
+<a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a48818f3da3d36ad762480b319b56f588">thewizardplusplus::wizard_parser::parser::ast_node_flag::important</a> = 1 &lt;&lt; 2
+ }</td></tr>
+<tr class="separator:a89bcb273786c26d6cdff5f37dfa59995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Сб 1 Дек 2018 13:48:15. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Сб 26 Янв 2019 02:21:24. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+</a> 1.8.16
 </small></address>
 </body>
 </html>

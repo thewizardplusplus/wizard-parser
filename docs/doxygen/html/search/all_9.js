@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['macroses_2ehpp',['macroses.hpp',['../macroses_8hpp.html',1,'']]],
-  ['match_5fparser',['match_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1match__parser.html',1,'thewizardplusplus::wizard_parser::parser::match_parser'],['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1match__parser.html#abe7004b623aa9c40b00ea3e2c6ef7a72',1,'thewizardplusplus::wizard_parser::parser::match_parser::match_parser()']]],
-  ['match_5fparser_2ecpp',['match_parser.cpp',['../match__parser_8cpp.html',1,'']]],
-  ['match_5fparser_2ehpp',['match_parser.hpp',['../match__parser_8hpp.html',1,'']]],
-  ['match_5ftype',['match_type',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146a',1,'thewizardplusplus::wizard_parser::parser']]],
-  ['match_5ftype_2ehpp',['match_type.hpp',['../match__type_8hpp.html',1,'']]]
+  ['named',['named',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a72b49a243cef20220b110e1a0ccbb93c',1,'thewizardplusplus::wizard_parser::parser']]],
+  ['node',['node',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#ac344425b419e688d0128fb23f50789ef',1,'thewizardplusplus::wizard_parser::parser::parsing_result']]],
+  ['none',['none',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8',1,'thewizardplusplus::wizard_parser::parser']]]
 ];

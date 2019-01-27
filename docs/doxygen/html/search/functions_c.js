@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7erule_5fparser',['~rule_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#a977cf61c23e17be214efcd9547a696f9',1,'thewizardplusplus::wizard_parser::parser::rule_parser']]]
+  ['unexpected_5fentity_5fexception',['unexpected_entity_exception',['../structthewizardplusplus_1_1wizard__parser_1_1exceptions_1_1unexpected__entity__exception.html#a29aaf668373ee8dc83cd550797520f52',1,'thewizardplusplus::wizard_parser::exceptions::unexpected_entity_exception']]]
 ];

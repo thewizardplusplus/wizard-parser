@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Wizard Parser: Пространство имен thewizardplusplus::wizard_parser::lexer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.2</span>
+   &#160;<span id="projectnumber">v3.0</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -31,7 +31,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.14 -->
+<!-- Создано системой Doxygen 1.8.16 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
@@ -85,27 +85,53 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Определения типов</h2></td></tr>
+<tr class="memitem:ae5c9483b6f4d6027f211b6996c713cb7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">lexeme_group</a> = std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt;</td></tr>
+<tr class="separator:ae5c9483b6f4d6027f211b6996c713cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48cc53b07bbfe8ca2af2c90c9e8a9f24"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> = std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &gt;</td></tr>
 <tr class="separator:a48cc53b07bbfe8ca2af2c90c9e8a9f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9250e76585427d276705f23443ac4a55"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9250e76585427d276705f23443ac4a55">token_span</a> = gsl::span&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &gt;</td></tr>
+<tr class="separator:a9250e76585427d276705f23443ac4a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28a58c33229caa9676c886ee36fc8070"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a28a58c33229caa9676c886ee36fc8070">match_t</a> = std::match_results&lt; std::string_view::const_iterator &gt;</td></tr>
+<tr class="separator:a28a58c33229caa9676c886ee36fc8070"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
-<tr class="memitem:af050ac64e66d2ce57b19877c6d99f5d2"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#af050ac64e66d2ce57b19877c6d99f5d2">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &amp;some_token)</td></tr>
-<tr class="separator:af050ac64e66d2ce57b19877c6d99f5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca0e94632c71097ee77acdc826960146"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aca0e94632c71097ee77acdc826960146">to_string</a> (const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &amp;some_token)</td></tr>
-<tr class="separator:aca0e94632c71097ee77acdc826960146"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed2defa6927e7c2681dbca78ef728502"><td class="memItemLeft" align="right" valign="top">json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aed2defa6927e7c2681dbca78ef728502">to_json</a> (const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &amp;some_token)</td></tr>
-<tr class="separator:aed2defa6927e7c2681dbca78ef728502"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5732b7a0bb53745cc13a917f76cf6e50"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a5732b7a0bb53745cc13a917f76cf6e50">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> &amp;tokens)</td></tr>
-<tr class="separator:a5732b7a0bb53745cc13a917f76cf6e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa80d7f9e478535445e1e68b1779a4277"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aa80d7f9e478535445e1e68b1779a4277">to_string</a> (const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> &amp;tokens)</td></tr>
-<tr class="separator:aa80d7f9e478535445e1e68b1779a4277"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ecce9eb95dcefb1b361790550bd1bcb"><td class="memItemLeft" align="right" valign="top">json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9ecce9eb95dcefb1b361790550bd1bcb">to_json</a> (const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> &amp;tokens)</td></tr>
-<tr class="separator:a9ecce9eb95dcefb1b361790550bd1bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a514689b3c29606e7ac67676c4b3dc73d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a514689b3c29606e7ac67676c4b3dc73d">tokenize</a> (const std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt; &amp;lexemes, const std::unordered_set&lt; std::string &gt; &amp;ignorable_tokens, const std::string_view &amp;code)</td></tr>
-<tr class="separator:a514689b3c29606e7ac67676c4b3dc73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a547012401b9285fcc282c8e6aa4296de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a28a58c33229caa9676c886ee36fc8070">match_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a547012401b9285fcc282c8e6aa4296de">match_lexeme</a> (const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &amp;some_lexeme, const std::string_view &amp;code)</td></tr>
+<tr class="separator:a547012401b9285fcc282c8e6aa4296de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fab25b9eda21477a22de0370b726b41"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a6fab25b9eda21477a22de0370b726b41">find_matched_token</a> (const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">lexeme_group</a> &amp;lexemes, const std::string_view &amp;code)</td></tr>
+<tr class="separator:a6fab25b9eda21477a22de0370b726b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d01983f1993b6033f36d81436cf1dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9d01983f1993b6033f36d81436cf1dd3">tokenize</a> (const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">lexeme_group</a> &amp;lexemes, const std::string_view &amp;code, const std::size_t &amp;offset)</td></tr>
+<tr class="separator:a9d01983f1993b6033f36d81436cf1dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Типы</h2>
+<a id="ae5c9483b6f4d6027f211b6996c713cb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c9483b6f4d6027f211b6996c713cb7">&#9670;&nbsp;</a></span>lexeme_group</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">thewizardplusplus::wizard_parser::lexer::lexeme_group</a> = typedef std::vector&lt;<a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a28a58c33229caa9676c886ee36fc8070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a58c33229caa9676c886ee36fc8070">&#9670;&nbsp;</a></span>match_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a28a58c33229caa9676c886ee36fc8070">thewizardplusplus::wizard_parser::lexer::match_t</a> = typedef std::match_results&lt;std::string_view::const_iterator&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a48cc53b07bbfe8ca2af2c90c9e8a9f24"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48cc53b07bbfe8ca2af2c90c9e8a9f24">&#9670;&nbsp;</a></span>token_group</h2>
 
@@ -120,152 +146,32 @@ $(function() {
 
 </div>
 </div>
+<a id="a9250e76585427d276705f23443ac4a55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9250e76585427d276705f23443ac4a55">&#9670;&nbsp;</a></span>token_span</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9250e76585427d276705f23443ac4a55">thewizardplusplus::wizard_parser::lexer::token_span</a> = typedef gsl::span&lt;<a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Функции</h2>
-<a id="af050ac64e66d2ce57b19877c6d99f5d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af050ac64e66d2ce57b19877c6d99f5d2">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[1/2]</span></h2>
+<a id="a6fab25b9eda21477a22de0370b726b41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fab25b9eda21477a22de0370b726b41">&#9670;&nbsp;</a></span>find_matched_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::ostream &amp; thewizardplusplus::wizard_parser::lexer::operator&lt;&lt; </td>
+          <td class="memname">std::optional&lt;<a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a>&gt; thewizardplusplus::wizard_parser::lexer::find_matched_token </td>
           <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &amp;&#160;</td>
-          <td class="paramname"><em>some_token</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5732b7a0bb53745cc13a917f76cf6e50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5732b7a0bb53745cc13a917f76cf6e50">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; thewizardplusplus::wizard_parser::lexer::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> &amp;&#160;</td>
-          <td class="paramname"><em>tokens</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aed2defa6927e7c2681dbca78ef728502"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed2defa6927e7c2681dbca78ef728502">&#9670;&nbsp;</a></span>to_json() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">nlohmann::json thewizardplusplus::wizard_parser::lexer::to_json </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &amp;&#160;</td>
-          <td class="paramname"><em>some_token</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9ecce9eb95dcefb1b361790550bd1bcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ecce9eb95dcefb1b361790550bd1bcb">&#9670;&nbsp;</a></span>to_json() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">nlohmann::json thewizardplusplus::wizard_parser::lexer::to_json </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> &amp;&#160;</td>
-          <td class="paramname"><em>tokens</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aca0e94632c71097ee77acdc826960146"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca0e94632c71097ee77acdc826960146">&#9670;&nbsp;</a></span>to_string() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string thewizardplusplus::wizard_parser::lexer::to_string </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html">token</a> &amp;&#160;</td>
-          <td class="paramname"><em>some_token</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa80d7f9e478535445e1e68b1779a4277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa80d7f9e478535445e1e68b1779a4277">&#9670;&nbsp;</a></span>to_string() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string thewizardplusplus::wizard_parser::lexer::to_string </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> &amp;&#160;</td>
-          <td class="paramname"><em>tokens</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a514689b3c29606e7ac67676c4b3dc73d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a514689b3c29606e7ac67676c4b3dc73d">&#9670;&nbsp;</a></span>tokenize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> thewizardplusplus::wizard_parser::lexer::tokenize </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">lexeme_group</a> &amp;&#160;</td>
           <td class="paramname"><em>lexemes</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_set&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ignorable_tokens</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -283,12 +189,74 @@ $(function() {
 
 </div>
 </div>
+<a id="a547012401b9285fcc282c8e6aa4296de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547012401b9285fcc282c8e6aa4296de">&#9670;&nbsp;</a></span>match_lexeme()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a28a58c33229caa9676c886ee36fc8070">match_t</a> thewizardplusplus::wizard_parser::lexer::match_lexeme </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html">lexeme</a> &amp;&#160;</td>
+          <td class="paramname"><em>some_lexeme</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>code</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d01983f1993b6033f36d81436cf1dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d01983f1993b6033f36d81436cf1dd3">&#9670;&nbsp;</a></span>tokenize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24">token_group</a> thewizardplusplus::wizard_parser::lexer::tokenize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">lexeme_group</a> &amp;&#160;</td>
+          <td class="paramname"><em>lexemes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Сб 1 Дек 2018 13:48:16. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Сб 26 Янв 2019 02:21:24. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+</a> 1.8.16
 </small></address>
 </body>
 </html>

@@ -26,23 +26,9 @@ var menudata={children:[
 {text:"Пространства имен",url:"namespaces.html",children:[
 {text:"Пространства имен",url:"namespaces.html"},
 {text:"Члены пространств имен",url:"namespacemembers.html",children:[
-{text:"Указатель",url:"namespacemembers.html",children:[
-{text:"a",url:"namespacemembers.html#index_a"},
-{text:"d",url:"namespacemembers.html#index_d"},
-{text:"e",url:"namespacemembers.html#index_e"},
-{text:"m",url:"namespacemembers.html#index_m"},
-{text:"o",url:"namespacemembers.html#index_o"},
-{text:"p",url:"namespacemembers.html#index_p"},
-{text:"r",url:"namespacemembers.html#index_r"},
-{text:"t",url:"namespacemembers.html#index_t"}]},
-{text:"Функции",url:"namespacemembers_func.html",children:[
-{text:"a",url:"namespacemembers_func.html#index_a"},
-{text:"d",url:"namespacemembers_func.html#index_d"},
-{text:"e",url:"namespacemembers_func.html#index_e"},
-{text:"o",url:"namespacemembers_func.html#index_o"},
-{text:"p",url:"namespacemembers_func.html#index_p"},
-{text:"r",url:"namespacemembers_func.html#index_r"},
-{text:"t",url:"namespacemembers_func.html#index_t"}]},
+{text:"Указатель",url:"namespacemembers.html"},
+{text:"Функции",url:"namespacemembers_func.html"},
+{text:"Переменные",url:"namespacemembers_vars.html"},
 {text:"Определения типов",url:"namespacemembers_type.html"},
 {text:"Перечисления",url:"namespacemembers_enum.html"}]}]},
 {text:"Классы",url:"annotated.html",children:[
@@ -56,8 +42,6 @@ var menudata={children:[
 {text:"d",url:"functions.html#index_d"},
 {text:"e",url:"functions.html#index_e"},
 {text:"f",url:"functions.html#index_f"},
-{text:"g",url:"functions.html#index_g"},
-{text:"i",url:"functions.html#index_i"},
 {text:"l",url:"functions.html#index_l"},
 {text:"m",url:"functions.html#index_m"},
 {text:"n",url:"functions.html#index_n"},
@@ -66,9 +50,10 @@ var menudata={children:[
 {text:"r",url:"functions.html#index_r"},
 {text:"s",url:"functions.html#index_s"},
 {text:"t",url:"functions.html#index_t"},
+{text:"u",url:"functions.html#index_u"},
 {text:"v",url:"functions.html#index_v"},
 {text:"w",url:"functions.html#index_w"},
-{text:"~",url:"functions.html#index_0x7e"}]},
+{text:"~",url:"functions.html#index__7E"}]},
 {text:"Функции",url:"functions_func.html"},
 {text:"Переменные",url:"functions_vars.html"},
 {text:"Определения типов",url:"functions_type.html"}]}]},
@@ -76,5 +61,4 @@ var menudata={children:[
 {text:"Файлы",url:"files.html"},
 {text:"Список членов всех файлов",url:"globals.html",children:[
 {text:"Указатель",url:"globals.html"},
-{text:"Переменные",url:"globals_vars.html"},
 {text:"Макросы",url:"globals_defs.html"}]}]}]}

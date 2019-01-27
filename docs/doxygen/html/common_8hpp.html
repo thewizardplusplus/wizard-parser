@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/ast_node.cpp</title>
+<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/common.hpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v2.2</span>
+   &#160;<span id="projectnumber">v3.0</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -31,7 +31,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Создано системой Doxygen 1.8.14 -->
+<!-- Создано системой Doxygen 1.8.16 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
@@ -69,35 +69,43 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Пространства имен</a> &#124;
-<a href="#func-members">Функции</a>  </div>
+<a href="#func-members">Функции</a> &#124;
+<a href="#var-members">Переменные</a>  </div>
   <div class="headertitle">
-<div class="title">Файл ast_node.cpp</div>  </div>
+<div class="title">Файл common.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ast__node_8hpp_source.html">ast_node.hpp</a>&quot;</code><br />
-<code>#include &lt;iterator&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-</div><table class="memberdecls">
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+</div>
+<p><a href="common_8hpp_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Пространства имен</h2></td></tr>
+<tr class="memitem:namespacethewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus.html">thewizardplusplus</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser.html">thewizardplusplus::wizard_parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
-<tr class="memitem:acb3742008bba474c8ad9848f3b38a0d8"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#acb3742008bba474c8ad9848f3b38a0d8">thewizardplusplus::wizard_parser::parser::operator&lt;&lt;</a> (std::ostream &amp;out, const ast_node &amp;ast)</td></tr>
-<tr class="separator:acb3742008bba474c8ad9848f3b38a0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb54d9376069a45465a9f9f4074013eb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aeb54d9376069a45465a9f9f4074013eb">thewizardplusplus::wizard_parser::parser::to_string</a> (const ast_node &amp;ast)</td></tr>
-<tr class="separator:aeb54d9376069a45465a9f9f4074013eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1f744482927cb84441dfa1bf26532d3"><td class="memItemLeft" align="right" valign="top">json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aa1f744482927cb84441dfa1bf26532d3">thewizardplusplus::wizard_parser::parser::to_json</a> (const ast_node &amp;ast)</td></tr>
-<tr class="separator:aa1f744482927cb84441dfa1bf26532d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae231279c5f44170a7c9e659b87e2fef8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#ae231279c5f44170a7c9e659b87e2fef8">thewizardplusplus::wizard_parser::parser::append_node</a> (ast_node_group &amp;nodes, const ast_node &amp;node)</td></tr>
+<tr class="separator:ae231279c5f44170a7c9e659b87e2fef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Переменные</h2></td></tr>
+<tr class="memitem:a01ee39f706a6eae9aac77b4a0c4d0eb9"><td class="memItemLeft" align="right" valign="top">const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a01ee39f706a6eae9aac77b4a0c4d0eb9">thewizardplusplus::wizard_parser::parser::integral_infinity</a> = std::numeric_limits&lt;std::size_t&gt;::max()</td></tr>
+<tr class="separator:a01ee39f706a6eae9aac77b4a0c4d0eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Сб 1 Дек 2018 13:48:15. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Сб 26 Янв 2019 02:21:24. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.14
+</a> 1.8.16
 </small></address>
 </body>
 </html>
