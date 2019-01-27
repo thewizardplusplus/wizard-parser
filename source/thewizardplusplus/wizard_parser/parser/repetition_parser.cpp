@@ -26,9 +26,10 @@ repetition_parser::counted_result repetition_parser::parse_and_count(
 	const lexer::token_span& tokens,
 	const std::size_t& counter
 ) const {
+	const auto type = (+ast_node_type::sequence)._to_string();
 	const auto ast = parser->parse(tokens);
 	if (!ast.node) {
-		return {{ast_node{"sequence", {}, {}}, tokens}, counter};
+		return {{ast_node{type, {}, {}}, tokens}, counter};
 	}
 
 	auto nodes = ast_node_group{};
@@ -40,12 +41,12 @@ repetition_parser::counted_result repetition_parser::parse_and_count(
 		next_counter
 	);
 	if (!rest_ast.node) {
-		return {{ast_node{"sequence", {}, nodes}, ast.rest_tokens}, next_counter};
+		return {{ast_node{type, {}, nodes}, ast.rest_tokens}, next_counter};
 	}
 
 	append_node(nodes, *rest_ast.node);
 
-	return {{ast_node{"sequence", {}, nodes}, rest_ast.rest_tokens}, rest_counter};
+	return {{ast_node{type, {}, nodes}, rest_ast.rest_tokens}, rest_counter};
 }
 
 namespace operators {

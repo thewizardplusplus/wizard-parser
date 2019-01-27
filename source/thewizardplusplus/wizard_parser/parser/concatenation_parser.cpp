@@ -30,7 +30,8 @@ parsing_result concatenation_parser::parse(
 	append_node(nodes, *left_ast.node);
 	append_node(nodes, *right_ast.node);
 
-	return {ast_node{"sequence", {}, nodes}, right_ast.rest_tokens};
+	const auto type = (+ast_node_type::sequence)._to_string();
+	return {ast_node{type, {}, nodes}, right_ast.rest_tokens};
 }
 
 namespace operators {

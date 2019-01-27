@@ -1,12 +1,15 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER
 
+#include "../vendor/better-enums/enum_strict.hpp"
 #include "../vendor/enum-flags/flags.hpp"
 #include <cstdint>
 #include <string>
 #include <vector>
 
 namespace thewizardplusplus::wizard_parser::parser {
+
+BETTER_ENUM(ast_node_type, std::uint8_t, sequence, nothing, eoi)
 
 enum class ast_node_flag: std::uint8_t {
 	none = 1 << 0,
