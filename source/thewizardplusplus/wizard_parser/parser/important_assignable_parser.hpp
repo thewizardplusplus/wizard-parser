@@ -9,7 +9,7 @@ namespace thewizardplusplus::wizard_parser::parser {
 struct important_assignable_parser final: assignable_parser {
 	using assignable_parser::operator=;
 
-protected:
+private:
 	parsing_result process_parsed_result(
 		const parsing_result& result
 	) const override;

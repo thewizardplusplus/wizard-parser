@@ -12,7 +12,7 @@ struct assignable_parser:
 	std::enable_shared_from_this<assignable_parser>
 {
 	rule_parser::pointer operator=(const rule_parser::pointer& parser);
-	parsing_result parse(const lexer::token_span& tokens) const override;
+	parsing_result parse(const lexer::token_span& tokens) const override final;
 
 protected:
 	virtual parsing_result process_parsed_result(

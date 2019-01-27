@@ -12,13 +12,12 @@ struct type_assignable_parser final: assignable_parser {
 
 	explicit type_assignable_parser(const std::string& type);
 
-protected:
+private:
+	const std::string type;
+
 	parsing_result process_parsed_result(
 		const parsing_result& result
 	) const override;
-
-private:
-	const std::string type;
 };
 
 }

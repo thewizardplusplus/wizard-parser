@@ -13,9 +13,7 @@ struct repetition_parser final: rule_parser {
 		const std::size_t& minimal_number,
 		const std::size_t& maximal_number
 	);
-	virtual parsing_result parse(
-		const lexer::token_span& tokens
-	) const override final;
+	parsing_result parse(const lexer::token_span& tokens) const override;
 
 private:
 	const rule_parser::pointer parser;

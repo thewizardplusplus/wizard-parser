@@ -11,9 +11,7 @@ struct dummy_parser final: rule_parser {
 	using pointer = std::shared_ptr<dummy_parser>;
 
 	void set_parser(const rule_parser::weak_pointer& parser);
-	virtual parsing_result parse(
-		const lexer::token_span& tokens
-	) const override final;
+	parsing_result parse(const lexer::token_span& tokens) const override;
 
 private:
 	rule_parser::weak_pointer parser;
