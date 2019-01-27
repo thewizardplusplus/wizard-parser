@@ -4,6 +4,7 @@
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
+#include <thewizardplusplus/wizard_parser/utilities/unexpected_eoi_exception.hpp>
 #include <regex>
 #include <vector>
 #include <string>
@@ -15,6 +16,7 @@
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
+using namespace thewizardplusplus::wizard_parser::utilities;
 
 const auto usage =
 R"(Usage:
@@ -101,8 +103,12 @@ int main(int argc, char* argv[]) try {
 	}
 
 	RULE(expression) = make_expression_parser();
-	const auto ast = parse(expression, cleaned_tokens, code.size());
-	std::cout << ast << '\n';
+	try {
+		const auto ast = parse(expression, cleaned_tokens);
+		std::cout << ast << '\n';
+	} catch (const unexpected_eoi_exception&) {
+		throw unexpected_eoi_exception{code.size()};
+	}
 } catch (const std::exception& exception) {
 	std::cerr << "error: " << exception.what() << '\n';
 	std::exit(EXIT_FAILURE);

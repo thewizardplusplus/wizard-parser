@@ -5,15 +5,13 @@
 #include "../lexer/token.hpp"
 #include "ast_node.hpp"
 #include "../lexer/lexeme.hpp"
-#include <cstddef>
 #include <string>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
-	const lexer::token_span& tokens,
-	const std::size_t code_length
+	const lexer::token_span& tokens
 );
 ast_node parse(
 	const lexer::lexeme_group& lexemes,
