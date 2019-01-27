@@ -16,26 +16,36 @@ repetition_parser::repetition_parser(
 {}
 
 parsing_result repetition_parser::parse(const lexer::token_span& tokens) const {
+	const auto [ast, counter] = parse_and_count(tokens);
+	return counter < minimal_number || counter > maximal_number
+		? parsing_result{{}, tokens}
+		: ast;
+}
+
+repetition_parser::counted_result repetition_parser::parse_and_count(
+	const lexer::token_span& tokens,
+	const std::size_t& counter
+) const {
+	const auto ast = parser->parse(tokens);
+	if (!ast.node) {
+		return {{ast_node{"sequence", {}, {}}, tokens}, counter};
+	}
+
 	auto nodes = ast_node_group{};
-	auto rest_tokens = tokens;
-	auto repetition_number = std::size_t{};
-	for (; repetition_number < maximal_number; ++repetition_number) {
-		const auto ast = parser->parse(rest_tokens);
-		if (!ast.node) {
-			break;
-		}
+	append_node(nodes, *ast.node);
 
-		append_node(nodes, *ast.node);
-		rest_tokens = ast.rest_tokens;
-	}
-	if (
-		repetition_number < minimal_number
-		|| repetition_number > maximal_number
-	) {
-		return {{}, tokens};
+	const auto next_counter = counter + 1;
+	const auto [rest_ast, rest_counter] = parse_and_count(
+		ast.rest_tokens,
+		next_counter
+	);
+	if (!rest_ast.node) {
+		return {{ast_node{"sequence", {}, nodes}, ast.rest_tokens}, next_counter};
 	}
 
-	return {ast_node{"sequence", {}, nodes}, rest_tokens};
+	append_node(nodes, *rest_ast.node);
+
+	return {{ast_node{"sequence", {}, nodes}, rest_ast.rest_tokens}, rest_counter};
 }
 
 namespace operators {
