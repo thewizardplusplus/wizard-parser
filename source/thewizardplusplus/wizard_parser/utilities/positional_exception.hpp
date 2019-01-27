@@ -11,7 +11,10 @@ struct positional_exception: std::runtime_error {
 	const std::string description;
 	const std::size_t offset;
 
-	positional_exception(std::string description, const std::size_t offset);
+	positional_exception(
+		const std::string& description,
+		const std::size_t& offset
+	);
 };
 
 }
