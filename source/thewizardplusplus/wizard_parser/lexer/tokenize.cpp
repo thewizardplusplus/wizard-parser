@@ -8,7 +8,6 @@
 #include <vector>
 #include <tuple>
 #include <algorithm>
-#include <cstddef>
 #include <string>
 
 namespace thewizardplusplus::wizard_parser::lexer {
@@ -57,25 +56,35 @@ std::optional<token> find_matched_token(
 
 token_group tokenize(
 	const lexeme_group& lexemes,
-	const std::string_view& code
+	const std::string_view& code,
+	const std::size_t& offset
 ) {
-	auto tokens = token_group{};
-	auto offset = std::size_t{};
-	while (!code.substr(offset).empty()) {
-		const auto matched_token = find_matched_token(lexemes, code.substr(offset));
-		if (!matched_token) {
-			throw utilities::positional_exception{
-				fmt::format(
-					"invalid symbol {:s}",
-					nlohmann::json(std::string{code[offset]}).dump()
-				),
-				offset
-			};
-		}
-
-		tokens.push_back({matched_token->type, matched_token->value, offset});
-		offset += matched_token->value.size();
+	if (code.empty()) {
+		return {};
 	}
+
+	const auto some_token = find_matched_token(lexemes, code);
+	if (!some_token) {
+		throw utilities::positional_exception{
+			fmt::format(
+				"invalid symbol {:s}",
+				nlohmann::json(std::string{code.front()}).dump()
+			),
+			offset
+		};
+	}
+
+	auto tokens = token_group{{some_token->type, some_token->value, offset}};
+	const auto rest_tokens = tokenize(
+		lexemes,
+		code.substr(some_token->value.size()),
+		offset+some_token->value.size()
+	);
+	std::copy(
+		std::cbegin(rest_tokens),
+		std::cend(rest_tokens),
+		std::back_inserter(tokens)
+	);
 
 	return tokens;
 }
