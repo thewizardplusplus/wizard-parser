@@ -7,7 +7,6 @@
 #include <regex>
 #include <vector>
 #include <string>
-#include <unordered_set>
 #include <iostream>
 #include <iterator>
 #include <cstdlib>
@@ -46,7 +45,6 @@ const auto lexemes = lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "base_identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
-const auto ignorable_tokens = std::unordered_set<std::string>{"whitespace"};
 
 namespace {
 
@@ -89,14 +87,21 @@ int main(int argc, char* argv[]) try {
 		code = std::string{std::istreambuf_iterator<char>{std::cin}, {}};
 	}
 
-	auto tokens = tokenize(lexemes, ignorable_tokens, code);
+	auto cleaned_tokens = token_group{};
+	const auto tokens = tokenize(lexemes, code);
+	std::copy_if(
+		std::cbegin(tokens),
+		std::cend(tokens),
+		std::back_inserter(cleaned_tokens),
+		[] (const auto& token) { return token.type != "whitespace"; }
+	);
 	if (options.at("--tokens").asBool()) {
-		std::cout << tokens << '\n';
+		std::cout << cleaned_tokens << '\n';
 		std::exit(EXIT_SUCCESS);
 	}
 
 	RULE(expression) = make_expression_parser();
-	const auto ast = parse(expression, tokens, code.size());
+	const auto ast = parse(expression, cleaned_tokens, code.size());
 	std::cout << ast << '\n';
 } catch (const std::exception& exception) {
 	std::cerr << "error: " << exception.what() << '\n';

@@ -33,11 +33,10 @@ ast_node parse(
 
 ast_node parse(
 	const lexeme_group& lexemes,
-	const std::unordered_set<std::string>& ignorable_tokens,
 	const rule_parser::pointer& rule,
 	std::string code
 ) {
-	auto tokens = tokenize(lexemes, ignorable_tokens, code);
+	auto tokens = tokenize(lexemes, code);
 	return parse(rule, tokens, code.size());
 }
 

@@ -57,7 +57,6 @@ namespace thewizardplusplus::wizard_parser::lexer {
 
 token_group tokenize(
 	const lexeme_group& lexemes,
-	const std::unordered_set<std::string>& ignorable_tokens,
 	const std::string_view& code
 ) {
 	auto tokens = token_group{};
@@ -81,10 +80,7 @@ token_group tokenize(
 
 		rest_code = rest_code.substr(matched_token->value.size());
 		offset += matched_token->value.size();
-
-		if (ignorable_tokens.count(matched_token->type) == 0) {
-			tokens.push_back(std::move(*matched_token));
-		}
+		tokens.push_back(std::move(*matched_token));
 	}
 
 	return tokens;

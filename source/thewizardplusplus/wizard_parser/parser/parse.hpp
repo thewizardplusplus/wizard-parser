@@ -7,9 +7,7 @@
 #include "../lexer/lexeme.hpp"
 #include "../vendor/gsl/span.hpp"
 #include <cstddef>
-#include <vector>
 #include <string>
-#include <unordered_set>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -20,7 +18,6 @@ ast_node parse(
 );
 ast_node parse(
 	const lexer::lexeme_group& lexemes,
-	const std::unordered_set<std::string>& ignorable_tokens,
 	const rule_parser::pointer& rule,
 	std::string code
 );
