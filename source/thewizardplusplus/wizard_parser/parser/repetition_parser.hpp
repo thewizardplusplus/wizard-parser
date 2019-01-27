@@ -23,12 +23,6 @@ private:
 	const std::size_t maximal_number;
 };
 
-rule_parser::pointer rep(
-	rule_parser::pointer parser,
-	const std::size_t minimal_number,
-	const std::size_t maximal_number
-);
-
 namespace operators {
 
 rule_parser::pointer operator-(rule_parser::pointer parser);

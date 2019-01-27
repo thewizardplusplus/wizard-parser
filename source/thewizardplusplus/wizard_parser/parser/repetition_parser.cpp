@@ -41,30 +41,26 @@ parsing_result repetition_parser::parse(const lexer::token_span& tokens) const {
 	return {ast_node{"sequence", {}, std::move(nodes)}, std::move(rest_tokens)};
 }
 
-rule_parser::pointer rep(
-	rule_parser::pointer parser,
-	const std::size_t minimal_number,
-	const std::size_t maximal_number
-) {
-	return std::make_shared<repetition_parser>(
-		std::move(parser),
-		minimal_number,
-		maximal_number
-	);
-}
-
 namespace operators {
 
 rule_parser::pointer operator-(rule_parser::pointer parser) {
-	return rep(std::move(parser), 0, 1);
+	return std::make_shared<repetition_parser>(std::move(parser), 0, 1);
 }
 
 rule_parser::pointer operator*(rule_parser::pointer parser) {
-	return rep(std::move(parser), 0, std::numeric_limits<std::size_t>::max());
+	return std::make_shared<repetition_parser>(
+		std::move(parser),
+		0,
+		std::numeric_limits<std::size_t>::max()
+	);
 }
 
 rule_parser::pointer operator+(rule_parser::pointer parser) {
-	return rep(std::move(parser), 1, std::numeric_limits<std::size_t>::max());
+	return std::make_shared<repetition_parser>(
+		std::move(parser),
+		1,
+		std::numeric_limits<std::size_t>::max()
+	);
 }
 
 }
