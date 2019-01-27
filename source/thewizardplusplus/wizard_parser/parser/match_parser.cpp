@@ -1,13 +1,12 @@
 #include "match_parser.hpp"
 #include "ast_node.hpp"
-#include <utility>
 #include <memory>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-match_parser::match_parser(const match_type match_kind, std::string sample):
-	match_kind{match_kind},
-	sample{std::move(sample)}
+match_parser::match_parser(const match_type& type, const std::string& sample):
+	type{type},
+	sample{sample}
 {}
 
 parsing_result match_parser::parse(const lexer::token_span& tokens) const {
@@ -15,15 +14,8 @@ parsing_result match_parser::parse(const lexer::token_span& tokens) const {
 		return {};
 	}
 
-	auto matched_value = std::string{};
-	switch (match_kind) {
-	case match_type::by_type:
-		matched_value = tokens[0].type;
-		break;
-	case match_type::by_value:
-		matched_value = tokens[0].value;
-		break;
-	}
+	const auto matched_value =
+		type == match_type::by_type ? tokens[0].type : tokens[0].value;
 	if (matched_value != sample) {
 		return {{}, tokens};
 	}
@@ -42,4 +34,5 @@ rule_parser::pointer operator""_v(const char* const sample, std::size_t) {
 }
 
 }
+
 }
