@@ -49,10 +49,28 @@ const auto lexemes = lexeme_group{
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
 
-namespace thewizardplusplus::wizard_parser::lexer {
+namespace thewizardplusplus::wizard_parser {
+
+namespace lexer {
 
 void to_json(nlohmann::json& json, const token& some_token) {
 	json = { { "type", some_token.type }, { "value", some_token.value } };
+}
+
+}
+
+namespace parser {
+
+void to_json(nlohmann::json& json, const ast_node& ast) {
+	json = { { "type", ast.type } };
+	if (!ast.value.empty()) {
+		json["value"] = ast.value;
+	}
+	if (!ast.children.empty()) {
+		json["children"] = ast.children;
+	}
+}
+
 }
 
 }
@@ -114,7 +132,7 @@ int main(int argc, char* argv[]) try {
 	RULE(expression) = make_expression_parser();
 	try {
 		const auto ast = parse(expression, cleaned_tokens);
-		std::cout << ast << '\n';
+		std::cout << nlohmann::json(ast) << '\n';
 	} catch (const unexpected_eoi_exception&) {
 		throw unexpected_eoi_exception{code.size()};
 	}
