@@ -3,7 +3,6 @@
 
 #include "rule_parser.hpp"
 #include "../lexer/token.hpp"
-#include "parsing_result.hpp"
 #include <memory>
 
 namespace thewizardplusplus::wizard_parser::parser {

@@ -2,7 +2,7 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_LIFT_PARSER_HEADER
 
 #include "assignable_parser.hpp"
-#include "parsing_result.hpp"
+#include "rule_parser.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 

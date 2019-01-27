@@ -4,7 +4,6 @@
 #include "rule_parser.hpp"
 #include "match_type.hpp"
 #include "../lexer/token.hpp"
-#include "parsing_result.hpp"
 #include <string>
 #include <cstddef>
 
