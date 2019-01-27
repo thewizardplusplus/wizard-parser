@@ -31,7 +31,7 @@ std::match_results<std::string_view::const_iterator> match_lexeme(
 }
 
 std::optional<token> find_longest_matched_token(
-	const std::vector<lexeme>& lexemes,
+	const lexeme_group& lexemes,
 	const std::string_view& code,
 	const std::size_t offset
 ) {
@@ -56,7 +56,7 @@ std::optional<token> find_longest_matched_token(
 namespace thewizardplusplus::wizard_parser::lexer {
 
 token_group tokenize(
-	const std::vector<lexeme>& lexemes,
+	const lexeme_group& lexemes,
 	const std::unordered_set<std::string>& ignorable_tokens,
 	const std::string_view& code
 ) {

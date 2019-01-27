@@ -27,7 +27,7 @@ Options:
   -h, --help    - show this message;
   -t, --tokens  - show a token list instead an AST;
   -s, --stdin   - read an expression from stdin.)";
-const auto lexemes = std::vector<lexeme>{
+const auto lexemes = lexeme_group{
 	{std::regex{"=="}, "equal"},
 	{std::regex{"/="}, "not_equal"},
 	{std::regex{"<"}, "less"},

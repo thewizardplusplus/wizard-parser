@@ -32,7 +32,7 @@ ast_node parse(
 }
 
 ast_node parse(
-	const std::vector<lexeme>& lexemes,
+	const lexeme_group& lexemes,
 	const std::unordered_set<std::string>& ignorable_tokens,
 	const rule_parser::pointer& rule,
 	std::string code

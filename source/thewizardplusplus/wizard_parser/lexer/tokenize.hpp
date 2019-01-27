@@ -11,7 +11,7 @@
 namespace thewizardplusplus::wizard_parser::lexer {
 
 token_group tokenize(
-	const std::vector<lexeme>& lexemes,
+	const lexeme_group& lexemes,
 	const std::unordered_set<std::string>& ignorable_tokens,
 	const std::string_view& code
 );
