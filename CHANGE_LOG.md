@@ -1,6 +1,75 @@
 # Change Log
 
-## [v2.2](https://github.com/thewizardplusplus/wizard-parser/tree/v2.2) (2018-12-01)
+## [v3.0](https://github.com/thewizardplusplus/wizard-parser/tree/v3.0) (2019-01-27)
+
+**Closed issues:**
+
+* Processing errors:
+  * Add the universal exception for an unexpected entity.
+  * Symplify processing an error:
+    * with an unexpected symbol;
+    * with an unexpected token;
+    * with an unexpected EOI.
+* Remove:
+  * code entities:
+    * header including all parsers;
+    * functions:
+      * function for repeating in a range of times;
+      * overload of the `parser::parse()` function accepting a string;
+    * operators:
+      * for repeating an exact number of times;
+      * for parsing separated lists;
+  * possibilities:
+    * ignoring some tokens;
+    * auto-selection:
+      * of longest token;
+      * of longest node;
+    * serialization to JSON:
+      * from the `lexer` module;
+      * from the `parser` module.
+* Refactoring:
+  * of the `lexer` module:
+    * combine in a single file:
+      * `token` and `token_group` types;
+    * add new types:
+      * `lexeme_group` type alias;
+      * `token_span` type alias;
+    * refactoring:
+      * of the `find_matched_token()` function;
+      * of the `tokenize()` function;
+  * of the `parser` module:
+    * simplify a code of parsers;
+    * combine in a single file:
+      * `ast_node_flag` and `ast_node` types;
+      * `parsing_result` and `rule_parser` types;
+      * `match_type` and `match_parser` types;
+    * add new types:
+      * `ast_node_group` type alias;
+    * replace:
+      * magic constants of AST node types to an enumeration;
+      * custom bitwise operators for the `ast_node_flag` enumeration to using the [grisumbras/enum-flags](https://github.com/grisumbras/enum-flags) library;
+      * mutable instances in parameters to constant references;
+    * remove:
+      * some C++ class specifiers;
+      * usages of move semantics;
+    * refactoring:
+      * of the `append_node()` function;
+      * of the `repetition_parser::parse()` method;
+  * of the `utilities` module:
+    * rename it to `exceptions`;
+    * replace:
+      * mutable instances in parameters to constant references;
+    * remove:
+      * usages of move semantics;
+  * of the example:
+    * combine in a single function:
+      * `make_atom_parser()` and `make_expression_parser()` functions;
+    * refactoring:
+      * of the grammar;
+      * of the `main()` function;
+      * of the tests runner.
+
+## [v2.2](https://github.com/thewizardplusplus/wizard-parser/tree/v2.2) (2018-12-23)
 
 **Closed issues:**
 
