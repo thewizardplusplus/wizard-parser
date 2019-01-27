@@ -14,8 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef GSL_CONTRACTS_H
-#define GSL_CONTRACTS_H
+#ifndef GSL_CONTRACTS_HPP
+#define GSL_CONTRACTS_HPP
 
 #include <exception>
 #include <stdexcept> // for logic_error
@@ -164,4 +164,4 @@ namespace details
 #define Expects(cond) GSL_CONTRACT_CHECK("Precondition", cond)
 #define Ensures(cond) GSL_CONTRACT_CHECK("Postcondition", cond)
 
-#endif // GSL_CONTRACTS_H
+#endif // GSL_CONTRACTS_HPP

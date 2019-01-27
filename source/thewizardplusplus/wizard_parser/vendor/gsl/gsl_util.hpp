@@ -14,8 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef GSL_UTIL_H
-#define GSL_UTIL_H
+#ifndef GSL_UTIL_HPP
+#define GSL_UTIL_HPP
 
 #include "gsl_assert.hpp" // for Expects
 
@@ -163,4 +163,4 @@ constexpr T at(const std::initializer_list<T> cont, const index i)
 
 #endif // _MSC_VER
 
-#endif // GSL_UTIL_H
+#endif // GSL_UTIL_HPP

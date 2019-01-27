@@ -14,8 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef GSL_BYTE_H
-#define GSL_BYTE_H
+#ifndef GSL_BYTE_HPP
+#define GSL_BYTE_HPP
 
 //
 // make suppress attributes work for some compilers
@@ -200,4 +200,4 @@ constexpr byte to_byte() noexcept
 #pragma warning(pop)
 #endif // _MSC_VER
 
-#endif // GSL_BYTE_H
+#endif // GSL_BYTE_HPP

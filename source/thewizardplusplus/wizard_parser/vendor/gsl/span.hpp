@@ -14,8 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef GSL_SPAN_H
-#define GSL_SPAN_H
+#ifndef GSL_SPAN_HPP
+#define GSL_SPAN_HPP
 
 #include "gsl_assert.hpp" // for Expects
 #include "gsl_byte.hpp"   // for byte
@@ -776,4 +776,4 @@ constexpr ElementType& at(span<ElementType, Extent> s, index i)
 #pragma GCC diagnostic pop
 #endif // __GNUC__ > 6
 
-#endif // GSL_SPAN_H
+#endif // GSL_SPAN_HPP
