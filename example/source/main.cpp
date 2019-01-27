@@ -1,23 +1,26 @@
-#include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
+#include "vendor/docopt/docopt.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
+#include <thewizardplusplus/wizard_parser/lexer/token.hpp>
+#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
+#include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
 #include <thewizardplusplus/wizard_parser/parser/match_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/exception_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/eoi_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <regex>
-#include <vector>
 #include <string>
-#include <iostream>
 #include <iterator>
+#include <iostream>
+#include <algorithm>
 #include <cstdlib>
 #include <exception>
 
@@ -82,24 +85,18 @@ void to_json(nlohmann::json& json, const ast_node& ast) {
 
 }
 
-namespace {
-
-rule_parser::pointer make_atom_parser(const rule_parser::pointer& expression) {
+rule_parser::pointer make_parser() {
+	const auto expression_dummy = dummy();
 	RULE(number_constant) = "number_constant"_t;
 	RULE(key_words) = "and"_v | "not"_v | "or"_v;
 	RULE(identifier) = "base_identifier"_t - key_words;
 	IMPORTANT_RULE(function_call) = identifier >> &"("_v >>
-		-(expression >> *(&","_v >> expression))
+		-(expression_dummy >> *(&","_v >> expression_dummy))
 	>> &")"_v;
-	return number_constant
+	RULE(atom) = number_constant
 		| function_call
 		| identifier
-		| (&"("_v >> expression >> &")"_v);
-}
-
-rule_parser::pointer make_expression_parser() {
-	const auto expression_dummy = dummy();
-	RULE(atom) = make_atom_parser(expression_dummy);
+		| (&"("_v >> expression_dummy >> &")"_v);
 	RULE(unary) = *("-"_v | "not"_v) >> atom;
 	RULE(product) = unary >> *(("*"_v | "/"_v | "%"_v) >> unary);
 	RULE(sum) = product >> *(("+"_v | "-"_v) >> product);
@@ -110,8 +107,6 @@ rule_parser::pointer make_expression_parser() {
 	expression_dummy->set_parser(disjunction);
 
 	return disjunction >> eoi();
-}
-
 }
 
 int main(int argc, char* argv[]) try {
@@ -136,7 +131,7 @@ int main(int argc, char* argv[]) try {
 		std::exit(EXIT_SUCCESS);
 	}
 
-	RULE(expression) = make_expression_parser();
+	RULE(expression) = make_parser();
 	try {
 		const auto ast = parse(expression, cleaned_tokens);
 		std::cout << nlohmann::json(ast) << '\n';
