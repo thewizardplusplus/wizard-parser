@@ -3,22 +3,24 @@
 #include "../vendor/json.hpp"
 #include "../vendor/fmt/format.hpp"
 #include <regex>
-#include <cstddef>
-#include <utility>
+#include <iterator>
 #include <optional>
+#include <vector>
+#include <tuple>
+#include <algorithm>
+#include <cstddef>
+#include <string>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
 using namespace nlohmann;
 using namespace fmt;
 
-namespace {
+namespace thewizardplusplus::wizard_parser::lexer {
 
-std::match_results<std::string_view::const_iterator> match_lexeme(
-	const lexeme& some_lexeme,
-	const std::string_view& code
-) {
-	auto match = std::match_results<std::string_view::const_iterator>{};
+using match_t = std::match_results<std::string_view::const_iterator>;
+
+match_t match_lexeme(const lexeme& some_lexeme, const std::string_view& code) {
+	auto match = match_t{};
 	std::regex_search(
 		std::cbegin(code),
 		std::cend(code),
@@ -32,22 +34,30 @@ std::match_results<std::string_view::const_iterator> match_lexeme(
 
 std::optional<token> find_matched_token(
 	const lexeme_group& lexemes,
-	const std::string_view& code,
-	const std::size_t offset
+	const std::string_view& code
 ) {
-	for (const auto& some_lexeme: lexemes) {
-		const auto match = match_lexeme(some_lexeme, code);
-		if (!match.empty()) {
-			return token{some_lexeme.type, match.str(), offset};
+	auto matches = std::vector<std::tuple<lexeme, match_t>>{};
+	std::transform(
+		std::cbegin(lexemes),
+		std::cend(lexemes),
+		std::back_inserter(matches),
+		[&] (const auto& lexeme) {
+			const auto match = match_lexeme(lexeme, code);
+			return std::make_tuple(lexeme, match);
 		}
+	);
+
+	const auto match = std::find_if(
+		std::cbegin(matches),
+		std::cend(matches),
+		[] (const auto& match) { return !std::get<match_t>(match).empty(); }
+	);
+	if (match == std::cend(matches)) {
+		return std::nullopt;
 	}
 
-	return {};
+	return token{std::get<lexeme>(*match).type, std::get<match_t>(*match).str()};
 }
-
-}
-
-namespace thewizardplusplus::wizard_parser::lexer {
 
 token_group tokenize(
 	const lexeme_group& lexemes,
@@ -57,7 +67,7 @@ token_group tokenize(
 	auto rest_code = code;
 	auto offset = std::size_t{};
 	while (!rest_code.empty()) {
-		auto matched_token = find_matched_token(lexemes, rest_code, offset);
+		const auto matched_token = find_matched_token(lexemes, rest_code);
 		if (!matched_token) {
 			throw positional_exception{
 				format(
@@ -68,9 +78,9 @@ token_group tokenize(
 			};
 		}
 
+		tokens.push_back({matched_token->type, matched_token->value, offset});
 		rest_code = rest_code.substr(matched_token->value.size());
 		offset += matched_token->value.size();
-		tokens.push_back(std::move(*matched_token));
 	}
 
 	return tokens;
