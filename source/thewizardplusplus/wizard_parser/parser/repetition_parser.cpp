@@ -19,7 +19,7 @@ repetition_parser::repetition_parser(
 {}
 
 parsing_result repetition_parser::parse(const lexer::token_span& tokens) const {
-	auto nodes = std::vector<ast_node>{};
+	auto nodes = ast_node_group{};
 	auto rest_tokens = tokens;
 	auto repetition_number = std::size_t{};
 	for (; repetition_number < maximal_number; ++repetition_number) {

@@ -6,7 +6,7 @@
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-void append_node(std::vector<ast_node>& nodes, ast_node&& node);
+void append_node(ast_node_group& nodes, ast_node&& node);
 
 }
 #endif

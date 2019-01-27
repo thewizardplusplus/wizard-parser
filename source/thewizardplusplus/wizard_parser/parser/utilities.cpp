@@ -7,7 +7,7 @@ const auto ignorable_nodes = std::unordered_set<std::string>{"nothing", "eoi"};
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-void append_node(std::vector<ast_node>& nodes, ast_node&& node) {
+void append_node(ast_node_group& nodes, ast_node&& node) {
 	if (node.type == "sequence") {
 		for (auto&& child_node: node.children) {
 			if (ignorable_nodes.count(child_node.type) == 0) {

@@ -20,6 +20,8 @@ struct ast_node {
 	ast_node_flag flags = ast_node_flag::none;
 };
 
+using ast_node_group = std::vector<ast_node>;
+
 ast_node_flag operator|(
 	const ast_node_flag& flag_1,
 	const ast_node_flag& flag_2

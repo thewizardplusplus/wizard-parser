@@ -28,7 +28,7 @@ parsing_result concatenation_parser::parse(
 		return right_ast;
 	}
 
-	auto nodes = std::vector<ast_node>{};
+	auto nodes = ast_node_group{};
 	append_node(nodes, std::move(*left_ast.node));
 	append_node(nodes, std::move(*right_ast.node));
 
