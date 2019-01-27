@@ -1,7 +1,14 @@
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
-#include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
+#include <thewizardplusplus/wizard_parser/parser/match_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/exception_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/eoi_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
