@@ -59,13 +59,6 @@ rule_parser::pointer operator-(rule_parser::pointer parser) {
 	return rep(std::move(parser), 0, 1);
 }
 
-rule_parser::pointer operator*(
-	rule_parser::pointer parser,
-	const std::size_t number
-) {
-	return rep(std::move(parser), number, number);
-}
-
 rule_parser::pointer operator*(rule_parser::pointer parser) {
 	return rep(std::move(parser), 0, std::numeric_limits<std::size_t>::max());
 }

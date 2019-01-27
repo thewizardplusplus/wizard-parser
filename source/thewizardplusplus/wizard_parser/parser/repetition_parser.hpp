@@ -32,10 +32,6 @@ rule_parser::pointer rep(
 namespace operators {
 
 rule_parser::pointer operator-(rule_parser::pointer parser);
-rule_parser::pointer operator*(
-	rule_parser::pointer parser,
-	const std::size_t number
-);
 rule_parser::pointer operator*(rule_parser::pointer parser);
 rule_parser::pointer operator+(rule_parser::pointer parser);
 
