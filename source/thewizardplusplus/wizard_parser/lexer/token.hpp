@@ -1,6 +1,7 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKEN_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKEN_HEADER
 
+#include "../vendor/gsl/span.hpp"
 #include "../vendor/json.hpp"
 #include <string>
 #include <cstddef>
@@ -16,6 +17,8 @@ struct token {
 };
 
 using token_group = std::vector<token>;
+
+using token_span = gsl::span<token>;
 
 std::ostream& operator<<(std::ostream& out, const token& some_token);
 std::ostream& operator<<(std::ostream& out, const token_group& tokens);

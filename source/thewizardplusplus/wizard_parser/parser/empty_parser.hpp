@@ -4,12 +4,11 @@
 #include "rule_parser.hpp"
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include "../vendor/gsl/span.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 
 struct empty_parser final: rule_parser {
-	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
+	parsing_result parse(const lexer::token_span& tokens) const override;
 };
 
 rule_parser::pointer empty();

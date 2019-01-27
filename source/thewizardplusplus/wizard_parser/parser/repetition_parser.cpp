@@ -6,9 +6,6 @@
 #include <memory>
 #include <limits>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus::wizard_parser::parser {
 
 repetition_parser::repetition_parser(
@@ -21,7 +18,7 @@ repetition_parser::repetition_parser(
 	maximal_number{maximal_number}
 {}
 
-parsing_result repetition_parser::parse(const span<token>& tokens) const {
+parsing_result repetition_parser::parse(const lexer::token_span& tokens) const {
 	auto nodes = std::vector<ast_node>{};
 	auto rest_tokens = tokens;
 	auto repetition_number = std::size_t{};

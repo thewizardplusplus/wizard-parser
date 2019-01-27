@@ -5,7 +5,6 @@
 #include "match_type.hpp"
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include "../vendor/gsl/span.hpp"
 #include <string>
 #include <cstddef>
 
@@ -13,7 +12,7 @@ namespace thewizardplusplus::wizard_parser::parser {
 
 struct match_parser final: rule_parser {
 	match_parser(const match_type match_kind, std::string sample);
-	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
+	parsing_result parse(const lexer::token_span& tokens) const override;
 
 private:
 	const match_type match_kind;

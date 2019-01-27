@@ -4,7 +4,6 @@
 #include "rule_parser.hpp"
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include "../vendor/gsl/span.hpp"
 #include <memory>
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -12,7 +11,7 @@ namespace thewizardplusplus::wizard_parser::parser {
 struct dummy_parser final: rule_parser {
 	void set_parser(rule_parser::weak_pointer parser);
 	virtual parsing_result parse(
-		const gsl::span<lexer::token>& tokens
+		const lexer::token_span& tokens
 	) const override final;
 
 private:

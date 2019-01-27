@@ -3,9 +3,6 @@
 #include <utility>
 #include <memory>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus::wizard_parser::parser {
 
 match_parser::match_parser(const match_type match_kind, std::string sample):
@@ -13,7 +10,7 @@ match_parser::match_parser(const match_type match_kind, std::string sample):
 	sample{std::move(sample)}
 {}
 
-parsing_result match_parser::parse(const span<token>& tokens) const {
+parsing_result match_parser::parse(const lexer::token_span& tokens) const {
 	if (tokens.empty()) {
 		return {};
 	}

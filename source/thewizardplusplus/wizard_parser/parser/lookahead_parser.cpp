@@ -2,9 +2,6 @@
 #include <utility>
 #include <memory>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus::wizard_parser::parser {
 
 lookahead_parser::lookahead_parser(
@@ -15,7 +12,7 @@ lookahead_parser::lookahead_parser(
 	expected_result{expected_result}
 {}
 
-parsing_result lookahead_parser::parse(const span<token>& tokens) const {
+parsing_result lookahead_parser::parse(const lexer::token_span& tokens) const {
 	auto ast = parser->parse(tokens);
 	if (static_cast<bool>(ast.node) != expected_result) {
 		return {{}, std::move(ast.rest_tokens)};

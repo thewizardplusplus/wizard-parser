@@ -4,7 +4,6 @@
 #include "rule_parser.hpp"
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include "../vendor/gsl/span.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -13,7 +12,7 @@ struct exception_parser final: rule_parser {
 		rule_parser::pointer left_parser,
 		rule_parser::pointer right_parser
 	);
-	parsing_result parse(const gsl::span<lexer::token>& tokens) const override;
+	parsing_result parse(const lexer::token_span& tokens) const override;
 
 private:
 	const rule_parser::pointer left_parser;

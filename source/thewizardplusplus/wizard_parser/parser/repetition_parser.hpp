@@ -4,7 +4,6 @@
 #include "rule_parser.hpp"
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include "../vendor/gsl/span.hpp"
 #include <cstddef>
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -16,7 +15,7 @@ struct repetition_parser final: rule_parser {
 		const std::size_t maximal_number
 	);
 	virtual parsing_result parse(
-		const gsl::span<lexer::token>& tokens
+		const lexer::token_span& tokens
 	) const override final;
 
 private:

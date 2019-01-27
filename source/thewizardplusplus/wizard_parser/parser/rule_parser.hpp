@@ -3,7 +3,6 @@
 
 #include "../lexer/token.hpp"
 #include "parsing_result.hpp"
-#include "../vendor/gsl/span.hpp"
 #include <memory>
 #include <initializer_list>
 
@@ -15,9 +14,7 @@ struct rule_parser {
 	using initializer_list = std::initializer_list<pointer>;
 
 	virtual ~rule_parser();
-	virtual parsing_result parse(
-		const gsl::span<lexer::token>& tokens
-	) const = 0;
+	virtual parsing_result parse(const lexer::token_span& tokens) const = 0;
 };
 
 }

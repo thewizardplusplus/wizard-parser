@@ -6,14 +6,13 @@
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::utilities;
-using namespace gsl;
 using namespace fmt;
 
 namespace thewizardplusplus::wizard_parser::parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
-	const span<token>& tokens,
+	const lexer::token_span& tokens,
 	const std::size_t code_length
 ) {
 	const auto ast = rule->parse(tokens);

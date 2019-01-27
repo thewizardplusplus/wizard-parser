@@ -5,9 +5,6 @@
 #include <vector>
 #include <memory>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus::wizard_parser::parser {
 
 concatenation_parser::concatenation_parser(
@@ -18,7 +15,9 @@ concatenation_parser::concatenation_parser(
 	right_parser{std::move(right_parser)}
 {}
 
-parsing_result concatenation_parser::parse(const span<token>& tokens) const {
+parsing_result concatenation_parser::parse(
+	const lexer::token_span& tokens
+) const {
 	auto left_ast = left_parser->parse(tokens);
 	if (!left_ast.node) {
 		return left_ast;

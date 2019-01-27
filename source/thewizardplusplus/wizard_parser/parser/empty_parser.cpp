@@ -2,12 +2,9 @@
 #include "ast_node.hpp"
 #include <memory>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus::wizard_parser::parser {
 
-parsing_result empty_parser::parse(const span<token>& tokens) const {
+parsing_result empty_parser::parse(const lexer::token_span& tokens) const {
 	return {ast_node{"nothing", {}, {}}, tokens};
 }
 

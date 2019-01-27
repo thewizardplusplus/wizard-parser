@@ -2,9 +2,6 @@
 #include <utility>
 #include <memory>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace gsl;
-
 namespace thewizardplusplus::wizard_parser::parser {
 
 alternation_parser::alternation_parser(
@@ -15,7 +12,9 @@ alternation_parser::alternation_parser(
 	right_parser{std::move(right_parser)}
 {}
 
-parsing_result alternation_parser::parse(const span<token>& tokens) const {
+parsing_result alternation_parser::parse(
+	const lexer::token_span& tokens
+) const {
 	const auto left_ast = left_parser->parse(tokens);
 	const auto right_ast = right_parser->parse(tokens);
 	if (!left_ast.node || !right_ast.node) {

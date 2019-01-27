@@ -5,7 +5,6 @@
 #include "../lexer/token.hpp"
 #include "ast_node.hpp"
 #include "../lexer/lexeme.hpp"
-#include "../vendor/gsl/span.hpp"
 #include <cstddef>
 #include <string>
 
@@ -13,7 +12,7 @@ namespace thewizardplusplus::wizard_parser::parser {
 
 ast_node parse(
 	const rule_parser::pointer& rule,
-	const gsl::span<lexer::token>& tokens,
+	const lexer::token_span& tokens,
 	const std::size_t code_length
 );
 ast_node parse(
