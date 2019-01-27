@@ -1,5 +1,6 @@
 #include "vendor/json.hpp"
 #include "vendor/docopt/docopt.hpp"
+#include "vendor/fmt/format.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
@@ -17,9 +18,9 @@
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <regex>
+#include <iostream>
 #include <string>
 #include <iterator>
-#include <iostream>
 #include <algorithm>
 #include <cstdlib>
 #include <exception>
@@ -85,6 +86,11 @@ void to_json(nlohmann::json& json, const ast_node& ast) {
 
 }
 
+void stop(const int& code, std::ostream& stream, const std::string& message) {
+	stream << fmt::format("{:s}\n", message);
+	std::exit(code);
+}
+
 rule_parser::pointer make_parser() {
 	const auto expression_dummy = dummy();
 	RULE(number_constant) = "number_constant"_t;
@@ -106,19 +112,16 @@ rule_parser::pointer make_parser() {
 	RULE(disjunction) = conjunction >> *(&"or"_v >> conjunction);
 	expression_dummy->set_parser(disjunction);
 
-	return disjunction >> eoi();
+	RULE(expression) = disjunction >> eoi();
+	return expression;
 }
 
 int main(int argc, char* argv[]) try {
-	auto code = std::string{};
-	const auto options = docopt::docopt(usage, {argv + 1, argv + argc}, true);
-	if (!options.at("--stdin").asBool()) {
-		code = options.at("<expression>").asString();
-	} else {
-		code = std::string{std::istreambuf_iterator<char>{std::cin}, {}};
-	}
-
 	auto cleaned_tokens = token_group{};
+	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
+	const auto code = options.at("--stdin").asBool()
+		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
+		: options.at("<expression>").asString();
 	const auto tokens = tokenize(lexemes, code);
 	std::copy_if(
 		std::cbegin(tokens),
@@ -127,18 +130,16 @@ int main(int argc, char* argv[]) try {
 		[] (const auto& token) { return token.type != "whitespace"; }
 	);
 	if (options.at("--tokens").asBool()) {
-		std::cout << nlohmann::json(cleaned_tokens) << '\n';
-		std::exit(EXIT_SUCCESS);
+		stop(EXIT_SUCCESS, std::cout, nlohmann::json(cleaned_tokens).dump());
 	}
 
-	RULE(expression) = make_parser();
+	const auto parser = make_parser();
 	try {
-		const auto ast = parse(expression, cleaned_tokens);
-		std::cout << nlohmann::json(ast) << '\n';
-	} catch (const unexpected_entity_exception<entity_type::eoi>&) {
-		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
+		const auto ast = parse(parser, cleaned_tokens);
+		stop(EXIT_SUCCESS, std::cout, nlohmann::json(ast).dump());
+	} catch (const unexpected_entity_exception<entity_type::eoi>& exception) {
+		throw decltype(exception){code.size()};
 	}
 } catch (const std::exception& exception) {
-	std::cerr << "error: " << exception.what() << '\n';
-	std::exit(EXIT_FAILURE);
+	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
 }
