@@ -1,5 +1,5 @@
 #include "tokenize.hpp"
-#include "../utilities/unexpected_symbol_exception.hpp"
+#include "../utilities/unexpected_entity_exception.hpp"
 #include <regex>
 #include <iterator>
 #include <optional>
@@ -62,7 +62,8 @@ token_group tokenize(
 
 	const auto some_token = find_matched_token(lexemes, code);
 	if (!some_token) {
-		throw utilities::unexpected_symbol_exception{offset};
+		using namespace utilities;
+		throw unexpected_entity_exception<entity_type::symbol>{offset};
 	}
 
 	auto tokens = token_group{{some_token->type, some_token->value, offset}};

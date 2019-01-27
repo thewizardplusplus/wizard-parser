@@ -12,7 +12,7 @@
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
-#include <thewizardplusplus/wizard_parser/utilities/unexpected_eoi_exception.hpp>
+#include <thewizardplusplus/wizard_parser/utilities/unexpected_entity_exception.hpp>
 #include <regex>
 #include <vector>
 #include <string>
@@ -140,8 +140,8 @@ int main(int argc, char* argv[]) try {
 	try {
 		const auto ast = parse(expression, cleaned_tokens);
 		std::cout << nlohmann::json(ast) << '\n';
-	} catch (const unexpected_eoi_exception&) {
-		throw unexpected_eoi_exception{code.size()};
+	} catch (const unexpected_entity_exception<entity_type::eoi>&) {
+		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
 	}
 } catch (const std::exception& exception) {
 	std::cerr << "error: " << exception.what() << '\n';
