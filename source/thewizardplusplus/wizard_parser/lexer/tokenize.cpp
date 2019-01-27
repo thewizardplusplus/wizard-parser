@@ -30,25 +30,19 @@ std::match_results<std::string_view::const_iterator> match_lexeme(
 	return match;
 }
 
-std::optional<token> find_longest_matched_token(
+std::optional<token> find_matched_token(
 	const lexeme_group& lexemes,
 	const std::string_view& code,
 	const std::size_t offset
 ) {
-	auto matched_token = std::optional<token>{};
 	for (const auto& some_lexeme: lexemes) {
 		const auto match = match_lexeme(some_lexeme, code);
-		if (
-			!match.empty()
-			&& (!matched_token
-			|| matched_token->value.size()
-				< static_cast<std::size_t>(match.length()))
-		) {
-			matched_token = token{some_lexeme.type, match.str(), offset};
+		if (!match.empty()) {
+			return token{some_lexeme.type, match.str(), offset};
 		}
 	}
 
-	return matched_token;
+	return {};
 }
 
 }
@@ -63,11 +57,7 @@ token_group tokenize(
 	auto rest_code = code;
 	auto offset = std::size_t{};
 	while (!rest_code.empty()) {
-		auto matched_token = find_longest_matched_token(
-			lexemes,
-			rest_code,
-			offset
-		);
+		auto matched_token = find_matched_token(lexemes, rest_code, offset);
 		if (!matched_token) {
 			throw positional_exception{
 				format(

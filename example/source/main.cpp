@@ -29,10 +29,10 @@ Options:
 const auto lexemes = lexeme_group{
 	{std::regex{"=="}, "equal"},
 	{std::regex{"/="}, "not_equal"},
-	{std::regex{"<"}, "less"},
 	{std::regex{"<="}, "less_or_equal"},
-	{std::regex{">"}, "great"},
+	{std::regex{"<"}, "less"},
 	{std::regex{">="}, "great_or_equal"},
+	{std::regex{">"}, "great"},
 	{std::regex{R"(\+)"}, "plus"},
 	{std::regex{"-"}, "minus"},
 	{std::regex{R"(\*)"}, "star"},
