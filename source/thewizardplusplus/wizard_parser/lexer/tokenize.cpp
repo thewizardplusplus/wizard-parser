@@ -1,14 +1,11 @@
 #include "tokenize.hpp"
-#include "../utilities/positional_exception.hpp"
-#include "../vendor/json.hpp"
-#include "../vendor/fmt/format.hpp"
+#include "../utilities/unexpected_symbol_exception.hpp"
 #include <regex>
 #include <iterator>
 #include <optional>
 #include <vector>
 #include <tuple>
 #include <algorithm>
-#include <string>
 
 namespace thewizardplusplus::wizard_parser::lexer {
 
@@ -65,13 +62,7 @@ token_group tokenize(
 
 	const auto some_token = find_matched_token(lexemes, code);
 	if (!some_token) {
-		throw utilities::positional_exception{
-			fmt::format(
-				"invalid symbol {:s}",
-				nlohmann::json(std::string{code.front()}).dump()
-			),
-			offset
-		};
+		throw utilities::unexpected_symbol_exception{offset};
 	}
 
 	auto tokens = token_group{{some_token->type, some_token->value, offset}};
