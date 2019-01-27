@@ -11,10 +11,6 @@
 #include <cstddef>
 #include <string>
 
-using namespace thewizardplusplus::wizard_parser::utilities;
-using namespace nlohmann;
-using namespace fmt;
-
 namespace thewizardplusplus::wizard_parser::lexer {
 
 using match_t = std::match_results<std::string_view::const_iterator>;
@@ -64,22 +60,20 @@ token_group tokenize(
 	const std::string_view& code
 ) {
 	auto tokens = token_group{};
-	auto rest_code = code;
 	auto offset = std::size_t{};
-	while (!rest_code.empty()) {
-		const auto matched_token = find_matched_token(lexemes, rest_code);
+	while (!code.substr(offset).empty()) {
+		const auto matched_token = find_matched_token(lexemes, code.substr(offset));
 		if (!matched_token) {
-			throw positional_exception{
-				format(
+			throw utilities::positional_exception{
+				fmt::format(
 					"invalid symbol {:s}",
-					json(std::string{rest_code[0]}).dump()
+					nlohmann::json(std::string{code[offset]}).dump()
 				),
 				offset
 			};
 		}
 
 		tokens.push_back({matched_token->type, matched_token->value, offset});
-		rest_code = rest_code.substr(matched_token->value.size());
 		offset += matched_token->value.size();
 	}
 
