@@ -45,4 +45,4 @@ LL(\*)-парсер на C++ с поддержкой DSL для описания
 
 The MIT License (MIT)
 
-Copyright &copy; 2015, 2017, 2018 thewizardplusplus
+Copyright &copy; 2015, 2017-2019 thewizardplusplus
