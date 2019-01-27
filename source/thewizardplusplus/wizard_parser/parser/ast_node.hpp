@@ -1,6 +1,7 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER
 
+#include "../vendor/enum-flags/flags.hpp"
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -13,20 +14,20 @@ enum class ast_node_flag: std::uint8_t {
 	important = 1 << 2
 };
 
+}
+
+ALLOW_FLAGS_FOR_ENUM(thewizardplusplus::wizard_parser::parser::ast_node_flag)
+
+namespace thewizardplusplus::wizard_parser::parser {
+
 struct ast_node {
 	std::string type;
 	std::string value;
 	std::vector<ast_node> children;
-	ast_node_flag flags = ast_node_flag::none;
+	flags::flags<ast_node_flag> flags = ast_node_flag::none;
 };
 
 using ast_node_group = std::vector<ast_node>;
-
-ast_node_flag operator|(
-	const ast_node_flag& flag_1,
-	const ast_node_flag& flag_2
-);
-bool operator&(const ast_node_flag& flag_union, const ast_node_flag& some_flag);
 
 }
 #endif
