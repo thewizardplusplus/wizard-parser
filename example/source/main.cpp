@@ -1,4 +1,5 @@
 #include "vendor/docopt/docopt.hpp"
+#include "vendor/json.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/macroses.hpp>
@@ -47,6 +48,14 @@ const auto lexemes = lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "base_identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
+
+namespace thewizardplusplus::wizard_parser::lexer {
+
+void to_json(nlohmann::json& json, const token& some_token) {
+	json = { { "type", some_token.type }, { "value", some_token.value } };
+}
+
+}
 
 namespace {
 
@@ -98,7 +107,7 @@ int main(int argc, char* argv[]) try {
 		[] (const auto& token) { return token.type != "whitespace"; }
 	);
 	if (options.at("--tokens").asBool()) {
-		std::cout << cleaned_tokens << '\n';
+		std::cout << nlohmann::json(cleaned_tokens) << '\n';
 		std::exit(EXIT_SUCCESS);
 	}
 
