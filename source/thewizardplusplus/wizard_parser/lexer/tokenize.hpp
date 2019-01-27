@@ -2,7 +2,7 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKENIZE_HEADER
 
 #include "lexeme.hpp"
-#include "token_group.hpp"
+#include "token.hpp"
 #include <vector>
 #include <string>
 #include <unordered_set>
