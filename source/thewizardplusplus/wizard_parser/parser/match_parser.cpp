@@ -16,11 +16,12 @@ parsing_result match_parser::parse(const lexer::token_span& tokens) const {
 
 	const auto matched_value =
 		type == match_type::by_type ? tokens[0].type : tokens[0].value;
-	if (matched_value != sample) {
-		return {{}, tokens};
-	}
-
-	return {ast_node{tokens[0].type, tokens[0].value, {}}, tokens.subspan(1)};
+	return matched_value == sample
+		? parsing_result{
+			ast_node{tokens[0].type, tokens[0].value, {}},
+			tokens.subspan(1)
+		}
+		: parsing_result{{}, tokens};
 }
 
 namespace operators {

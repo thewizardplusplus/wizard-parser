@@ -13,11 +13,9 @@ lookahead_parser::lookahead_parser(
 
 parsing_result lookahead_parser::parse(const lexer::token_span& tokens) const {
 	const auto ast = parser->parse(tokens);
-	if (static_cast<bool>(ast.node) != expected_result) {
-		return {{}, ast.rest_tokens};
-	}
-
-	return {ast_node{"nothing", {}, {}}, ast.rest_tokens};
+	return static_cast<bool>(ast.node) == expected_result
+		? parsing_result{ast_node{"nothing", {}, {}}, ast.rest_tokens}
+		: parsing_result{{}, ast.rest_tokens};
 }
 
 namespace operators {

@@ -11,11 +11,7 @@ rule_parser::pointer assignable_parser::operator=(
 
 parsing_result assignable_parser::parse(const lexer::token_span& tokens) const {
 	const auto ast = parser->parse(tokens);
-	if (!ast.node) {
-		return ast;
-	}
-
-	return process_parsed_result(ast);
+	return ast.node ? process_parsed_result(ast) : ast;
 }
 
 }

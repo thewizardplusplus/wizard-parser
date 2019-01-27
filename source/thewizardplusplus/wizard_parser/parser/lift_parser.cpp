@@ -6,14 +6,10 @@ namespace thewizardplusplus::wizard_parser::parser {
 parsing_result lift_parser::process_parsed_result(
 	const parsing_result& result
 ) const {
-	if (
-		result.node->flags & ast_node_flag::important
-		|| result.node->children.size() != 1
-	) {
-		return result;
-	}
-
-	return {result.node->children.front(), result.rest_tokens};
+	return !(result.node->flags & ast_node_flag::important)
+		&& result.node->children.size() == 1
+			? parsing_result{result.node->children.front(), result.rest_tokens}
+			: result;
 }
 
 }
