@@ -1,9 +1,10 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MACROSES
 
-#include "vendor/json.hpp"
-#include "vendor/docopt/docopt.hpp"
+#include "vendor/better-enums/enum_strict.hpp"
 #include "vendor/fmt/format.hpp"
+#include "vendor/json.hpp"
 #include "vendor/range/v3/view/transform.hpp"
+#include "vendor/docopt/docopt.hpp"
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
@@ -20,8 +21,10 @@
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
-#include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <regex>
+#include <cstdint>
+#include <stdexcept>
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -33,7 +36,6 @@ using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
 using namespace thewizardplusplus::wizard_parser::utilities;
-using namespace thewizardplusplus::wizard_parser::exceptions;
 
 const auto usage =
 R"(Usage:
@@ -65,9 +67,27 @@ const auto lexemes = lexeme_group{
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
 
-namespace thewizardplusplus::wizard_parser {
+BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi)
 
-namespace lexer {
+template<entity_type::_integral type>
+struct unexpected_entity_exception final: std::runtime_error {
+	static_assert(entity_type::_is_valid(type));
+
+	explicit unexpected_entity_exception(const std::size_t& offset);
+};
+
+template<entity_type::_integral type>
+unexpected_entity_exception<type>::unexpected_entity_exception(
+	const std::size_t& offset
+):
+	std::runtime_error{fmt::format(
+		"unexpected {:s} (offset: {:d})",
+		entity_type::_from_integral(type)._to_string(),
+		offset
+	)}
+{}
+
+namespace thewizardplusplus::wizard_parser::lexer {
 
 void to_json(nlohmann::json& json, const token& some_token) {
 	json = {
@@ -79,7 +99,7 @@ void to_json(nlohmann::json& json, const token& some_token) {
 
 }
 
-namespace parser {
+namespace thewizardplusplus::wizard_parser::parser {
 
 void to_json(nlohmann::json& json, const ast_node& ast) {
 	json = { { "type", ast.type } };
@@ -92,8 +112,6 @@ void to_json(nlohmann::json& json, const ast_node& ast) {
 	if (ast.offset) {
 		json["offset"] = *ast.offset;
 	}
-}
-
 }
 
 }
