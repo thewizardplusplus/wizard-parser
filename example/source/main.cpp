@@ -35,7 +35,7 @@ using namespace thewizardplusplus::wizard_parser::exceptions;
 const auto usage =
 R"(Usage:
   ./example -h | --help
-  ./example [-t | --tokens] <expression>
+  ./example [-t | --tokens] [--] <expression>
   ./example [-t | --tokens] (-s | --stdin)
 
 Options:
