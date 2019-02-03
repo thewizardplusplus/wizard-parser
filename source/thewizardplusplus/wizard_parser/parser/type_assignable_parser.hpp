@@ -1,23 +1,24 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_TYPE_ASSIGNABLE_PARSER_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_TYPE_ASSIGNABLE_PARSER_HEADER
 
-#include "assignable_parser.hpp"
 #include "rule_parser.hpp"
+#include "../lexer/token.hpp"
+#include <memory>
 #include <string>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-struct type_assignable_parser final: assignable_parser {
-	using assignable_parser::operator=;
-
+struct type_assignable_parser final:
+	rule_parser,
+	std::enable_shared_from_this<type_assignable_parser>
+{
 	explicit type_assignable_parser(const std::string& type);
+	rule_parser::pointer operator=(const rule_parser::pointer& parser);
+	parsing_result parse(const lexer::token_span& tokens) const override;
 
 private:
 	const std::string type;
-
-	parsing_result process_parsed_result(
-		const parsing_result& result
-	) const override;
+	rule_parser::pointer parser;
 };
 
 }

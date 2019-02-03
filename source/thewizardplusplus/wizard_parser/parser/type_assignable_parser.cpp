@@ -7,18 +7,26 @@ type_assignable_parser::type_assignable_parser(const std::string& type):
 	type{type}
 {}
 
-parsing_result type_assignable_parser::process_parsed_result(
-	const parsing_result& result
+rule_parser::pointer type_assignable_parser::operator=(
+	const rule_parser::pointer& parser
+) {
+	this->parser = parser;
+	return shared_from_this();
+}
+
+parsing_result type_assignable_parser::parse(
+	const lexer::token_span& tokens
 ) const {
-	if (result.node->flags & ast_node_flag::named) {
-		return result;
+	const auto ast = parser->parse(tokens);
+	if (!ast.node || ast.node->flags & ast_node_flag::named) {
+		return ast;
 	}
 
-	auto result_copy = result;
-	result_copy.node->type = type;
-	result_copy.node->flags = result.node->flags | ast_node_flag::named;
+	auto ast_copy = ast;
+	ast_copy.node->type = type;
+	ast_copy.node->flags = ast.node->flags | ast_node_flag::named;
 
-	return result_copy;
+	return ast_copy;
 }
 
 }
