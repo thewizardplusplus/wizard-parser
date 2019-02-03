@@ -1,5 +1,4 @@
 #include "concatenation_parser.hpp"
-#include "common.hpp"
 #include "ast_node.hpp"
 #include <memory>
 
@@ -26,12 +25,11 @@ parsing_result concatenation_parser::parse(
 		return right_ast;
 	}
 
-	auto nodes = ast_node_group{};
-	append_node(nodes, *left_ast.node);
-	append_node(nodes, *right_ast.node);
-
 	const auto type = (+ast_node_type::sequence)._to_string();
-	return {ast_node{type, {}, nodes}, right_ast.rest_tokens};
+	return {
+		ast_node{type, {}, {*left_ast.node, *right_ast.node}},
+		right_ast.rest_tokens
+	};
 }
 
 namespace operators {
