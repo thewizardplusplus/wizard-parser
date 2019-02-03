@@ -8,7 +8,7 @@
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/type_assignable_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/match_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/exception_parser.hpp>
