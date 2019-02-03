@@ -22,4 +22,11 @@ private:
 };
 
 }
+
+#ifdef THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MACROSES
+#define RULE(type) const auto type = \
+	*std::make_shared< \
+		thewizardplusplus::wizard_parser::parser::type_assignable_parser \
+	>(#type)
+#endif
 #endif
