@@ -32,21 +32,19 @@ repetition_parser::counted_result repetition_parser::parse_and_count(
 		return {{ast_node{type, {}, {}}, tokens}, counter};
 	}
 
-	auto nodes = ast_node_group{};
-	append_node(nodes, *ast.node);
-
 	const auto next_counter = counter + 1;
 	const auto [rest_ast, rest_counter] = parse_and_count(
 		ast.rest_tokens,
 		next_counter
 	);
 	if (!rest_ast.node) {
-		return {{ast_node{type, {}, nodes}, ast.rest_tokens}, next_counter};
+		return {{ast_node{type, {}, {*ast.node}}, ast.rest_tokens}, next_counter};
 	}
 
-	append_node(nodes, *rest_ast.node);
-
-	return {{ast_node{type, {}, nodes}, rest_ast.rest_tokens}, rest_counter};
+	return {
+		{ast_node{type, {}, {*ast.node, *rest_ast.node}}, rest_ast.rest_tokens},
+		rest_counter
+	};
 }
 
 namespace operators {
