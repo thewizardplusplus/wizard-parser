@@ -4,232 +4,72 @@ declare -gra OPTIONS=("--stdin")
 
 @test "parser: expression, with a minus and a multiplication" {
 	declare -r INPUT="-x * y"
-	declare -r OUTPUT='{
-		"type": "product",
-		"children": [
-			{
-				"type": "unary",
-				"children": [
-					{"type": "minus", "value": "-"},
-					{"type": "identifier", "value": "x"}
-				]
-			},
-			{"type": "star", "value": "*"},
-			{"type": "identifier", "value": "y"}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"minus","value":"-"},{"offset":1,"type":"sequence"}],"type":"sequence"},{"children":[{"children":[{"offset":1,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"children":[{"children":[{"offset":3,"type":"star","value":"*"},{"children":[{"children":[{"offset":5,"type":"sequence"},{"children":[{"children":[{"offset":5,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"}],"type":"sequence"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a minus, a multiplication and a grouping" {
 	declare -r INPUT="-(x * y)"
-	declare -r OUTPUT='{
-		"type": "unary",
-		"children": [
-			{"type": "minus", "value": "-"},
-			{
-				"type": "product",
-				"children": [
-					{"type": "identifier", "value": "x"},
-					{"type": "star", "value": "*"},
-					{"type": "identifier", "value": "y"}
-				]
-			}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"minus","value":"-"},{"offset":1,"type":"sequence"}],"type":"sequence"},{"children":[{"children":[{"children":[{"offset":1,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":2,"type":"sequence"},{"children":[{"children":[{"offset":2,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"children":[{"children":[{"offset":4,"type":"star","value":"*"},{"children":[{"children":[{"offset":6,"type":"sequence"},{"children":[{"children":[{"offset":6,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"}],"type":"sequence"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}],"type":"sequence"},{"offset":7,"type":"nothing"}],"type":"sequence"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a multiplication and an addition" {
 	declare -r INPUT="x * y + z"
-	declare -r OUTPUT='{
-		"type": "sum",
-		"children": [
-			{
-				"type": "product",
-				"children": [
-					{"type": "identifier", "value": "x"},
-					{"type": "star", "value": "*"},
-					{"type": "identifier", "value": "y"}
-				]
-			},
-			{"type": "plus", "value": "+"},
-			{"type": "identifier", "value": "z"}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"children":[{"children":[{"offset":2,"type":"star","value":"*"},{"children":[{"children":[{"offset":4,"type":"sequence"},{"children":[{"children":[{"offset":4,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"}],"type":"sequence"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"product"},{"children":[{"children":[{"offset":6,"type":"plus","value":"+"},{"children":[{"children":[{"children":[{"children":[{"offset":8,"type":"sequence"},{"children":[{"children":[{"offset":8,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"product"}],"type":"sequence"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a multiplication, an addition and a grouping" {
 	declare -r INPUT="x * (y + z)"
-	declare -r OUTPUT='{
-		"type": "product",
-		"children": [
-			{"type": "identifier", "value": "x"},
-			{"type": "star", "value": "*"},
-			{
-				"type": "sum",
-				"children": [
-					{"type": "identifier", "value": "y"},
-					{"type": "plus", "value": "+"},
-					{"type": "identifier", "value": "z"}
-				]
-			}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"children":[{"children":[{"offset":2,"type":"star","value":"*"},{"children":[{"children":[{"offset":4,"type":"sequence"},{"children":[{"children":[{"children":[{"offset":4,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":5,"type":"sequence"},{"children":[{"children":[{"offset":5,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"children":[{"children":[{"offset":7,"type":"plus","value":"+"},{"children":[{"children":[{"children":[{"children":[{"offset":9,"type":"sequence"},{"children":[{"children":[{"offset":9,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"product"}],"type":"sequence"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}],"type":"sequence"},{"offset":10,"type":"nothing"}],"type":"sequence"}],"type":"atom"}],"type":"sequence"}],"type":"unary"}],"type":"sequence"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with an addition and a less sign" {
 	declare -r INPUT="x + y < z"
-	declare -r OUTPUT='{
-		"type": "comparison",
-		"children": [
-			{
-				"type": "sum",
-				"children": [
-					{"type": "identifier", "value": "x"},
-					{"type": "plus", "value": "+"},
-					{"type": "identifier", "value": "y"}
-				]
-			},
-			{"type": "less", "value": "<"},
-			{"type": "identifier", "value": "z"}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"children":[{"children":[{"offset":2,"type":"plus","value":"+"},{"children":[{"children":[{"children":[{"children":[{"offset":4,"type":"sequence"},{"children":[{"children":[{"offset":4,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"product"}],"type":"sequence"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"children":[{"children":[{"offset":6,"type":"less","value":"<"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":8,"type":"sequence"},{"children":[{"children":[{"offset":8,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"sum"}],"type":"sequence"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with an addition, a less sign and a grouping" {
 	declare -r INPUT="x + (y < z)"
-	declare -r OUTPUT='{
-		"type": "sum",
-		"children": [
-			{"type": "identifier", "value": "x"},
-			{"type": "plus", "value": "+"},
-			{
-				"type": "comparison",
-				"children": [
-					{"type": "identifier", "value": "y"},
-					{"type": "less", "value": "<"},
-					{"type": "identifier", "value": "z"}
-				]
-			}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"children":[{"children":[{"offset":2,"type":"plus","value":"+"},{"children":[{"children":[{"children":[{"children":[{"offset":4,"type":"sequence"},{"children":[{"children":[{"children":[{"offset":4,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":5,"type":"sequence"},{"children":[{"children":[{"offset":5,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"children":[{"children":[{"offset":7,"type":"less","value":"<"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":9,"type":"sequence"},{"children":[{"children":[{"offset":9,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"sum"}],"type":"sequence"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}],"type":"sequence"},{"offset":10,"type":"nothing"}],"type":"sequence"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"product"}],"type":"sequence"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a less sign and an equal sign" {
 	declare -r INPUT="x < y == z"
-	declare -r OUTPUT='{
-		"type": "equality",
-		"children": [
-			{
-				"type": "comparison",
-				"children": [
-					{"type": "identifier", "value": "x"},
-					{"type": "less", "value": "<"},
-					{"type": "identifier", "value": "y"}
-				]
-			},
-			{"type": "equal", "value": "=="},
-			{"type": "identifier", "value": "z"}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"children":[{"children":[{"offset":2,"type":"less","value":"<"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":4,"type":"sequence"},{"children":[{"children":[{"offset":4,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"sum"}],"type":"sequence"},{"offset":6,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"children":[{"children":[{"offset":6,"type":"equal","value":"=="},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":9,"type":"sequence"},{"children":[{"children":[{"offset":9,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"comparison"}],"type":"sequence"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":10,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a less sign, an equal sign and a grouping" {
 	declare -r INPUT="x < (y == z)"
-	declare -r OUTPUT='{
-		"type": "comparison",
-		"children": [
-			{"type": "identifier", "value": "x"},
-			{"type": "less", "value": "<"},
-			{
-				"type": "equality",
-				"children": [
-					{"type": "identifier", "value": "y"},
-					{"type": "equal", "value": "=="},
-					{"type": "identifier", "value": "z"}
-				]
-			}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"children":[{"children":[{"offset":2,"type":"less","value":"<"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":4,"type":"sequence"},{"children":[{"children":[{"children":[{"offset":4,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":5,"type":"sequence"},{"children":[{"children":[{"offset":5,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"children":[{"children":[{"offset":7,"type":"equal","value":"=="},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":10,"type":"sequence"},{"children":[{"children":[{"offset":10,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"comparison"}],"type":"sequence"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":11,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}],"type":"sequence"},{"offset":11,"type":"nothing"}],"type":"sequence"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"sum"}],"type":"sequence"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with an equal sign and a conjunction sign" {
 	declare -r INPUT="x == y and z"
-	declare -r OUTPUT='{
-		"type": "conjunction",
-		"children": [
-			{
-				"type": "equality",
-				"children": [
-					{"type": "identifier", "value": "x"},
-					{"type": "equal", "value": "=="},
-					{"type": "identifier", "value": "y"}
-				]
-			},
-			{"type": "identifier", "value": "z"}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"children":[{"children":[{"offset":2,"type":"equal","value":"=="},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":5,"type":"sequence"},{"children":[{"children":[{"offset":5,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"comparison"}],"type":"sequence"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"children":[{"children":[{"offset":7,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":11,"type":"sequence"},{"children":[{"children":[{"offset":11,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"equality"}],"type":"sequence"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with an equal sign, a conjunction sign and a grouping" {
 	declare -r INPUT="x == (y and z)"
-	declare -r OUTPUT='{
-		"type": "equality",
-		"children": [
-			{"type": "identifier", "value": "x"},
-			{"type": "equal", "value": "=="},
-			{
-				"type": "conjunction",
-				"children": [
-					{"type": "identifier", "value": "y"},
-					{"type": "identifier", "value": "z"}
-				]
-			}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"children":[{"children":[{"offset":2,"type":"equal","value":"=="},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":5,"type":"sequence"},{"children":[{"children":[{"children":[{"offset":5,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":6,"type":"sequence"},{"children":[{"children":[{"offset":6,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"children":[{"children":[{"offset":8,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":12,"type":"sequence"},{"children":[{"children":[{"offset":12,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"equality"}],"type":"sequence"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}],"type":"sequence"},{"offset":13,"type":"nothing"}],"type":"sequence"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"comparison"}],"type":"sequence"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a conjunction sign and a disjunction sign" {
 	declare -r INPUT="x and y or z"
-	declare -r OUTPUT='{
-		"type": "disjunction",
-		"children": [
-			{
-				"type": "conjunction",
-				"children": [
-					{"type": "identifier", "value": "x"},
-					{"type": "identifier", "value": "y"}
-				]
-			},
-			{"type": "identifier", "value": "z"}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"children":[{"children":[{"offset":2,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":6,"type":"sequence"},{"children":[{"children":[{"offset":6,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"equality"}],"type":"sequence"},{"offset":8,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"children":[{"children":[{"offset":8,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":11,"type":"sequence"},{"children":[{"children":[{"offset":11,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"}],"type":"sequence"},{"offset":12,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
 
 @test "parser: expression, with a conjunction sign, a disjunction sign and a grouping" {
 	declare -r INPUT="x and (y or z)"
-	declare -r OUTPUT='{
-		"type": "conjunction",
-		"children": [
-			{"type": "identifier", "value": "x"},
-			{
-				"type": "disjunction",
-				"children": [
-					{"type": "identifier", "value": "y"},
-					{"type": "identifier", "value": "z"}
-				]
-			}
-		]
-	}'
+	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":2,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"children":[{"children":[{"offset":2,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":6,"type":"sequence"},{"children":[{"children":[{"children":[{"offset":6,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":7,"type":"sequence"},{"children":[{"children":[{"offset":7,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":9,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"children":[{"children":[{"offset":9,"type":"nothing"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":12,"type":"sequence"},{"children":[{"children":[{"offset":12,"type":"base_identifier","value":"z"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"}],"type":"sequence"},{"offset":13,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}],"type":"sequence"},{"offset":13,"type":"nothing"}],"type":"sequence"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"equality"}],"type":"sequence"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":14,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
 	io_test
 }
