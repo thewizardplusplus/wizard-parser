@@ -3,6 +3,9 @@
 #include "vendor/json.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/fmt/format.hpp"
+#include "vendor/range/v3/view/transform.hpp"
+#include "vendor/range/v3/view/filter.hpp"
+#include "vendor/range/v3/to_container.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
@@ -23,10 +26,9 @@
 #include <regex>
 #include <iostream>
 #include <string>
-#include <functional>
-#include <algorithm>
-#include <iterator>
 #include <cstdlib>
+#include <functional>
+#include <iterator>
 #include <exception>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
@@ -133,30 +135,24 @@ ast_node walk_ast(
 	const std::function<ast_node(const ast_node&)>& handler
 ) {
 	const auto new_ast = handler(ast);
-	auto new_children = ast_node_group{};
-	std::transform(
-		std::cbegin(new_ast.children),
-		std::cend(new_ast.children),
-		std::back_inserter(new_children),
-		[&] (const auto& ast) { return walk_ast(ast, handler); }
-	);
-
+	const auto new_children = new_ast.children
+		| ranges::view::transform([&] (const auto& ast) {
+			return walk_ast(ast, handler);
+		});
 	return {new_ast.type, new_ast.value, new_children, new_ast.offset};
 }
 
 int main(int argc, char* argv[]) try {
-	auto cleaned_tokens = token_group{};
 	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: options.at("<expression>").asString();
 	const auto tokens = tokenize(lexemes, code);
-	std::copy_if(
-		std::cbegin(tokens),
-		std::cend(tokens),
-		std::back_inserter(cleaned_tokens),
-		[] (const auto& token) { return token.type != "whitespace"; }
-	);
+	auto cleaned_tokens = tokens
+		| ranges::view::filter([] (const auto& token) {
+			return token.type != "whitespace";
+		})
+		| ranges::to_<token_group>();
 	if (options.at("--tokens").asBool()) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(cleaned_tokens).dump());
 	}
