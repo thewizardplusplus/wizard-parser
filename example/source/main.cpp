@@ -18,18 +18,21 @@
 #include <thewizardplusplus/wizard_parser/parser/eoi_parser.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
+#include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <regex>
 #include <iostream>
 #include <string>
-#include <iterator>
+#include <functional>
 #include <algorithm>
+#include <iterator>
 #include <cstdlib>
 #include <exception>
 
 using namespace thewizardplusplus::wizard_parser::lexer;
 using namespace thewizardplusplus::wizard_parser::parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
+using namespace thewizardplusplus::wizard_parser::utilities;
 using namespace thewizardplusplus::wizard_parser::exceptions;
 
 const auto usage =
@@ -125,6 +128,22 @@ rule_parser::pointer make_parser() {
 	return expression;
 }
 
+ast_node walk_ast(
+	const ast_node& ast,
+	const std::function<ast_node(const ast_node&)>& handler
+) {
+	const auto new_ast = handler(ast);
+	auto new_children = ast_node_group{};
+	std::transform(
+		std::cbegin(new_ast.children),
+		std::cend(new_ast.children),
+		std::back_inserter(new_children),
+		[&] (const auto& ast) { return walk_ast(ast, handler); }
+	);
+
+	return {new_ast.type, new_ast.value, new_children, new_ast.offset};
+}
+
 int main(int argc, char* argv[]) try {
 	auto cleaned_tokens = token_group{};
 	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
@@ -145,7 +164,13 @@ int main(int argc, char* argv[]) try {
 	const auto parser = make_parser();
 	try {
 		const auto ast = parse(parser, cleaned_tokens);
-		stop(EXIT_SUCCESS, std::cout, nlohmann::json(ast).dump());
+		const auto transformed_ast = walk_ast(ast, [&] (const auto& ast) {
+			const auto offset = ast.offset && *ast.offset == integral_infinity
+				? code.size()
+				: ast.offset;
+			return ast_node{ast.type, ast.value, ast.children, offset};
+		});
+		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 	} catch (const unexpected_entity_exception<entity_type::eoi>& exception) {
 		throw decltype(exception){code.size()};
 	}
