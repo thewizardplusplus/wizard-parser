@@ -147,7 +147,11 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: options.at("<expression>").asString();
-	const auto tokens = tokenize(lexemes, code);
+	const auto [tokens, rest_offset] = tokenize(lexemes, code);
+	if (rest_offset != code.size()) {
+		throw unexpected_entity_exception<entity_type::symbol>{rest_offset};
+	}
+
 	auto cleaned_tokens = tokens
 		| ranges::view::filter([] (const auto& token) {
 			return token.type != "whitespace";

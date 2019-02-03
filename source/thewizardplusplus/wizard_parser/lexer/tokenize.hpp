@@ -1,14 +1,19 @@
 #ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKENIZE_HEADER
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_LEXER_TOKENIZE_HEADER
 
-#include "lexeme.hpp"
 #include "token.hpp"
-#include <string_view>
+#include "lexeme.hpp"
 #include <cstddef>
+#include <string_view>
 
 namespace thewizardplusplus::wizard_parser::lexer {
 
-token_group tokenize(
+struct tokenizing_result {
+	token_group tokens;
+	std::size_t rest_offset;
+};
+
+tokenizing_result tokenize(
 	const lexeme_group& lexemes,
 	const std::string_view& code,
 	const std::size_t& offset=0

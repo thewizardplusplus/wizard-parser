@@ -1,5 +1,4 @@
 #include "tokenize.hpp"
-#include "../exceptions/unexpected_entity_exception.hpp"
 #include "../vendor/range/v3/view/transform.hpp"
 #include "../vendor/range/v3/algorithm/find_if.hpp"
 #include "../vendor/range/v3/begin_end.hpp"
@@ -47,30 +46,26 @@ std::optional<token> find_matched_token(
 		: std::nullopt;
 }
 
-token_group tokenize(
+tokenizing_result tokenize(
 	const lexeme_group& lexemes,
 	const std::string_view& code,
 	const std::size_t& offset
 ) {
-	if (code.empty()) {
-		return {};
-	}
-
 	const auto some_token = find_matched_token(lexemes, code);
 	if (!some_token) {
-		using namespace exceptions;
-		throw unexpected_entity_exception<entity_type::symbol>{offset};
+		return {{}, offset};
 	}
 
-	const auto rest_tokens = tokenize(
+	const auto first_token = token{some_token->type, some_token->value, offset};
+	const auto [rest_tokens, rest_offset] = tokenize(
 		lexemes,
 		code.substr(some_token->value.size()),
 		offset+some_token->value.size()
 	);
-	return ranges::view::concat(
-		ranges::view::single(token{some_token->type, some_token->value, offset}),
-		rest_tokens
-	);
+	return {
+		ranges::view::concat(ranges::view::single(first_token), rest_tokens),
+		rest_offset
+	};
 }
 
 }
