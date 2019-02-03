@@ -16,9 +16,7 @@ repetition_parser::repetition_parser(
 
 parsing_result repetition_parser::parse(const lexer::token_span& tokens) const {
 	const auto [ast, counter] = parse_and_count(tokens);
-	return counter < minimal_number || counter > maximal_number
-		? parsing_result{{}, tokens}
-		: ast;
+	return counter >= minimal_number ? ast : parsing_result{{}, tokens};
 }
 
 repetition_parser::counted_result repetition_parser::parse_and_count(
@@ -27,19 +25,14 @@ repetition_parser::counted_result repetition_parser::parse_and_count(
 ) const {
 	const auto type = (+ast_node_type::sequence)._to_string();
 	const auto ast = parser->parse(tokens);
-	if (!ast.node) {
+	if (counter >= maximal_number || !ast.node) {
 		return {{ast_node{type, {}, {}, lexer::get_offset(tokens)}, tokens}, counter};
 	}
 
-	const auto next_counter = counter + 1;
 	const auto [rest_ast, rest_counter] = parse_and_count(
 		ast.rest_tokens,
-		next_counter
+		counter+1
 	);
-	if (!rest_ast.node) {
-		return {{ast_node{type, {}, {*ast.node}}, ast.rest_tokens}, next_counter};
-	}
-
 	return {
 		{ast_node{type, {}, {*ast.node, *rest_ast.node}}, rest_ast.rest_tokens},
 		rest_counter
