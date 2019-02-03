@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rest_5ftokens',['rest_tokens',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a5d273b91a1bba0480f53b6c1692e8c2d',1,'thewizardplusplus::wizard_parser::parser::parsing_result']]]
+  ['value',['value',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html#ad0f7037a9578033ae78eb8b52ed68044',1,'thewizardplusplus::wizard_parser::lexer::token::value()'],['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#acd9117af4ae864518668035949b3d761',1,'thewizardplusplus::wizard_parser::parser::ast_node::value()']]]
 ];

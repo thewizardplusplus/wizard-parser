@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['macroses_2ehpp',['macroses.hpp',['../macroses_8hpp.html',1,'']]],
-  ['match_5flexeme',['match_lexeme',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a547012401b9285fcc282c8e6aa4296de',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['match_5fparser',['match_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1match__parser.html',1,'thewizardplusplus::wizard_parser::parser::match_parser'],['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1match__parser.html#a949f188781f26b419c286573c377508f',1,'thewizardplusplus::wizard_parser::parser::match_parser::match_parser()']]],
-  ['match_5fparser_2ecpp',['match_parser.cpp',['../match__parser_8cpp.html',1,'']]],
-  ['match_5fparser_2ehpp',['match_parser.hpp',['../match__parser_8hpp.html',1,'']]],
-  ['match_5ft',['match_t',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a28a58c33229caa9676c886ee36fc8070',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['match_5ftype',['match_type',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146a',1,'thewizardplusplus::wizard_parser::parser']]]
+  ['lexeme',['lexeme',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html',1,'thewizardplusplus::wizard_parser::lexer']]],
+  ['lexeme_2ehpp',['lexeme.hpp',['../lexeme_8hpp.html',1,'']]],
+  ['lexeme_5fgroup',['lexeme_group',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7',1,'thewizardplusplus::wizard_parser::lexer']]],
+  ['lookahead_5fparser',['lookahead_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1lookahead__parser.html',1,'thewizardplusplus::wizard_parser::parser::lookahead_parser'],['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1lookahead__parser.html#abe96378a853582f7538bc2b45d3606e7',1,'thewizardplusplus::wizard_parser::parser::lookahead_parser::lookahead_parser()']]],
+  ['lookahead_5fparser_2ecpp',['lookahead_parser.cpp',['../lookahead__parser_8cpp.html',1,'']]],
+  ['lookahead_5fparser_2ehpp',['lookahead_parser.hpp',['../lookahead__parser_8hpp.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ast_5fnode_5fflag',['ast_node_flag',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995',1,'thewizardplusplus::wizard_parser::parser']]]
+  ['match_5ftype',['match_type',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a80164a47d05a29c947deb1eb62d5146a',1,'thewizardplusplus::wizard_parser::parser']]]
 ];

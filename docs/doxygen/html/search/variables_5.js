@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['offset',['offset',['../structthewizardplusplus_1_1wizard__parser_1_1exceptions_1_1positional__exception.html#a4b6ade837ec050a0c0c67dc69b0536d1',1,'thewizardplusplus::wizard_parser::exceptions::positional_exception::offset()'],['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html#a330940ec6cc4dc842b2052eb88bd57d9',1,'thewizardplusplus::wizard_parser::lexer::token::offset()']]]
+  ['rest_5foffset',['rest_offset',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1tokenizing__result.html#a2c9425b005b8f146175cbb62de941ce4',1,'thewizardplusplus::wizard_parser::lexer::tokenizing_result']]],
+  ['rest_5ftokens',['rest_tokens',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1parsing__result.html#a5d273b91a1bba0480f53b6c1692e8c2d',1,'thewizardplusplus::wizard_parser::parser::parsing_result']]]
 ];

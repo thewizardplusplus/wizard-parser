@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ignorable_5fnodes',['ignorable_nodes',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aba6ff3fb0eae83fc46f9794fa8be7f5e',1,'thewizardplusplus::wizard_parser::parser']]],
-  ['integral_5finfinity',['integral_infinity',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a01ee39f706a6eae9aac77b4a0c4d0eb9',1,'thewizardplusplus::wizard_parser::parser']]]
+  ['offset',['offset',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html#a330940ec6cc4dc842b2052eb88bd57d9',1,'thewizardplusplus::wizard_parser::lexer::token::offset()'],['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#ab642c82ea347477337f07b4417b6fb94',1,'thewizardplusplus::wizard_parser::parser::ast_node::offset()']]]
 ];

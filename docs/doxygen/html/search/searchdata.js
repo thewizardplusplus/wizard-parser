@@ -1,15 +1,14 @@
 var indexSectionsWithContent =
 {
-  0: "abcdefilmnoprstuvw~",
-  1: "acdeilmprtu",
+  0: "abcdefgilmnoprstuvw~",
+  1: "acdelmprt",
   2: "t",
-  3: "acdeilmprtu",
-  4: "acdeflmoprstu~",
-  5: "cdfinoprtv",
+  3: "acdelmrtu",
+  4: "acdefglmoprst~",
+  5: "cinoprtv",
   6: "almptw",
-  7: "am",
-  8: "bin",
-  9: "ir"
+  7: "m",
+  8: "b"
 };
 
 var indexSectionNames =
@@ -22,8 +21,7 @@ var indexSectionNames =
   5: "variables",
   6: "typedefs",
   7: "enums",
-  8: "enumvalues",
-  9: "defines"
+  8: "enumvalues"
 };
 
 var indexSectionLabels =
@@ -36,7 +34,6 @@ var indexSectionLabels =
   5: "Переменные",
   6: "Определения типов",
   7: "Перечисления",
-  8: "Элементы перечислений",
-  9: "Макросы"
+  8: "Элементы перечислений"
 };
 

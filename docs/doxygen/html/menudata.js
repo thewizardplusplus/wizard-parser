@@ -39,9 +39,7 @@ var menudata={children:[
 {text:"Указатель",url:"functions.html",children:[
 {text:"a",url:"functions.html#index_a"},
 {text:"c",url:"functions.html#index_c"},
-{text:"d",url:"functions.html#index_d"},
 {text:"e",url:"functions.html#index_e"},
-{text:"f",url:"functions.html#index_f"},
 {text:"l",url:"functions.html#index_l"},
 {text:"m",url:"functions.html#index_m"},
 {text:"n",url:"functions.html#index_n"},
@@ -50,7 +48,6 @@ var menudata={children:[
 {text:"r",url:"functions.html#index_r"},
 {text:"s",url:"functions.html#index_s"},
 {text:"t",url:"functions.html#index_t"},
-{text:"u",url:"functions.html#index_u"},
 {text:"v",url:"functions.html#index_v"},
 {text:"w",url:"functions.html#index_w"},
 {text:"~",url:"functions.html#index__7E"}]},
@@ -58,7 +55,4 @@ var menudata={children:[
 {text:"Переменные",url:"functions_vars.html"},
 {text:"Определения типов",url:"functions_type.html"}]}]},
 {text:"Файлы",url:"files.html",children:[
-{text:"Файлы",url:"files.html"},
-{text:"Список членов всех файлов",url:"globals.html",children:[
-{text:"Указатель",url:"globals.html"},
-{text:"Макросы",url:"globals_defs.html"}]}]}]}
+{text:"Файлы",url:"files.html"}]}]}

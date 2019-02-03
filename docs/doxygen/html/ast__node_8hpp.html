@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v3.0</span>
+   &#160;<span id="projectnumber">v3.1</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -70,23 +70,23 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Классы</a> &#124;
 <a href="#namespaces">Пространства имен</a> &#124;
-<a href="#typedef-members">Определения типов</a> &#124;
-<a href="#enum-members">Перечисления</a>  </div>
+<a href="#typedef-members">Определения типов</a>  </div>
   <div class="headertitle">
 <div class="title">Файл ast_node.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;../vendor/better-enums/enum_strict.hpp&quot;</code><br />
-<code>#include &quot;../vendor/enum-flags/flags.hpp&quot;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
 </div>
 <p><a href="ast__node_8hpp_source.html">См. исходные тексты.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Классы</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser::ast_node</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::parser::ast_node</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -97,30 +97,16 @@ $(function() {
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus.html">thewizardplusplus::wizard_parser::thewizardplusplus</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser.html">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Определения типов</h2></td></tr>
-<tr class="memitem:acaad61bb5766df265c82882e44d76678"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser.html#acaad61bb5766df265c82882e44d76678">thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser::ast_node_group</a> = std::vector&lt; ast_node &gt;</td></tr>
-<tr class="separator:acaad61bb5766df265c82882e44d76678"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Перечисления</h2></td></tr>
-<tr class="memitem:a89bcb273786c26d6cdff5f37dfa59995"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995">thewizardplusplus::wizard_parser::parser::ast_node_flag</a> : std::uint8_t { <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a334c4a4c42fdb79d7ebc3e73b517e6f8">thewizardplusplus::wizard_parser::parser::ast_node_flag::none</a> = 1 &lt;&lt; 0, 
-<a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a72b49a243cef20220b110e1a0ccbb93c">thewizardplusplus::wizard_parser::parser::ast_node_flag::named</a> = 1 &lt;&lt; 1, 
-<a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a89bcb273786c26d6cdff5f37dfa59995a48818f3da3d36ad762480b319b56f588">thewizardplusplus::wizard_parser::parser::ast_node_flag::important</a> = 1 &lt;&lt; 2
- }</td></tr>
-<tr class="separator:a89bcb273786c26d6cdff5f37dfa59995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe53474aa1942f2944dd75ac36c85a71"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#afe53474aa1942f2944dd75ac36c85a71">thewizardplusplus::wizard_parser::parser::ast_node_group</a> = std::vector&lt; ast_node &gt;</td></tr>
+<tr class="separator:afe53474aa1942f2944dd75ac36c85a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Сб 26 Янв 2019 02:21:24. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Вс 3 Фев 2019 22:14:25. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

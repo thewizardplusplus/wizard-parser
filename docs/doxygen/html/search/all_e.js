@@ -1,20 +1,4 @@
 var searchData=
 [
-  ['exceptions',['exceptions',['../namespacethewizardplusplus_1_1wizard__parser_1_1exceptions.html',1,'thewizardplusplus::wizard_parser']]],
-  ['lexer',['lexer',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html',1,'thewizardplusplus::wizard_parser']]],
-  ['operators',['operators',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html',1,'thewizardplusplus::wizard_parser::parser']]],
-  ['parser',['parser',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html',1,'thewizardplusplus::wizard_parser::parser'],['../namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser.html',1,'thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser']]],
-  ['thewizardplusplus',['thewizardplusplus',['../namespacethewizardplusplus.html',1,'thewizardplusplus'],['../namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus.html',1,'thewizardplusplus::wizard_parser::thewizardplusplus']]],
-  ['token',['token',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['token_2ehpp',['token.hpp',['../token_8hpp.html',1,'']]],
-  ['token_5fgroup',['token_group',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a48cc53b07bbfe8ca2af2c90c9e8a9f24',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['token_5fspan',['token_span',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9250e76585427d276705f23443ac4a55',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['tokenize',['tokenize',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9d01983f1993b6033f36d81436cf1dd3',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['tokenize_2ecpp',['tokenize.cpp',['../tokenize_8cpp.html',1,'']]],
-  ['tokenize_2ehpp',['tokenize.hpp',['../tokenize_8hpp.html',1,'']]],
-  ['type',['type',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1lexeme.html#af5f9022a88e77d653c96786d636bb6f9',1,'thewizardplusplus::wizard_parser::lexer::lexeme::type()'],['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1token.html#a780c54a2eb26d8ceedbcee066c47e55c',1,'thewizardplusplus::wizard_parser::lexer::token::type()'],['../structthewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html#a1ee33d47bbaae9a5f52eaa8218645ef4',1,'thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser::parser::ast_node::type()']]],
-  ['type_5fassignable_5fparser',['type_assignable_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1type__assignable__parser.html',1,'thewizardplusplus::wizard_parser::parser::type_assignable_parser'],['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1type__assignable__parser.html#a3da0c7630296fcf1c46900ce4626bfd1',1,'thewizardplusplus::wizard_parser::parser::type_assignable_parser::type_assignable_parser()']]],
-  ['type_5fassignable_5fparser_2ecpp',['type_assignable_parser.cpp',['../type__assignable__parser_8cpp.html',1,'']]],
-  ['type_5fassignable_5fparser_2ehpp',['type_assignable_parser.hpp',['../type__assignable__parser_8hpp.html',1,'']]],
-  ['wizard_5fparser',['wizard_parser',['../namespacethewizardplusplus_1_1wizard__parser.html',1,'thewizardplusplus::wizard_parser'],['../namespacethewizardplusplus_1_1wizard__parser_1_1thewizardplusplus_1_1wizard__parser.html',1,'thewizardplusplus::wizard_parser::thewizardplusplus::wizard_parser']]]
+  ['set_5fparser',['set_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1dummy__parser.html#ad1330e9bf7b033a9ef21ca10b8cc615e',1,'thewizardplusplus::wizard_parser::parser::dummy_parser']]]
 ];
