@@ -14,7 +14,7 @@ lookahead_parser::lookahead_parser(
 parsing_result lookahead_parser::parse(const lexer::token_span& tokens) const {
 	const auto type = (+ast_node_type::nothing)._to_string();
 	const auto ast = parser->parse(tokens);
-	return static_cast<bool>(ast.node) == expected_result
+	return ast.node.has_value() == expected_result
 		? parsing_result{
 			ast_node{type, {}, {}, lexer::get_offset(tokens)},
 			ast.rest_tokens
