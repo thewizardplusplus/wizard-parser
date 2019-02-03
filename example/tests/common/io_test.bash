@@ -1,5 +1,5 @@
 function io_test() {
-	declare -r output="`echo "$INPUT" \
+	declare -r output="`echo -n "$INPUT" \
 		| "${COMMAND[@]}" "${OPTIONS[@]}" \
 		| jq -cSM ""
 	`"
