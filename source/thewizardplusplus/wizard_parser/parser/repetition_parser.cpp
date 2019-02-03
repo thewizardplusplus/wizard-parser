@@ -1,5 +1,4 @@
 #include "repetition_parser.hpp"
-#include "common.hpp"
 #include "ast_node.hpp"
 #include <memory>
 
@@ -54,11 +53,11 @@ rule_parser::pointer operator-(const rule_parser::pointer& parser) {
 }
 
 rule_parser::pointer operator*(const rule_parser::pointer& parser) {
-	return std::make_shared<repetition_parser>(parser, 0, integral_infinity);
+	return std::make_shared<repetition_parser>(parser, 0);
 }
 
 rule_parser::pointer operator+(const rule_parser::pointer& parser) {
-	return std::make_shared<repetition_parser>(parser, 1, integral_infinity);
+	return std::make_shared<repetition_parser>(parser, 1);
 }
 
 }

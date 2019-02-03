@@ -1,6 +1,6 @@
 #include "parse.hpp"
 #include "../exceptions/unexpected_entity_exception.hpp"
-#include "common.hpp"
+#include "../utilities/utilities.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -17,7 +17,9 @@ ast_node parse(
 				ast.rest_tokens[0].offset
 			};
 		} else {
-			throw unexpected_entity_exception<entity_type::eoi>{integral_infinity};
+			throw unexpected_entity_exception<entity_type::eoi>{
+				utilities::integral_infinity
+			};
 		}
 	}
 
