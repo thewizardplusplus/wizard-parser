@@ -1,11 +1,14 @@
 #include "tokenize.hpp"
 #include "../exceptions/unexpected_entity_exception.hpp"
+#include "../vendor/range/v3/view/transform.hpp"
+#include "../vendor/range/v3/algorithm/find_if.hpp"
+#include "../vendor/range/v3/begin_end.hpp"
+#include "../vendor/range/v3/view/concat.hpp"
+#include "../vendor/range/v3/view/single.hpp"
 #include <regex>
 #include <iterator>
 #include <optional>
-#include <vector>
 #include <tuple>
-#include <algorithm>
 
 namespace thewizardplusplus::wizard_parser::lexer {
 
@@ -28,27 +31,20 @@ std::optional<token> find_matched_token(
 	const lexeme_group& lexemes,
 	const std::string_view& code
 ) {
-	auto matches = std::vector<std::tuple<lexeme, match_t>>{};
-	std::transform(
-		std::cbegin(lexemes),
-		std::cend(lexemes),
-		std::back_inserter(matches),
-		[&] (const auto& lexeme) {
+	const auto matches = lexemes
+		| ranges::view::transform([&] (const auto& lexeme) {
 			const auto match = match_lexeme(lexeme, code);
 			return std::make_tuple(lexeme, match);
-		}
-	);
-
-	const auto match = std::find_if(
-		std::cbegin(matches),
-		std::cend(matches),
-		[] (const auto& match) { return !std::get<match_t>(match).empty(); }
-	);
-	if (match == std::cend(matches)) {
-		return std::nullopt;
-	}
-
-	return token{std::get<lexeme>(*match).type, std::get<match_t>(*match).str()};
+		});
+	const auto match = ranges::find_if(matches, [] (const auto& match) {
+		return !std::get<match_t>(match).empty();
+	});
+	return match != ranges::cend(matches)
+		? std::make_optional(token{
+			std::get<lexeme>(*match).type,
+			std::get<match_t>(*match).str()
+		})
+		: std::nullopt;
 }
 
 token_group tokenize(
@@ -66,19 +62,15 @@ token_group tokenize(
 		throw unexpected_entity_exception<entity_type::symbol>{offset};
 	}
 
-	auto tokens = token_group{{some_token->type, some_token->value, offset}};
 	const auto rest_tokens = tokenize(
 		lexemes,
 		code.substr(some_token->value.size()),
 		offset+some_token->value.size()
 	);
-	std::copy(
-		std::cbegin(rest_tokens),
-		std::cend(rest_tokens),
-		std::back_inserter(tokens)
+	return ranges::view::concat(
+		ranges::view::single(token{some_token->type, some_token->value, offset}),
+		rest_tokens
 	);
-
-	return tokens;
 }
 
 }
