@@ -20,7 +20,6 @@
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/eoi_parser.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
-#include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <regex>
@@ -162,18 +161,23 @@ int main(int argc, char* argv[]) try {
 	}
 
 	const auto parser = make_parser();
-	try {
-		const auto ast = parse(parser, cleaned_tokens);
-		const auto transformed_ast = walk_ast(ast, [&] (const auto& ast) {
-			const auto offset = ast.offset && *ast.offset == integral_infinity
-				? code.size()
-				: ast.offset;
-			return ast_node{ast.type, ast.value, ast.children, offset};
-		});
-		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
-	} catch (const unexpected_entity_exception<entity_type::eoi>& exception) {
-		throw decltype(exception){code.size()};
+	const auto ast = parser->parse(cleaned_tokens);
+	if (!ast.rest_tokens.empty()) {
+		throw unexpected_entity_exception<entity_type::token>{
+			get_offset(ast.rest_tokens)
+		};
 	}
+	if (!ast.node) {
+		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
+	}
+
+	const auto transformed_ast = walk_ast(*ast.node, [&] (const auto& ast) {
+		const auto offset = ast.offset && *ast.offset == integral_infinity
+			? code.size()
+			: ast.offset;
+		return ast_node{ast.type, ast.value, ast.children, offset};
+	});
+	stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
 }
