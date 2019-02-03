@@ -18,7 +18,7 @@ parsing_result match_parser::parse(const lexer::token_span& tokens) const {
 		type == match_type::by_type ? tokens[0].type : tokens[0].value;
 	return matched_value == sample
 		? parsing_result{
-			ast_node{tokens[0].type, tokens[0].value, {}},
+			ast_node{tokens[0].type, tokens[0].value, {}, lexer::get_offset(tokens)},
 			tokens.subspan(1)
 		}
 		: parsing_result{{}, tokens};

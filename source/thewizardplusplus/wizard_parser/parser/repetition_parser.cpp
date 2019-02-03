@@ -28,7 +28,7 @@ repetition_parser::counted_result repetition_parser::parse_and_count(
 	const auto type = (+ast_node_type::sequence)._to_string();
 	const auto ast = parser->parse(tokens);
 	if (!ast.node) {
-		return {{ast_node{type, {}, {}}, tokens}, counter};
+		return {{ast_node{type, {}, {}, lexer::get_offset(tokens)}, tokens}, counter};
 	}
 
 	const auto next_counter = counter + 1;
