@@ -18,7 +18,6 @@
 #include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/eoi_parser.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
@@ -106,13 +105,12 @@ void stop(const int& code, std::ostream& stream, const std::string& message) {
 
 rule_parser::pointer make_parser() {
 	const auto expression_dummy = dummy();
-	RULE(number) = "number"_t;
 	RULE(key_words) = "not"_v | "and"_v | "or"_v;
 	RULE(identifier) = "base_identifier"_t - key_words;
 	RULE(function_call) = identifier >> &"("_v >>
 		-(expression_dummy >> *(&","_v >> expression_dummy))
 	>> &")"_v;
-	RULE(atom) = number
+	RULE(atom) = "number"_t
 		| function_call
 		| identifier
 		| (&"("_v >> expression_dummy >> &")"_v);
@@ -125,8 +123,7 @@ rule_parser::pointer make_parser() {
 	RULE(disjunction) = conjunction >> *(&"or"_v >> conjunction);
 	expression_dummy->set_parser(disjunction);
 
-	RULE(expression) = disjunction >> eoi();
-	return expression;
+	return disjunction;
 }
 
 ast_node walk_ast(

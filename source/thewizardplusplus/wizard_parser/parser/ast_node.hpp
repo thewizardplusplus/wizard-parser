@@ -10,7 +10,7 @@
 
 namespace thewizardplusplus::wizard_parser::parser {
 
-BETTER_ENUM(ast_node_type, std::uint8_t, sequence, nothing, eoi)
+BETTER_ENUM(ast_node_type, std::uint8_t, sequence, nothing)
 
 struct ast_node {
 	std::string type;
