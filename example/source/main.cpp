@@ -96,7 +96,7 @@ rule_parser::pointer make_parser() {
 	RULE(number) = "number"_t;
 	RULE(key_words) = "not"_v | "and"_v | "or"_v;
 	RULE(identifier) = "base_identifier"_t - key_words;
-	IMPORTANT_RULE(function_call) = identifier >> &"("_v >>
+	RULE(function_call) = identifier >> &"("_v >>
 		-(expression_dummy >> *(&","_v >> expression_dummy))
 	>> &")"_v;
 	RULE(atom) = number

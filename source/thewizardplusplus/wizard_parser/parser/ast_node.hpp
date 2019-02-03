@@ -13,8 +13,7 @@ BETTER_ENUM(ast_node_type, std::uint8_t, sequence, nothing, eoi)
 
 enum class ast_node_flag: std::uint8_t {
 	none = 1 << 0,
-	named = 1 << 1,
-	important = 1 << 2
+	named = 1 << 1
 };
 
 }
