@@ -1,5 +1,53 @@
 # Change Log
 
+## [v3.1](https://github.com/thewizardplusplus/wizard-parser/tree/v3.1) (2019-02-04)
+
+**Closed issues:**
+
+* Fix logic of the `parser::repetition_parser::parse_and_count()` method.
+* Support `--` as a separator of options and positional arguments in the example.
+* Add an offset to a node:
+  * move the `parser::integral_infinity` constant to the `utilities` module;
+  * add:
+    * `lexer::get_offset()` function;
+    * `parser::ast_node::offset` field;
+  * set a node offset in some parsers:
+    * `empty_parser` class;
+    * `match_parser` class;
+    * `repetition_parser` class;
+    * `lookahead_parser` class;
+  * fix the example:
+    * replace nodes offsets equal to the `utilities::integral_infinity` constant to a code size;
+    * output offsets:
+      * in tokens;
+      * in nodes.
+* Remove:
+  * ignoring `nothing` and `eoi` nodes;
+  * combining `sequence` nodes:
+    * refactoring:
+      * of the `parser::concatenation_parser::parse()` method;
+      * of the `parser::repetition_parser::parse()` method;
+  * lifting:
+    * remove:
+      * `parser::important_assignable_parser` class;
+      * `parser::lift_parser` class;
+  * exceptions:
+    * simplify the `lexer::tokenize()` function;
+    * remove:
+      * `parser::parse()` function;
+      * `parser::eoi_parser` class;
+      * `exceptions` module.
+* Refactoring:
+  * of the `parser::type_assignable_parser` class:
+    * rename it to `typing_parser`;
+    * refactoring of the `parse()` method;
+    * combine:
+      * `assignable_parser` and `typing_parser` classes in a single class;
+      * `typing_parser` class and `RULE` macro in a single file;
+  * use the [ericniebler/range-v3](https://github.com/ericniebler/range-v3) library:
+    * in the `lexer` module;
+    * in the example.
+
 ## [v3.0](https://github.com/thewizardplusplus/wizard-parser/tree/v3.0) (2019-01-27)
 
 **Closed issues:**
