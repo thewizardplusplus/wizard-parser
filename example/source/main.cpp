@@ -67,7 +67,11 @@ namespace thewizardplusplus::wizard_parser {
 namespace lexer {
 
 void to_json(nlohmann::json& json, const token& some_token) {
-	json = { { "type", some_token.type }, { "value", some_token.value } };
+	json = {
+		{ "type", some_token.type },
+		{ "value", some_token.value },
+		{ "offset", some_token.offset }
+	};
 }
 
 }
@@ -81,6 +85,9 @@ void to_json(nlohmann::json& json, const ast_node& ast) {
 	}
 	if (!ast.children.empty()) {
 		json["children"] = ast.children;
+	}
+	if (ast.offset) {
+		json["offset"] = *ast.offset;
 	}
 }
 
