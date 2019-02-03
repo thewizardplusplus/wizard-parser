@@ -1,6 +1,5 @@
 #include "parse.hpp"
 #include "../exceptions/unexpected_entity_exception.hpp"
-#include "../utilities/utilities.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -12,14 +11,11 @@ ast_node parse(
 	if (!ast.node) {
 		using namespace exceptions;
 
+		const auto offset = lexer::get_offset(ast.rest_tokens);
 		if (!ast.rest_tokens.empty()) {
-			throw unexpected_entity_exception<entity_type::token>{
-				ast.rest_tokens[0].offset
-			};
+			throw unexpected_entity_exception<entity_type::token>{offset};
 		} else {
-			throw unexpected_entity_exception<entity_type::eoi>{
-				utilities::integral_infinity
-			};
+			throw unexpected_entity_exception<entity_type::eoi>{offset};
 		}
 	}
 
