@@ -1,4 +1,4 @@
-load "../common/test_json_output"
+load "../common/common"
 
 declare -gra OPTIONS=("--stdin" "--tokens")
 
