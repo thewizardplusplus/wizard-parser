@@ -8,7 +8,6 @@
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
-#include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
@@ -20,6 +19,7 @@
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
+#include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <regex>
 #include <cstdint>
@@ -86,18 +86,6 @@ unexpected_entity_exception<type>::unexpected_entity_exception(
 		offset
 	)}
 {}
-
-namespace thewizardplusplus::wizard_parser::lexer {
-
-void to_json(nlohmann::json& json, const token& some_token) {
-	json = {
-		{ "type", some_token.type },
-		{ "value", some_token.value },
-		{ "offset", some_token.offset }
-	};
-}
-
-}
 
 namespace thewizardplusplus::wizard_parser::parser {
 
