@@ -1,14 +1,7 @@
 #include "token.hpp"
 #include "../utilities/utilities.hpp"
-#include <tuple>
 
 namespace thewizardplusplus::wizard_parser::lexer {
-
-std::tuple<std::string, std::string, std::size_t> to_tuple(
-	const token& some_token
-) {
-	return std::make_tuple(some_token.type, some_token.value, some_token.offset);
-}
 
 bool operator==(const token& token_1, const token& token_2) {
 	return to_tuple(token_1) == to_tuple(token_2);
@@ -17,6 +10,10 @@ bool operator==(const token& token_1, const token& token_2) {
 std::ostream& operator<<(std::ostream& stream, const token& some_token) {
 	stream << nlohmann::json(some_token);
 	return stream;
+}
+
+token_tuple to_tuple(const token& some_token) {
+	return std::make_tuple(some_token.type, some_token.value, some_token.offset);
 }
 
 void to_json(nlohmann::json& json, const token& some_token) {
