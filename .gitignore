@@ -1,11 +1,14 @@
 /Doxyfile
 /libwizard_parser.a
+/wizard_parser_test
 
 # CMake files
 /CMakeFiles/
+/Testing/
 /cmake_install.cmake
 /CMakeCache.txt
 /CMakeDoxyfile.in
 /CMakeDoxygenDefaults.cmake
+/CTestTestfile.cmake
 /install_manifest.txt
 /Makefile
