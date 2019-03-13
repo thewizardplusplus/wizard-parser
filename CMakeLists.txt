@@ -25,6 +25,8 @@ install(TARGETS ${PROJECT_NAME} ARCHIVE DESTINATION lib)
 
 enable_testing()
 add_test(NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure)
+add_dependencies(check ${TEST_PROJECT_NAME})
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
