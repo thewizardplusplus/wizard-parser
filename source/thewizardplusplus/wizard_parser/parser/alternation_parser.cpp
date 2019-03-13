@@ -15,7 +15,8 @@ parsing_result alternation_parser::parse(
 	const lexer::token_span& tokens
 ) const {
 	const auto left_ast = left_parser->parse(tokens);
-	return left_ast.node ? left_ast : right_parser->parse(tokens);
+	const auto right_ast = right_parser->parse(tokens);
+	return left_ast.node ? left_ast : right_ast;
 }
 
 namespace operators {
