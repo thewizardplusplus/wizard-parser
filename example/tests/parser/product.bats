@@ -32,7 +32,7 @@ declare -gra OPTIONS=("--stdin")
 	test_json_output
 }
 
-# it tests an alternation parser with rules that begin a same way
+# it tests the alternation parser with rules that begin the same way
 @test "parser: product, with a function call" {
 	declare -r INPUT="x() * y"
 	declare -r OUTPUT='{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"sequence"},{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"offset":0,"type":"base_identifier","value":"x"}],"type":"identifier"},{"offset":1,"type":"nothing"}],"type":"sequence"},{"offset":2,"type":"sequence"}],"type":"sequence"},{"offset":2,"type":"nothing"}],"type":"sequence"}],"type":"function_call"}],"type":"atom"}],"type":"sequence"}],"type":"unary"},{"children":[{"children":[{"offset":4,"type":"star","value":"*"},{"children":[{"children":[{"offset":6,"type":"sequence"},{"children":[{"children":[{"offset":6,"type":"base_identifier","value":"y"}],"type":"identifier"}],"type":"atom"}],"type":"sequence"}],"type":"unary"}],"type":"sequence"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sequence"}],"type":"product"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"sum"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"comparison"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"equality"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"conjunction"},{"offset":7,"type":"sequence"}],"type":"sequence"}],"type":"disjunction"}'
