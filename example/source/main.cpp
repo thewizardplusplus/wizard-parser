@@ -2,13 +2,12 @@
 
 #include "vendor/better-enums/enum_strict.hpp"
 #include "vendor/fmt/format.hpp"
-#include "vendor/json.hpp"
 #include "vendor/range/v3/view/transform.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
+#include "vendor/json.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
-#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
@@ -18,6 +17,7 @@
 #include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
@@ -86,23 +86,6 @@ unexpected_entity_exception<type>::unexpected_entity_exception(
 		offset
 	)}
 {}
-
-namespace thewizardplusplus::wizard_parser::parser {
-
-void to_json(nlohmann::json& json, const ast_node& ast) {
-	json = { { "type", ast.type } };
-	if (!ast.value.empty()) {
-		json["value"] = ast.value;
-	}
-	if (!ast.children.empty()) {
-		json["children"] = ast.children;
-	}
-	if (ast.offset) {
-		json["offset"] = *ast.offset;
-	}
-}
-
-}
 
 void stop(const int& code, std::ostream& stream, const std::string& message) {
 	stream << fmt::format("{:s}\n", message);

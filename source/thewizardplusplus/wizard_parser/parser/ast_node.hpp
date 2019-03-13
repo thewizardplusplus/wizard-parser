@@ -2,11 +2,13 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_AST_NODE_HEADER
 
 #include "../vendor/better-enums/enum_strict.hpp"
+#include "../vendor/json.hpp"
 #include <cstdint>
 #include <optional>
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <ostream>
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -24,6 +26,8 @@ struct ast_node {
 using ast_node_group = std::vector<ast_node>;
 
 bool operator==(const ast_node& ast_1, const ast_node& ast_2);
+std::ostream& operator<<(std::ostream& stream, const ast_node& ast);
+void to_json(nlohmann::json& json, const ast_node& ast);
 
 }
 #endif
