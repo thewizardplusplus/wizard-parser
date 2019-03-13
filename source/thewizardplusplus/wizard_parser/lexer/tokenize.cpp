@@ -4,27 +4,10 @@
 #include "../vendor/range/v3/begin_end.hpp"
 #include "../vendor/range/v3/view/concat.hpp"
 #include "../vendor/range/v3/view/single.hpp"
-#include <regex>
-#include <iterator>
 #include <optional>
 #include <tuple>
 
 namespace thewizardplusplus::wizard_parser::lexer {
-
-using match_t = std::match_results<std::string_view::const_iterator>;
-
-match_t match_lexeme(const lexeme& some_lexeme, const std::string_view& code) {
-	auto match = match_t{};
-	std::regex_search(
-		std::cbegin(code),
-		std::cend(code),
-		match,
-		some_lexeme.pattern,
-		std::regex_constants::match_continuous
-	);
-
-	return match;
-}
 
 std::optional<token> find_matched_token(
 	const lexeme_group& lexemes,
@@ -36,12 +19,12 @@ std::optional<token> find_matched_token(
 			return std::make_tuple(lexeme, match);
 		});
 	const auto match = ranges::find_if(matches, [] (const auto& match) {
-		return !std::get<match_t>(match).empty();
+		return !std::get<lexeme_match>(match).empty();
 	});
 	return match != ranges::cend(matches)
 		? std::make_optional(token{
 			std::get<lexeme>(*match).type,
-			std::get<match_t>(*match).str()
+			std::get<lexeme_match>(*match).str()
 		})
 		: std::nullopt;
 }
