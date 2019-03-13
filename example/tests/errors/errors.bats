@@ -1,0 +1,3 @@
+@test "errors: test" {
+	true
+}

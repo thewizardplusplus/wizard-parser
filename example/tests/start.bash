@@ -25,7 +25,7 @@ while [[ "$1" != "--" ]]; do
 			echo "Options:"
 			echo "  -h, --help               - show this message;"
 			echo "  -g GROUP, --group GROUP  - set a group of used tests" \
-				'(allowed: "lexer", "parser" or "all"; default: "all").'
+				'(allowed: "lexer", "parser", "errors" or "all"; default: "all").'
 
 			exit 0
 			;;
@@ -47,9 +47,13 @@ case "$tests_group" in
 	"parser")
 		COMMAND="${example_command[@]}" bats "$script_path"/parser/*.bats
 		;;
+	"errors")
+		COMMAND="${example_command[@]}" bats "$script_path"/errors/*.bats
+		;;
 	"all")
 		COMMAND="${example_command[@]}" bats \
 			"$script_path"/lexer/*.bats \
-			"$script_path"/parser/*.bats
+			"$script_path"/parser/*.bats \
+			"$script_path"/errors/*.bats
 		;;
 esac
