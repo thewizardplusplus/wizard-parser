@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <tuple>
 #include <ostream>
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -23,10 +24,14 @@ struct ast_node {
 	optional_offset offset;
 };
 
+using ast_node_tuple =
+	std::tuple<std::string, std::string, std::vector<ast_node>, optional_offset>;
+
 using ast_node_group = std::vector<ast_node>;
 
 bool operator==(const ast_node& ast_1, const ast_node& ast_2);
 std::ostream& operator<<(std::ostream& stream, const ast_node& ast);
+ast_node_tuple to_tuple(const ast_node& ast);
 void to_json(nlohmann::json& json, const ast_node& ast);
 
 }
