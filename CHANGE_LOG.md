@@ -1,5 +1,54 @@
 # Change Log
 
+## [v3.2](https://github.com/thewizardplusplus/wizard-parser/tree/v3.2) (2019-03-11)
+
+**Closed issues:**
+
+* Improve errors handling in the example tests runner.
+* Add tests:
+  * unit tests:
+    * in the building configuration:
+      * describe tests building;
+      * add a custom target as a workaround for CMake bugs;
+    * for the `lexer` module:
+      * add utility features for the `token` class:
+        * operators:
+          * `==` operator;
+          * stream insertion operator;
+        * `to_tuple()` function;
+      * make functions public:
+        * `match_lexeme()` function;
+        * `find_matched_token()` function;
+      * add tests for functions:
+        * `get_offset()` function;
+        * `match_lexeme()` function;
+        * `find_matched_token()` function;
+        * `tokenize()` function;
+    * for the `parser` module:
+      * add utility features for the `ast_node` class:
+        * operators:
+          * `==` operator;
+          * stream insertion operator;
+        * `to_tuple()` function;
+      * add tests for classes:
+        * without mocks:
+          * `empty_parser` class;
+          * `match_parser` class;
+        * with mocks:
+          * `alternation_parser` class;
+          * `concatenation_parser` class;
+          * `dummy_parser` class;
+          * `exception_parser` class;
+          * `lookahead_parser` class;
+          * `repetition_parser` class;
+          * `typing_parser` class;
+  * for the example:
+    * add utility features:
+      * add the `errors` test group;
+      * rename the `io_test()` function to `test_json_output()`;
+      * add the `test_error_output()` function;
+    * add general test cases for all error types.
+
 ## [v3.1](https://github.com/thewizardplusplus/wizard-parser/tree/v3.1) (2019-02-04)
 
 **Closed issues:**
