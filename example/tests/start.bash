@@ -56,4 +56,8 @@ case "$tests_group" in
 			"$script_path"/parser/*.bats \
 			"$script_path"/errors/*.bats
 		;;
+	*)
+		echo "$script_name: unrecognized group '$tests_group'" >&2
+		exit 1
+		;;
 esac
