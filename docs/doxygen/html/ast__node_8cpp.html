@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/typing_parser.hpp</title>
+<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/ast_node.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,24 +68,14 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Классы</a> &#124;
-<a href="#namespaces">Пространства имен</a>  </div>
+<a href="#namespaces">Пространства имен</a> &#124;
+<a href="#func-members">Функции</a>  </div>
   <div class="headertitle">
-<div class="title">Файл typing_parser.hpp</div>  </div>
+<div class="title">Файл ast_node.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="rule__parser_8hpp_source.html">rule_parser.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="token_8hpp_source.html">../lexer/token.hpp</a>&quot;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-</div>
-<p><a href="typing__parser_8hpp_source.html">См. исходные тексты.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Классы</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1typing__parser.html">thewizardplusplus::wizard_parser::parser::typing_parser</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="ast__node_8hpp_source.html">ast_node.hpp</a>&quot;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Пространства имен</h2></td></tr>
 <tr class="memitem:namespacethewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus.html">thewizardplusplus</a></td></tr>
@@ -94,6 +84,17 @@ $(function() {
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:af74e7cfabb6dfdc17787f42a10cf1b26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#af74e7cfabb6dfdc17787f42a10cf1b26">thewizardplusplus::wizard_parser::parser::operator==</a> (const ast_node &amp;ast_1, const ast_node &amp;ast_2)</td></tr>
+<tr class="separator:af74e7cfabb6dfdc17787f42a10cf1b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2495761efd953ac185bc92615c358823"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a2495761efd953ac185bc92615c358823">thewizardplusplus::wizard_parser::parser::operator&lt;&lt;</a> (std::ostream &amp;stream, const ast_node &amp;ast)</td></tr>
+<tr class="separator:a2495761efd953ac185bc92615c358823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee6fab85299f91b307360101b825179b"><td class="memItemLeft" align="right" valign="top">ast_node_tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aee6fab85299f91b307360101b825179b">thewizardplusplus::wizard_parser::parser::to_tuple</a> (const ast_node &amp;ast)</td></tr>
+<tr class="separator:aee6fab85299f91b307360101b825179b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647dbb58551edac637cba061b291109f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a647dbb58551edac637cba061b291109f">thewizardplusplus::wizard_parser::parser::to_json</a> (nlohmann::json &amp;json, const ast_node &amp;ast)</td></tr>
+<tr class="separator:a647dbb58551edac637cba061b291109f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

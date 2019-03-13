@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v3.1</span>
+   &#160;<span id="projectnumber">v3.2</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -70,13 +70,15 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Классы</a> &#124;
 <a href="#namespaces">Пространства имен</a> &#124;
-<a href="#typedef-members">Определения типов</a>  </div>
+<a href="#typedef-members">Определения типов</a> &#124;
+<a href="#func-members">Функции</a>  </div>
   <div class="headertitle">
 <div class="title">Файл lexeme.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;regex&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="lexeme_8hpp_source.html">См. исходные тексты.</a></p>
@@ -97,13 +99,20 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Определения типов</h2></td></tr>
+<tr class="memitem:adb5d97a6c74832f2d3e36b162d0e3927"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#adb5d97a6c74832f2d3e36b162d0e3927">thewizardplusplus::wizard_parser::lexer::lexeme_match</a> = std::match_results&lt; std::string_view::const_iterator &gt;</td></tr>
+<tr class="separator:adb5d97a6c74832f2d3e36b162d0e3927"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5c9483b6f4d6027f211b6996c713cb7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ae5c9483b6f4d6027f211b6996c713cb7">thewizardplusplus::wizard_parser::lexer::lexeme_group</a> = std::vector&lt; lexeme &gt;</td></tr>
 <tr class="separator:ae5c9483b6f4d6027f211b6996c713cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ad2450cd6a741aa38d42b5f4ecbbd9a1c"><td class="memItemLeft" align="right" valign="top">lexeme_match&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ad2450cd6a741aa38d42b5f4ecbbd9a1c">thewizardplusplus::wizard_parser::lexer::match_lexeme</a> (const lexeme &amp;some_lexeme, const std::string_view &amp;code)</td></tr>
+<tr class="separator:ad2450cd6a741aa38d42b5f4ecbbd9a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вс 3 Фев 2019 22:14:25. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Ср 13 Мар 2019 03:13:21. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

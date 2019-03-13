@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/typing_parser.hpp</title>
+<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/lexer/lexeme.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,37 +63,33 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_3f59cb33ca77b8afa9cb7e595642545b.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="dir_0e8cdca62bc04c6693971f236b26614a.html">wizard_parser</a></li><li class="navelem"><a class="el" href="dir_b173904b4736a5b69c0431da82d76d19.html">parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_3f59cb33ca77b8afa9cb7e595642545b.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="dir_0e8cdca62bc04c6693971f236b26614a.html">wizard_parser</a></li><li class="navelem"><a class="el" href="dir_da160d670c6378020f0eb5899c2c1f74.html">lexer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Классы</a> &#124;
-<a href="#namespaces">Пространства имен</a>  </div>
+<a href="#namespaces">Пространства имен</a> &#124;
+<a href="#func-members">Функции</a>  </div>
   <div class="headertitle">
-<div class="title">Файл typing_parser.hpp</div>  </div>
+<div class="title">Файл lexeme.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="rule__parser_8hpp_source.html">rule_parser.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="token_8hpp_source.html">../lexer/token.hpp</a>&quot;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-</div>
-<p><a href="typing__parser_8hpp_source.html">См. исходные тексты.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Классы</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1typing__parser.html">thewizardplusplus::wizard_parser::parser::typing_parser</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="lexeme_8hpp_source.html">lexeme.hpp</a>&quot;</code><br />
+<code>#include &lt;iterator&gt;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Пространства имен</h2></td></tr>
 <tr class="memitem:namespacethewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus.html">thewizardplusplus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacethewizardplusplus_1_1wizard__parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser.html">thewizardplusplus::wizard_parser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1lexer"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html">thewizardplusplus::wizard_parser::lexer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ad2450cd6a741aa38d42b5f4ecbbd9a1c"><td class="memItemLeft" align="right" valign="top">lexeme_match&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#ad2450cd6a741aa38d42b5f4ecbbd9a1c">thewizardplusplus::wizard_parser::lexer::match_lexeme</a> (const lexeme &amp;some_lexeme, const std::string_view &amp;code)</td></tr>
+<tr class="separator:ad2450cd6a741aa38d42b5f4ecbbd9a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

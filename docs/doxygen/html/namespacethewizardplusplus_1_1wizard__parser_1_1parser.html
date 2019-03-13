@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v3.1</span>
+   &#160;<span id="projectnumber">v3.2</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -112,6 +112,10 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Определения типов</h2></td></tr>
+<tr class="memitem:a3a1174730b418ee9957f9330dbe955a1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a3a1174730b418ee9957f9330dbe955a1">optional_offset</a> = std::optional&lt; std::size_t &gt;</td></tr>
+<tr class="separator:a3a1174730b418ee9957f9330dbe955a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a542e980ff982af25b9b02cb7f29a87c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a542e980ff982af25b9b02cb7f29a87c1">ast_node_tuple</a> = std::tuple&lt; std::string, std::string, std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &gt;, <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a3a1174730b418ee9957f9330dbe955a1">optional_offset</a> &gt;</td></tr>
+<tr class="separator:a542e980ff982af25b9b02cb7f29a87c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe53474aa1942f2944dd75ac36c85a71"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#afe53474aa1942f2944dd75ac36c85a71">ast_node_group</a> = std::vector&lt; <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &gt;</td></tr>
 <tr class="separator:afe53474aa1942f2944dd75ac36c85a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -124,6 +128,14 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
+<tr class="memitem:af74e7cfabb6dfdc17787f42a10cf1b26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#af74e7cfabb6dfdc17787f42a10cf1b26">operator==</a> (const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;ast_1, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;ast_2)</td></tr>
+<tr class="separator:af74e7cfabb6dfdc17787f42a10cf1b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2495761efd953ac185bc92615c358823"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a2495761efd953ac185bc92615c358823">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;ast)</td></tr>
+<tr class="separator:a2495761efd953ac185bc92615c358823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee6fab85299f91b307360101b825179b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a542e980ff982af25b9b02cb7f29a87c1">ast_node_tuple</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aee6fab85299f91b307360101b825179b">to_tuple</a> (const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;ast)</td></tr>
+<tr class="separator:aee6fab85299f91b307360101b825179b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647dbb58551edac637cba061b291109f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a647dbb58551edac637cba061b291109f">to_json</a> (nlohmann::json &amp;json, const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;ast)</td></tr>
+<tr class="separator:a647dbb58551edac637cba061b291109f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b667fd2562982ea7d7a49e180b95c6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1dummy__parser.html#a3e4620aeda04a55d0ce2b41c1e6a3cb7">dummy_parser::pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a5b667fd2562982ea7d7a49e180b95c6b">dummy</a> ()</td></tr>
 <tr class="separator:a5b667fd2562982ea7d7a49e180b95c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af585d0ac928c60d83c45d892922c725d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#af9bcac0e9a8c29e4549a143c70c9cc86">rule_parser::pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#af585d0ac928c60d83c45d892922c725d">empty</a> ()</td></tr>
@@ -138,6 +150,34 @@ $(function() {
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#afe53474aa1942f2944dd75ac36c85a71">thewizardplusplus::wizard_parser::parser::ast_node_group</a> = typedef std::vector&lt;<a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a542e980ff982af25b9b02cb7f29a87c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a542e980ff982af25b9b02cb7f29a87c1">&#9670;&nbsp;</a></span>ast_node_tuple</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a542e980ff982af25b9b02cb7f29a87c1">thewizardplusplus::wizard_parser::parser::ast_node_tuple</a> = typedef std::tuple&lt;std::string, std::string, std::vector&lt;<a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a>&gt;, <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a3a1174730b418ee9957f9330dbe955a1">optional_offset</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a1174730b418ee9957f9330dbe955a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a1174730b418ee9957f9330dbe955a1">&#9670;&nbsp;</a></span>optional_offset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a3a1174730b418ee9957f9330dbe955a1">thewizardplusplus::wizard_parser::parser::optional_offset</a> = typedef std::optional&lt;std::size_t&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -206,10 +246,112 @@ $(function() {
 
 </div>
 </div>
+<a id="a2495761efd953ac185bc92615c358823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2495761efd953ac185bc92615c358823">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; thewizardplusplus::wizard_parser::parser::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;&#160;</td>
+          <td class="paramname"><em>ast</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af74e7cfabb6dfdc17787f42a10cf1b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af74e7cfabb6dfdc17787f42a10cf1b26">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool thewizardplusplus::wizard_parser::parser::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;&#160;</td>
+          <td class="paramname"><em>ast_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;&#160;</td>
+          <td class="paramname"><em>ast_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a647dbb58551edac637cba061b291109f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647dbb58551edac637cba061b291109f">&#9670;&nbsp;</a></span>to_json()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void thewizardplusplus::wizard_parser::parser::to_json </td>
+          <td>(</td>
+          <td class="paramtype">nlohmann::json &amp;&#160;</td>
+          <td class="paramname"><em>json</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;&#160;</td>
+          <td class="paramname"><em>ast</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee6fab85299f91b307360101b825179b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee6fab85299f91b307360101b825179b">&#9670;&nbsp;</a></span>to_tuple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a542e980ff982af25b9b02cb7f29a87c1">ast_node_tuple</a> thewizardplusplus::wizard_parser::parser::to_tuple </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">ast_node</a> &amp;&#160;</td>
+          <td class="paramname"><em>ast</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Вс 3 Фев 2019 22:14:25. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Ср 13 Мар 2019 03:13:21. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>
