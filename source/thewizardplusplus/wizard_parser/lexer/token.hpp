@@ -18,6 +18,7 @@ using token_group = std::vector<token>;
 
 using token_span = gsl::span<token>;
 
+bool operator==(const token& token_1, const token& token_2);
 std::size_t get_offset(const token_span& tokens);
 
 }
