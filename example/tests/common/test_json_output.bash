@@ -1,4 +1,4 @@
-function io_test() {
+function test_json_output() {
 	declare -r output="`echo -n "$INPUT" \
 		| "${COMMAND[@]}" "${OPTIONS[@]}" \
 		| jq -cSM ""
