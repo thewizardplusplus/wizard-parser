@@ -32,10 +32,8 @@
 #include <iterator>
 #include <exception>
 
-using namespace thewizardplusplus::wizard_parser::lexer;
-using namespace thewizardplusplus::wizard_parser::parser;
+using namespace thewizardplusplus::wizard_parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
-using namespace thewizardplusplus::wizard_parser::utilities;
 
 const auto usage =
 R"(Usage:
@@ -47,7 +45,7 @@ Options:
   -h, --help    - show this message;
   -t, --tokens  - show a token list instead an AST;
   -s, --stdin   - read an expression from stdin.)";
-const auto lexemes = lexeme_group{
+const auto lexemes = lexer::lexeme_group{
 	{std::regex{"=="}, "equal"},
 	{std::regex{"/="}, "not_equal"},
 	{std::regex{"<="}, "less_or_equal"},
@@ -92,8 +90,8 @@ void stop(const int& code, std::ostream& stream, const std::string& message) {
 	std::exit(code);
 }
 
-rule_parser::pointer make_parser() {
-	const auto expression_dummy = dummy();
+parser::rule_parser::pointer make_parser() {
+	const auto expression_dummy = parser::dummy();
 	RULE(key_words) = "not"_v | "and"_v | "or"_v;
 	RULE(identifier) = "base_identifier"_t - key_words;
 	RULE(function_call) = identifier >> &"("_v >>
@@ -115,9 +113,9 @@ rule_parser::pointer make_parser() {
 	return disjunction;
 }
 
-ast_node walk_ast(
-	const ast_node& ast,
-	const std::function<ast_node(const ast_node&)>& handler
+parser::ast_node walk_ast(
+	const parser::ast_node& ast,
+	const std::function<parser::ast_node(const parser::ast_node&)>& handler
 ) {
 	const auto new_ast = handler(ast);
 	const auto new_children = new_ast.children
@@ -141,13 +139,12 @@ int main(int argc, char* argv[]) try {
 		| ranges::view::filter([] (const auto& token) {
 			return token.type != "whitespace";
 		})
-		| ranges::to_<token_group>();
+		| ranges::to_<lexer::token_group>();
 	if (options.at("--tokens").asBool()) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(cleaned_tokens).dump());
 	}
 
-	const auto parser = make_parser();
-	const auto ast = parser->parse(cleaned_tokens);
+	const auto ast = make_parser()->parse(cleaned_tokens);
 	if (!ast.rest_tokens.empty()) {
 		throw unexpected_entity_exception<entity_type::token>{
 			get_offset(ast.rest_tokens)
@@ -158,10 +155,10 @@ int main(int argc, char* argv[]) try {
 	}
 
 	const auto transformed_ast = walk_ast(*ast.node, [&] (const auto& ast) {
-		const auto offset = ast.offset && *ast.offset == integral_infinity
+		const auto offset = ast.offset == utilities::integral_infinity
 			? code.size()
 			: ast.offset;
-		return ast_node{ast.type, ast.value, ast.children, offset};
+		return parser::ast_node{ast.type, ast.value, ast.children, offset};
 	});
 	stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 } catch (const std::exception& exception) {
