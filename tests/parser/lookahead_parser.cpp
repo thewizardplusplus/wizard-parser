@@ -1,3 +1,4 @@
+#include "../common/common.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/ast_node.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/lexer/token.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/rule_parser.hpp"
@@ -8,18 +9,11 @@
 TEST_CASE("parser::lookahead_parser class", "[parser]") {
 	using namespace thewizardplusplus::wizard_parser;
 	using namespace thewizardplusplus::wizard_parser::parser::operators;
+	using namespace tests::common;
 
 	const auto type = (+parser::ast_node_type::nothing)._to_string();
 	auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
-	const auto match = parser::parsing_result{
-		parser::ast_node{
-			tokens.front().type,
-			tokens.front().value,
-			{},
-			tokens.front().offset
-		},
-		lexer::token_span{tokens}.subspan(1)
-	};
+	const auto match = ast_from_token(tokens);
 
 	SECTION("positive lookahead without a match") {
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};

@@ -1,7 +1,6 @@
 #include "../common/common.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/lexer/token.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/rule_parser.hpp"
-#include "../../source/thewizardplusplus/wizard_parser/parser/ast_node.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/alternation_parser.hpp"
 #include "../vendor/catch/catch.hpp"
 #include "../vendor/fakeit/fakeit.hpp"
@@ -12,15 +11,7 @@ TEST_CASE("parser::alternation_parser class", "[parser]") {
 	using namespace tests::common;
 
 	auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
-	const auto match = parser::parsing_result{
-		parser::ast_node{
-			tokens.front().type,
-			tokens.front().value,
-			{},
-			tokens.front().offset
-		},
-		lexer::token_span{tokens}.subspan(1)
-	};
+	const auto match = ast_from_token(tokens);
 
 	SECTION("without matches") {
 		auto left_mock_parser = fakeit::Mock<parser::rule_parser>{};

@@ -4,7 +4,6 @@
 #include "../../source/thewizardplusplus/wizard_parser/lexer/token.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/rule_parser.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/typing_parser.hpp"
-#include "../../source/thewizardplusplus/wizard_parser/parser/ast_node.hpp"
 #include "../vendor/catch/catch.hpp"
 #include "../vendor/fakeit/fakeit.hpp"
 
@@ -29,15 +28,7 @@ TEST_CASE("parser::typing_parser class", "[parser]") {
 	}
 
 	SECTION("with a match") {
-		const auto match = parser::parsing_result{
-			parser::ast_node{
-				tokens.front().type,
-				tokens.front().value,
-				{},
-				tokens.front().offset
-			},
-			lexer::token_span{tokens}.subspan(1)
-		};
+		const auto match = ast_from_token(tokens);
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse)).Return(match);
 		fakeit::Fake(Dtor(mock_parser));
