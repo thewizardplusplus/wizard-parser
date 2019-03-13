@@ -1,18 +1,6 @@
 #include "../../source/thewizardplusplus/wizard_parser/lexer/token.hpp"
-#include "../../source/thewizardplusplus/wizard_parser/lexer/lexeme.hpp"
 #include "../vendor/catch/catch.hpp"
-#include <optional>
-#include <string_view>
 #include <regex>
-
-namespace thewizardplusplus::wizard_parser::lexer {
-
-std::optional<token> find_matched_token(
-	const lexeme_group& lexemes,
-	const std::string_view& code
-);
-
-}
 
 TEST_CASE("lexer::find_matched_token() function", "[lexer]") {
 	using namespace thewizardplusplus::wizard_parser;

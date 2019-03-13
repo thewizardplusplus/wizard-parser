@@ -1,5 +1,8 @@
 #include "token.hpp"
 #include "../utilities/utilities.hpp"
+#include "../vendor/range/v3/view/transform.hpp"
+#include "../vendor/range/v3/algorithm/find_if.hpp"
+#include "../vendor/range/v3/begin_end.hpp"
 
 namespace thewizardplusplus::wizard_parser::lexer {
 
@@ -26,6 +29,26 @@ void to_json(nlohmann::json& json, const token& some_token) {
 
 std::size_t get_offset(const token_span& tokens) {
 	return !tokens.empty() ? tokens[0].offset : utilities::integral_infinity;
+}
+
+token_optional find_matched_token(
+	const lexeme_group& lexemes,
+	const std::string_view& code
+) {
+	const auto matches = lexemes
+		| ranges::view::transform([&] (const auto& lexeme) {
+			const auto match = match_lexeme(lexeme, code);
+			return std::make_tuple(lexeme, match);
+		});
+	const auto match = ranges::find_if(matches, [] (const auto& match) {
+		return !std::get<lexeme_match>(match).empty();
+	});
+	return match != ranges::cend(matches)
+		? std::make_optional(token{
+			std::get<lexeme>(*match).type,
+			std::get<lexeme_match>(*match).str()
+		})
+		: std::nullopt;
 }
 
 }
