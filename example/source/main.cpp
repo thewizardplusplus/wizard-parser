@@ -8,6 +8,7 @@
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/json.hpp"
 #include "vendor/range/v3/view/join.hpp"
+#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
@@ -17,10 +18,10 @@
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
+#include <functional>
 #include <regex>
 #include <cstdint>
 #include <stdexcept>
@@ -28,7 +29,6 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include <functional>
 #include <iterator>
 #include <vector>
 #include <exception>
@@ -36,6 +36,9 @@
 using namespace thewizardplusplus::wizard_parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
 using namespace std::literals::string_literals;
+
+using ast_node_handler =
+	std::function<parser::ast_node(const parser::ast_node&)>;
 
 const auto usage =
 R"(Usage:
@@ -106,7 +109,7 @@ parser::rule_parser::pointer make_parser() {
 
 parser::ast_node walk_ast_node(
 	const parser::ast_node& ast,
-	const std::function<parser::ast_node(const parser::ast_node&)>& handler
+	const ast_node_handler& handler
 ) {
 	const auto new_children = ast.children
 		| ranges::view::transform([&] (const auto& ast) {
