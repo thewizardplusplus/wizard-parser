@@ -6,6 +6,7 @@
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/join.hpp"
+#include "vendor/range/v3/view/drop.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
@@ -27,11 +28,11 @@
 #include <functional>
 #include <unordered_map>
 #include <string>
+#include <cstddef>
+#include <vector>
 #include <cstdint>
 #include <stdexcept>
-#include <cstddef>
 #include <regex>
-#include <vector>
 #include <iostream>
 #include <cstdlib>
 #include <iterator>
@@ -46,7 +47,14 @@ using ast_node_handler =
 
 using constant_group = std::unordered_map<std::string, double>;
 
-BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi, constant)
+struct function final {
+	const std::size_t arity;
+	const std::function<double(const std::vector<double>&)> handler;
+};
+
+using function_group = std::unordered_map<std::string, function>;
+
+BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi, constant, function)
 
 template<entity_type::_integral type>
 struct unexpected_entity_exception final: std::runtime_error {
@@ -121,6 +129,59 @@ const auto constants = constant_group{
 	{"pi", 3.1415926535897932384626433},
 	{"e", 2.7182818284590452353602874}
 };
+const auto functions = function_group{
+	{"floor", {1, [] (const auto& arguments) {
+		return std::floor(arguments.front());
+	}}},
+	{"ceil", {1, [] (const auto& arguments) {
+		return std::ceil(arguments.front());
+	}}},
+	{"trunc", {1, [] (const auto& arguments) {
+		return std::trunc(arguments.front());
+	}}},
+	{"round", {1, [] (const auto& arguments) {
+		return std::round(arguments.front());
+	}}},
+	{"sin", {1, [] (const auto& arguments) {
+		return std::sin(arguments.front());
+	}}},
+	{"cos", {1, [] (const auto& arguments) {
+		return std::cos(arguments.front());
+	}}},
+	{"tn", {1, [] (const auto& arguments) {
+		return std::tan(arguments.front());
+	}}},
+	{"arcsin", {1, [] (const auto& arguments) {
+		return std::asin(arguments.front());
+	}}},
+	{"arccos", {1, [] (const auto& arguments) {
+		return std::acos(arguments.front());
+	}}},
+	{"arctn", {1, [] (const auto& arguments) {
+		return std::atan(arguments.front());
+	}}},
+	{"angle", {2, [] (const auto& arguments) {
+		return std::atan2(arguments.back(), arguments.front());
+	}}},
+	{"pow", {2, [] (const auto& arguments) {
+		return std::pow(arguments.front(), arguments.back());
+	}}},
+	{"sqrt", {1, [] (const auto& arguments) {
+		return std::sqrt(arguments.front());
+	}}},
+	{"exp", {1, [] (const auto& arguments) {
+		return std::exp(arguments.front());
+	}}},
+	{"ln", {1, [] (const auto& arguments) {
+		return std::log(arguments.front());
+	}}},
+	{"lg", {1, [] (const auto& arguments) {
+		return std::log10(arguments.front());
+	}}},
+	{"abs", {1, [] (const auto& arguments) {
+		return std::abs(arguments.front());
+	}}},
+};
 
 void stop(const int& code, std::ostream& stream, const std::string& message) {
 	stream << fmt::format("{:s}\n", message);
@@ -157,7 +218,8 @@ parser::ast_node walk_ast_node(
 
 double evaluate_ast_node(
 	const parser::ast_node& ast,
-	const constant_group& constants
+	const constant_group& constants,
+	const function_group& functions
 ) {
 	if (ast.type == "number") {
 		return std::stod(ast.value, nullptr);
@@ -172,14 +234,38 @@ double evaluate_ast_node(
 		const auto first_child = ast.children.front().type == type
 			? ast.children.front().children.front()
 			: ast.children.front();
-		return evaluate_ast_node(first_child, constants);
+		return evaluate_ast_node(first_child, constants, functions);
 	} else if (ast.type == "unary") {
 		const auto children = ast.children.front().children;
-		const auto result = evaluate_ast_node(children.back(), constants);
+		const auto result = evaluate_ast_node(children.back(), constants, functions);
 		const auto sign = (children.size()-1) % 2 ? -1 : 1;
 		return sign * result;
+	} else if (ast.type == "function_call") {
+		try {
+			const auto children = ast.children.front().children;
+			const auto name = children.front().value;
+			const auto arguments = children
+				| ranges::view::drop(1)
+				| ranges::view::transform([&] (const auto& ast) {
+					return evaluate_ast_node(ast, constants, functions);
+				});
+			const auto function = functions.at(name);
+			if (arguments.size() != function.arity) {
+				throw std::runtime_error(fmt::format(
+					"function {}() requires {} arguments",
+					name,
+					function.arity
+				));
+			}
+
+			return function.handler(arguments);
+		} catch (const std::out_of_range& exception) {
+			throw unexpected_entity_exception<entity_type::function>{
+				utilities::integral_infinity
+			};
+		}
 	} else if (!ast.children.empty()) {
-		return evaluate_ast_node(ast.children.front(), constants);
+		return evaluate_ast_node(ast.children.front(), constants, functions);
 	} else {
 		throw std::runtime_error("not implemented yet");
 	}
@@ -234,7 +320,7 @@ int main(int argc, char* argv[]) try {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 	}
 
-	const auto result = evaluate_ast_node(transformed_ast, constants);
+	const auto result = evaluate_ast_node(transformed_ast, constants, functions);
 	stop(EXIT_SUCCESS, std::cout, std::to_string(result));
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
