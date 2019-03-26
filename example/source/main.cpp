@@ -8,6 +8,9 @@
 #include "vendor/range/v3/view/join.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
+#include "vendor/range/v3/numeric/accumulate.hpp"
+#include "vendor/range/v3/view/concat.hpp"
+#include "vendor/range/v3/view/single.hpp"
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
@@ -172,14 +175,20 @@ int main(int argc, char* argv[]) try {
 		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
 	}
 
-	auto transformed_ast = walk_ast_node(*ast.node, [&] (const auto& ast) {
-		const auto offset = ast.offset == utilities::integral_infinity
-			? code.size()
-			: ast.offset;
-		return parser::ast_node{ast.type, ast.value, ast.children, offset};
-	});
-	transformed_ast = walk_ast_node(transformed_ast, handlers[0]);
-	transformed_ast = walk_ast_node(transformed_ast, handlers[1]);
+	const auto completed_handlers = ranges::view::concat(
+		ranges::view::single([&] (const auto& ast) {
+			const auto offset = ast.offset == utilities::integral_infinity
+				? code.size()
+				: ast.offset;
+			return parser::ast_node{ast.type, ast.value, ast.children, offset};
+		}),
+		handlers
+	);
+	const auto transformed_ast = ranges::accumulate(
+		completed_handlers,
+		*ast.node,
+		walk_ast_node
+	);
 	if (options.at("--target") == "cst"s) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 	}
