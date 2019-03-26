@@ -148,6 +148,10 @@ parser::ast_node walk_ast_node(
 	return handler({ast.type, ast.value, new_children, ast.offset});
 }
 
+double evaluate_ast_node(const parser::ast_node& ast) {
+	return std::rand();
+}
+
 int main(int argc, char* argv[]) try {
 	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
 	const auto code = options.at("--stdin").asBool()
@@ -197,7 +201,8 @@ int main(int argc, char* argv[]) try {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 	}
 
-	throw std::runtime_error("not implemented yet");
+	const auto result = evaluate_ast_node(transformed_ast);
+	stop(EXIT_SUCCESS, std::cout, std::to_string(result));
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
 }
