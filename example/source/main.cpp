@@ -25,13 +25,14 @@
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <functional>
+#include <unordered_map>
+#include <string>
 #include <cstdint>
 #include <stdexcept>
 #include <cstddef>
 #include <regex>
 #include <vector>
 #include <iostream>
-#include <string>
 #include <cstdlib>
 #include <iterator>
 #include <exception>
@@ -43,7 +44,9 @@ using namespace std::literals::string_literals;
 using ast_node_handler =
 	std::function<parser::ast_node(const parser::ast_node&)>;
 
-BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi)
+using constant_group = std::unordered_map<std::string, double>;
+
+BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi, constant)
 
 template<entity_type::_integral type>
 struct unexpected_entity_exception final: std::runtime_error {
@@ -114,6 +117,10 @@ const auto handlers = std::vector<ast_node_handler>{
 		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
 	}
 };
+const auto constants = constant_group{
+	{"pi", 3.1415926535897932384626433},
+	{"e", 2.7182818284590452353602874}
+};
 
 void stop(const int& code, std::ostream& stream, const std::string& message) {
 	stream << fmt::format("{:s}\n", message);
@@ -148,11 +155,20 @@ parser::ast_node walk_ast_node(
 	return handler({ast.type, ast.value, new_children, ast.offset});
 }
 
-double evaluate_ast_node(const parser::ast_node& ast) {
+double evaluate_ast_node(
+	const parser::ast_node& ast,
+	const constant_group& constants
+) {
 	if (ast.type == "number") {
 		return std::stod(ast.value, nullptr);
+	} else if (ast.type == "identifier") {
+		try {
+			return constants.at(ast.value);
+		} catch (const std::out_of_range& exception) {
+			throw unexpected_entity_exception<entity_type::constant>{*ast.offset};
+		}
 	} else if (!ast.children.empty()) {
-		return evaluate_ast_node(ast.children.front());
+		return evaluate_ast_node(ast.children.front(), constants);
 	} else {
 		throw std::runtime_error("not implemented yet");
 	}
@@ -207,7 +223,7 @@ int main(int argc, char* argv[]) try {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 	}
 
-	const auto result = evaluate_ast_node(transformed_ast);
+	const auto result = evaluate_ast_node(transformed_ast, constants);
 	stop(EXIT_SUCCESS, std::cout, std::to_string(result));
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
