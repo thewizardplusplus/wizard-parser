@@ -245,6 +245,10 @@ double evaluate_ast_node(
 	const constant_group& constants,
 	const function_group& functions
 ) {
+	const auto evaluate_with_context = [&] (const auto& ast) {
+		return evaluate_ast_node(ast, constants, functions);
+	};
+
 	if (ast.type == "number") {
 		return std::stod(ast.value, nullptr);
 	} else if (ast.type == "identifier") {
@@ -258,10 +262,10 @@ double evaluate_ast_node(
 		const auto first_child = ast.children.front().type == type
 			? ast.children.front().children.front()
 			: ast.children.front();
-		return evaluate_ast_node(first_child, constants, functions);
+		return evaluate_with_context(first_child);
 	} else if (ast.type == "unary") {
 		const auto children = ast.children.front().children;
-		const auto result = evaluate_ast_node(children.back(), constants, functions);
+		const auto result = evaluate_with_context(children.back());
 		const auto sign = (children.size()-1) % 2 ? -1 : 1;
 		return sign * result;
 	} else if (ast.type == "function_call") {
@@ -271,7 +275,7 @@ double evaluate_ast_node(
 			const auto arguments = children
 				| ranges::view::drop(1)
 				| ranges::view::transform([&] (const auto& ast) {
-					return evaluate_ast_node(ast, constants, functions);
+					return evaluate_with_context(ast);
 				});
 			const auto function = functions.at(name);
 			if (arguments.size() != function.arity) {
@@ -290,11 +294,7 @@ double evaluate_ast_node(
 		}
 	} else if (ast.type == "product" || ast.type == "sum") {
 		const auto children = ast.children.front().children;
-		const auto first_operand = evaluate_ast_node(
-			children.front(),
-			constants,
-			functions
-		);
+		const auto first_operand = evaluate_with_context(children.front());
 		const auto children_chunks = children
 			| ranges::view::drop(1)
 			| ranges::view::chunk(2)
@@ -306,11 +306,7 @@ double evaluate_ast_node(
 			first_operand,
 			[&] (const auto& result, const auto& chunk) {
 				const auto name = chunk.front().value;
-				const auto second_operand = evaluate_ast_node(
-					chunk.back(),
-					constants,
-					functions
-				);
+				const auto second_operand = evaluate_with_context(chunk.back());
 				return functions.at(name).handler({result, second_operand});
 			}
 		);
