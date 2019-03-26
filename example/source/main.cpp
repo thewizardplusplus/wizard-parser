@@ -88,6 +88,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
 const auto handlers = std::vector<ast_node_handler>{
+	// remove CST nodes with the nothing type
 	[] (const auto& ast) {
 		const auto type = (+parser::ast_node_type::nothing)._to_string();
 		const auto new_children = ast.children
@@ -95,6 +96,7 @@ const auto handlers = std::vector<ast_node_handler>{
 			| ranges::to_<parser::ast_node_group>();
 		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
 	},
+	// join CST nodes with the sequence type
 	[] (const auto& ast) {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
 		if (ast.type != type) {
@@ -176,6 +178,8 @@ int main(int argc, char* argv[]) try {
 	}
 
 	const auto completed_handlers = ranges::view::concat(
+		// replace CST nodes offsets which are equal
+		// to the utilities::integral_infinity constant to a code size
 		ranges::view::single([&] (const auto& ast) {
 			const auto offset = ast.offset == utilities::integral_infinity
 				? code.size()
