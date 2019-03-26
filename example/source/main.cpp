@@ -7,6 +7,7 @@
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/json.hpp"
+#include "vendor/range/v3/view/join.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
@@ -29,6 +30,7 @@
 #include <cstdlib>
 #include <functional>
 #include <iterator>
+#include <vector>
 #include <exception>
 
 using namespace thewizardplusplus::wizard_parser;
@@ -153,6 +155,22 @@ int main(int argc, char* argv[]) try {
 		const auto type = (+parser::ast_node_type::nothing)._to_string();
 		const auto new_children = ast.children
 			| ranges::view::filter([&] (const auto& ast) { return ast.type != type; })
+			| ranges::to_<parser::ast_node_group>();
+		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
+	});
+	transformed_ast = walk_ast(transformed_ast, [] (const auto& ast) {
+		const auto type = (+parser::ast_node_type::sequence)._to_string();
+		if (ast.type != type) {
+			return ast;
+		}
+
+		const auto new_children_set = ast.children
+			| ranges::view::transform([&] (const auto& ast) {
+				return ast.type == type ? ast.children : parser::ast_node_group{ast};
+			})
+			| ranges::to_<std::vector<parser::ast_node_group>>();
+		const auto new_children = new_children_set
+			| ranges::view::join
 			| ranges::to_<parser::ast_node_group>();
 		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
 	});
