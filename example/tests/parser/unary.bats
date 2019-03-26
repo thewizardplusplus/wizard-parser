@@ -1,6 +1,6 @@
 load "../common/common"
 
-declare -gra OPTIONS=("--stdin")
+declare -gra OPTIONS=("--stdin" "--target" "cst")
 
 @test "parser: unary, with an one minus" {
 	declare -r INPUT="-test"

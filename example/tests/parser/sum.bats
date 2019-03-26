@@ -1,6 +1,6 @@
 load "../common/common"
 
-declare -gra OPTIONS=("--stdin")
+declare -gra OPTIONS=("--stdin" "--target" "cst")
 
 @test "parser: sum, with an one addition" {
 	declare -r INPUT="x + y"

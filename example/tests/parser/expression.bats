@@ -1,6 +1,6 @@
 load "../common/common"
 
-declare -gra OPTIONS=("--stdin")
+declare -gra OPTIONS=("--stdin" "--target" "cst")
 
 @test "parser: expression, with a minus and a multiplication" {
 	declare -r INPUT="-x * y"
