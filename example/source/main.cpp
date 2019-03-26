@@ -7,6 +7,7 @@
 #include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/join.hpp"
 #include "vendor/range/v3/view/drop.hpp"
+#include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
@@ -130,6 +131,16 @@ const auto constants = constant_group{
 	{"e", 2.7182818284590452353602874}
 };
 const auto functions = function_group{
+	{"*", {2, [] (const auto& arguments) {
+		return arguments.front() * arguments.back();
+	}}},
+	{"/", {2, [] (const auto& arguments) {
+		return arguments.front() / arguments.back();
+	}}},
+	{"%", {2, [] (const auto& arguments) {
+		return static_cast<std::int64_t>(arguments.front())
+			% static_cast<std::int64_t>(arguments.back());
+	}}},
 	{"floor", {1, [] (const auto& arguments) {
 		return std::floor(arguments.front());
 	}}},
@@ -264,6 +275,32 @@ double evaluate_ast_node(
 				utilities::integral_infinity
 			};
 		}
+	} else if (ast.type == "product") {
+		const auto children = ast.children.front().children;
+		const auto first_operand = evaluate_ast_node(
+			children.front(),
+			constants,
+			functions
+		);
+		const auto children_chunks = children
+			| ranges::view::drop(1)
+			| ranges::view::chunk(2)
+			| ranges::view::transform([] (const auto& chunk) {
+				return chunk | ranges::to_<parser::ast_node_group>();
+			});
+		return ranges::accumulate(
+			children_chunks,
+			first_operand,
+			[&] (const auto& result, const auto& chunk) {
+				const auto name = chunk.front().value;
+				const auto second_operand = evaluate_ast_node(
+					chunk.back(),
+					constants,
+					functions
+				);
+				return functions.at(name).handler({result, second_operand});
+			}
+		);
 	} else if (!ast.children.empty()) {
 		return evaluate_ast_node(ast.children.front(), constants, functions);
 	} else {
