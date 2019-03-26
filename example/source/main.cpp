@@ -173,6 +173,11 @@ double evaluate_ast_node(
 			? ast.children.front().children.front()
 			: ast.children.front();
 		return evaluate_ast_node(first_child, constants);
+	} else if (ast.type == "unary") {
+		const auto children = ast.children.front().children;
+		const auto result = evaluate_ast_node(children.back(), constants);
+		const auto sign = (children.size()-1) % 2 ? -1 : 1;
+		return sign * result;
 	} else if (!ast.children.empty()) {
 		return evaluate_ast_node(ast.children.front(), constants);
 	} else {
