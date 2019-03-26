@@ -240,6 +240,10 @@ parser::ast_node walk_ast_node(
 	return handler({ast.type, ast.value, new_children, ast.offset});
 }
 
+const parser::ast_node_group& inspect_sequence(const parser::ast_node& ast) {
+	return ast.children.front().children;
+}
+
 double evaluate_ast_node(
 	const parser::ast_node& ast,
 	const constant_group& constants,
@@ -260,19 +264,17 @@ double evaluate_ast_node(
 	} else if (ast.type == "atom") {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
 		const auto first_child = ast.children.front().type == type
-			? ast.children.front().children.front()
+			? inspect_sequence(ast).front()
 			: ast.children.front();
 		return evaluate_with_context(first_child);
 	} else if (ast.type == "unary") {
-		const auto children = ast.children.front().children;
-		const auto result = evaluate_with_context(children.back());
-		const auto sign = (children.size()-1) % 2 ? -1 : 1;
+		const auto result = evaluate_with_context(inspect_sequence(ast).back());
+		const auto sign = (inspect_sequence(ast).size()-1) % 2 ? -1 : 1;
 		return sign * result;
 	} else if (ast.type == "function_call") {
 		try {
-			const auto children = ast.children.front().children;
-			const auto name = children.front().value;
-			const auto arguments = children
+			const auto name = inspect_sequence(ast).front().value;
+			const auto arguments = inspect_sequence(ast)
 				| ranges::view::drop(1)
 				| ranges::view::transform([&] (const auto& ast) {
 					return evaluate_with_context(ast);
@@ -293,9 +295,9 @@ double evaluate_ast_node(
 			};
 		}
 	} else if (ast.type == "product" || ast.type == "sum") {
-		const auto children = ast.children.front().children;
-		const auto first_operand = evaluate_with_context(children.front());
-		const auto children_chunks = children
+		const auto first_operand =
+			evaluate_with_context(inspect_sequence(ast).front());
+		const auto children_chunks = inspect_sequence(ast)
 			| ranges::view::drop(1)
 			| ranges::view::chunk(2)
 			| ranges::view::transform([] (const auto& chunk) {
