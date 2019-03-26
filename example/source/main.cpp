@@ -33,17 +33,19 @@
 
 using namespace thewizardplusplus::wizard_parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
+using namespace std::literals::string_literals;
 
 const auto usage =
 R"(Usage:
   ./example -h | --help
-  ./example [-t | --tokens] [--] <expression>
-  ./example [-t | --tokens] (-s | --stdin)
+  ./example [-t TARGET | --target TARGET] [--] <expression>
+  ./example [-t TARGET | --target TARGET] (-s | --stdin)
 
 Options:
-  -h, --help    - show this message;
-  -t, --tokens  - show a token list instead an AST;
-  -s, --stdin   - read an expression from stdin.)";
+  -h, --help                  - show this message;
+  -t TARGET, --target TARGET  - preliminary target of processing
+                              (allowed: tokens, cst);
+  -s, --stdin                 - read an expression from stdin.)";
 const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\+)"}, "plus"},
 	{std::regex{"-"}, "minus"},
@@ -127,7 +129,7 @@ int main(int argc, char* argv[]) try {
 			return token.type != "whitespace";
 		})
 		| ranges::to_<lexer::token_group>();
-	if (options.at("--tokens").asBool()) {
+	if (options.at("--target") == "tokens"s) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(cleaned_tokens).dump());
 	}
 
@@ -147,7 +149,11 @@ int main(int argc, char* argv[]) try {
 			: ast.offset;
 		return parser::ast_node{ast.type, ast.value, ast.children, offset};
 	});
-	stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
+	if (options.at("--target") == "cst"s) {
+		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
+	}
+
+	throw std::runtime_error("not implemented yet");
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
 }
