@@ -1,6 +1,58 @@
 # Change Log
 
-## [v3.2](https://github.com/thewizardplusplus/wizard-parser/tree/v3.2) (2019-03-11)
+## [v4.0](https://github.com/thewizardplusplus/wizard-parser/tree/v4.0) (2019-03-26)
+
+**Closed issues:**
+
+- In the example:
+  - Simplify a grammar:
+    - simplify:
+      - implementation;
+      - description;
+    - upgrade tests:
+      - remove useless tests:
+        - of the `lexer` module;
+        - of the `parser` module;
+      - upgrade rest tests:
+        - of the `lexer` module;
+        - of the `parser` module.
+  - Simplify a result CST:
+    - remove nodes with the `nothing` type;
+    - join nodes with the `sequence` type;
+    - fix the `walk_ast_node()` function;
+    - upgrade tests of the `parser` module.
+  - Add the `target` option:
+    - fix the options implementation;
+    - upgrade tests:
+      - of the `lexer` module;
+      - of the `parser` module.
+  - Evaluate a CST node:
+    - evaluate:
+      - numbers;
+      - constants;
+      - rest nodes:
+        - with the `atom` type;
+        - with the `unary` type;
+        - with the `function_call` type;
+        - with the `product` type;
+        - with the `sum` type;
+    - add runtime docs:
+      - add a description:
+        - of built-in constants;
+        - of built-in functions;
+      - add a table of contents.
+  - Add tests of evaluation:
+    - add the `evaluator` test group;
+    - add the `test_text_output()` function;
+    - add tests of evaluation:
+      - of nodes:
+        - with the `atom` type;
+        - with the `unary` type;
+        - with the `product` type;
+        - with the `sum` type;
+      - of expressions in parentheses.
+
+## [v3.2](https://github.com/thewizardplusplus/wizard-parser/tree/v3.2) (2019-03-13)
 
 **Closed issues:**
 
