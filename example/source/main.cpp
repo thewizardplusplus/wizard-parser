@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: options.at("<expression>").asString();
-	const auto [tokens, rest_offset] = tokenize(lexemes, code);
+	const auto [tokens, rest_offset] = lexer::tokenize(lexemes, code);
 	if (rest_offset != code.size()) {
 		throw unexpected_entity_exception<entity_type::symbol>{rest_offset};
 	}
@@ -143,11 +143,18 @@ int main(int argc, char* argv[]) try {
 		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
 	}
 
-	const auto transformed_ast = walk_ast(*ast.node, [&] (const auto& ast) {
+	auto transformed_ast = walk_ast(*ast.node, [&] (const auto& ast) {
 		const auto offset = ast.offset == utilities::integral_infinity
 			? code.size()
 			: ast.offset;
 		return parser::ast_node{ast.type, ast.value, ast.children, offset};
+	});
+	transformed_ast = walk_ast(transformed_ast, [] (const auto& ast) {
+		const auto type = (+parser::ast_node_type::nothing)._to_string();
+		const auto new_children = ast.children
+			| ranges::view::filter([&] (const auto& ast) { return ast.type != type; })
+			| ranges::to_<parser::ast_node_group>();
+		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
 	});
 	if (options.at("--target") == "cst"s) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
