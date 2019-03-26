@@ -1,7 +1,7 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MACROSES
 
-#include "vendor/better-enums/enum_strict.hpp"
 #include "vendor/fmt/format.hpp"
+#include "vendor/better-enums/enum_strict.hpp"
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/view/transform.hpp"
@@ -31,8 +31,8 @@
 #include <string>
 #include <cstddef>
 #include <vector>
-#include <cstdint>
 #include <stdexcept>
+#include <cstdint>
 #include <regex>
 #include <iostream>
 #include <cstdlib>
@@ -55,6 +55,25 @@ struct function final {
 
 using function_group = std::unordered_map<std::string, function>;
 
+struct positional_exception: std::runtime_error {
+	const std::string description;
+	const std::size_t offset;
+
+	positional_exception(
+		const std::string& description,
+		const std::size_t& offset
+	);
+};
+
+positional_exception::positional_exception(
+	const std::string& description,
+	const std::size_t& offset
+):
+	std::runtime_error{fmt::format("{:s} (offset: {:d})", description, offset)},
+	description{description},
+	offset{offset}
+{}
+
 BETTER_ENUM(entity_type, std::uint8_t,
 	symbol,
 	token,
@@ -65,7 +84,7 @@ BETTER_ENUM(entity_type, std::uint8_t,
 )
 
 template<entity_type::_integral type>
-struct unexpected_entity_exception final: std::runtime_error {
+struct unexpected_entity_exception final: positional_exception {
 	static_assert(entity_type::_is_valid(type));
 
 	explicit unexpected_entity_exception(const std::size_t& offset);
@@ -75,11 +94,13 @@ template<entity_type::_integral type>
 unexpected_entity_exception<type>::unexpected_entity_exception(
 	const std::size_t& offset
 ):
-	std::runtime_error{fmt::format(
-		"unexpected {:s} (offset: {:d})",
-		entity_type::_from_integral(type)._to_string(),
+	positional_exception{
+		fmt::format(
+			"unexpected {:s}",
+			entity_type::_from_integral(type)._to_string()
+		),
 		offset
-	)}
+	}
 {}
 
 const auto usage =
@@ -293,11 +314,14 @@ double evaluate_ast_node(
 				});
 			const auto function = functions.at(name);
 			if (arguments.size() != function.arity) {
-				throw std::runtime_error(fmt::format(
-					"function {}() requires {} arguments",
-					name,
-					function.arity
-				));
+				throw positional_exception{
+					fmt::format(
+						"function requires {:d} {:s}",
+						function.arity,
+						function.arity == 1 ? "argument" : "arguments"
+					),
+					get_offset(ast)
+				};
 			}
 
 			return function.handler(arguments);
