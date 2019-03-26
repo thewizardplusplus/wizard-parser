@@ -22,10 +22,10 @@
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <functional>
-#include <regex>
 #include <cstdint>
 #include <stdexcept>
 #include <cstddef>
+#include <regex>
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -39,6 +39,26 @@ using namespace std::literals::string_literals;
 
 using ast_node_handler =
 	std::function<parser::ast_node(const parser::ast_node&)>;
+
+BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi)
+
+template<entity_type::_integral type>
+struct unexpected_entity_exception final: std::runtime_error {
+	static_assert(entity_type::_is_valid(type));
+
+	explicit unexpected_entity_exception(const std::size_t& offset);
+};
+
+template<entity_type::_integral type>
+unexpected_entity_exception<type>::unexpected_entity_exception(
+	const std::size_t& offset
+):
+	std::runtime_error{fmt::format(
+		"unexpected {:s} (offset: {:d})",
+		entity_type::_from_integral(type)._to_string(),
+		offset
+	)}
+{}
 
 const auto usage =
 R"(Usage:
@@ -64,26 +84,6 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
-
-BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi)
-
-template<entity_type::_integral type>
-struct unexpected_entity_exception final: std::runtime_error {
-	static_assert(entity_type::_is_valid(type));
-
-	explicit unexpected_entity_exception(const std::size_t& offset);
-};
-
-template<entity_type::_integral type>
-unexpected_entity_exception<type>::unexpected_entity_exception(
-	const std::size_t& offset
-):
-	std::runtime_error{fmt::format(
-		"unexpected {:s} (offset: {:d})",
-		entity_type::_from_integral(type)._to_string(),
-		offset
-	)}
-{}
 
 void stop(const int& code, std::ostream& stream, const std::string& message) {
 	stream << fmt::format("{:s}\n", message);
