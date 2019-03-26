@@ -104,16 +104,15 @@ parser::rule_parser::pointer make_parser() {
 	return sum;
 }
 
-parser::ast_node walk_ast(
+parser::ast_node walk_ast_node(
 	const parser::ast_node& ast,
 	const std::function<parser::ast_node(const parser::ast_node&)>& handler
 ) {
-	const auto new_ast = handler(ast);
-	const auto new_children = new_ast.children
+	const auto new_children = ast.children
 		| ranges::view::transform([&] (const auto& ast) {
-			return walk_ast(ast, handler);
+			return walk_ast_node(ast, handler);
 		});
-	return {new_ast.type, new_ast.value, new_children, new_ast.offset};
+	return handler({ast.type, ast.value, new_children, ast.offset});
 }
 
 int main(int argc, char* argv[]) try {
@@ -145,20 +144,20 @@ int main(int argc, char* argv[]) try {
 		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
 	}
 
-	auto transformed_ast = walk_ast(*ast.node, [&] (const auto& ast) {
+	auto transformed_ast = walk_ast_node(*ast.node, [&] (const auto& ast) {
 		const auto offset = ast.offset == utilities::integral_infinity
 			? code.size()
 			: ast.offset;
 		return parser::ast_node{ast.type, ast.value, ast.children, offset};
 	});
-	transformed_ast = walk_ast(transformed_ast, [] (const auto& ast) {
+	transformed_ast = walk_ast_node(transformed_ast, [] (const auto& ast) {
 		const auto type = (+parser::ast_node_type::nothing)._to_string();
 		const auto new_children = ast.children
 			| ranges::view::filter([&] (const auto& ast) { return ast.type != type; })
 			| ranges::to_<parser::ast_node_group>();
 		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
 	});
-	transformed_ast = walk_ast(transformed_ast, [] (const auto& ast) {
+	transformed_ast = walk_ast_node(transformed_ast, [] (const auto& ast) {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
 		if (ast.type != type) {
 			return ast;
