@@ -55,7 +55,14 @@ struct function final {
 
 using function_group = std::unordered_map<std::string, function>;
 
-BETTER_ENUM(entity_type, std::uint8_t, symbol, token, eoi, constant, function)
+BETTER_ENUM(entity_type, std::uint8_t,
+	symbol,
+	token,
+	eoi,
+	node,
+	constant,
+	function
+)
 
 template<entity_type::_integral type>
 struct unexpected_entity_exception final: std::runtime_error {
@@ -131,6 +138,12 @@ const auto constants = constant_group{
 	{"e", 2.7182818284590452353602874}
 };
 const auto functions = function_group{
+	{"+", {2, [] (const auto& arguments) {
+		return arguments.front() + arguments.back();
+	}}},
+	{"-", {2, [] (const auto& arguments) {
+		return arguments.front() - arguments.back();
+	}}},
 	{"*", {2, [] (const auto& arguments) {
 		return arguments.front() * arguments.back();
 	}}},
@@ -275,7 +288,7 @@ double evaluate_ast_node(
 				utilities::integral_infinity
 			};
 		}
-	} else if (ast.type == "product") {
+	} else if (ast.type == "product" || ast.type == "sum") {
 		const auto children = ast.children.front().children;
 		const auto first_operand = evaluate_ast_node(
 			children.front(),
@@ -301,10 +314,10 @@ double evaluate_ast_node(
 				return functions.at(name).handler({result, second_operand});
 			}
 		);
-	} else if (!ast.children.empty()) {
-		return evaluate_ast_node(ast.children.front(), constants, functions);
 	} else {
-		throw std::runtime_error("not implemented yet");
+		throw unexpected_entity_exception<entity_type::node>{
+			utilities::integral_infinity
+		};
 	}
 }
 
