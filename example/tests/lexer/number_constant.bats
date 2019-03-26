@@ -1,6 +1,6 @@
 load "../common/common"
 
-declare -gra OPTIONS=("--stdin" "--tokens")
+declare -gra OPTIONS=("--stdin" "--target" "tokens")
 
 @test "lexer: number, an integer number with an one digit" {
 	declare -r INPUT="5"

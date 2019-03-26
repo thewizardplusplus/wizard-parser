@@ -1,6 +1,6 @@
 load "../common/common"
 
-declare -gra OPTIONS=("--stdin" "--tokens")
+declare -gra OPTIONS=("--stdin" "--target" "tokens")
 
 @test "lexer: whitespace, an one space" {
 	declare -r INPUT="5 12"
