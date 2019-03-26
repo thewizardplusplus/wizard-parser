@@ -149,7 +149,13 @@ parser::ast_node walk_ast_node(
 }
 
 double evaluate_ast_node(const parser::ast_node& ast) {
-	return std::rand();
+	if (ast.type == "number") {
+		return std::stod(ast.value, nullptr);
+	} else if (!ast.children.empty()) {
+		return evaluate_ast_node(ast.children.front());
+	} else {
+		throw std::runtime_error("not implemented yet");
+	}
 }
 
 int main(int argc, char* argv[]) try {
