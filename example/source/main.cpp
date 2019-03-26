@@ -167,6 +167,12 @@ double evaluate_ast_node(
 		} catch (const std::out_of_range& exception) {
 			throw unexpected_entity_exception<entity_type::constant>{*ast.offset};
 		}
+	} else if (ast.type == "atom") {
+		const auto type = (+parser::ast_node_type::sequence)._to_string();
+		const auto first_child = ast.children.front().type == type
+			? ast.children.front().children.front()
+			: ast.children.front();
+		return evaluate_ast_node(first_child, constants);
 	} else if (!ast.children.empty()) {
 		return evaluate_ast_node(ast.children.front(), constants);
 	} else {
