@@ -1,20 +1,15 @@
 ### Грамматика
 
 ```
-expression = disjunction;
-disjunction = conjunction, {"or", conjunction};
-conjunction = equality, {"and", equality};
-equality = comparison, {("==" | "/="), comparison};
-comparison = sum, {("<" | "<=" | ">" | ">="), sum};
+expression = sum;
+
 sum = product, {("+" | "-"), product};
 product = unary, {("*" | "/" | "%"), unary};
-unary = {"-" | "not"}, atom;
+unary = {"-"}, atom;
 
-atom = NUMBER | identifier | function call | ("(", expression, ")");
-identifier = BASE IDENTIFIER - key words;
-key words = "not" | "and" | "or";
-function call = identifier, "(", [expression, {",", expression}], ")";
+atom = NUMBER | IDENTIFIER | function call | ("(", expression, ")");
+function call = IDENTIFIER, "(", [expression, {",", expression}], ")";
 
 NUMBER = ? /\d+(\.\d+)?(e-?\d+)?/ ?;
-BASE IDENTIFIER = ? /[a-z_]\w*/i ?;
+IDENTIFIER = ? /[a-z_]\w*/i ?;
 ```
