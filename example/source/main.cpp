@@ -12,11 +12,10 @@
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/match_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/exception_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
@@ -46,12 +45,6 @@ Options:
   -t, --tokens  - show a token list instead an AST;
   -s, --stdin   - read an expression from stdin.)";
 const auto lexemes = lexer::lexeme_group{
-	{std::regex{"=="}, "equal"},
-	{std::regex{"/="}, "not_equal"},
-	{std::regex{"<="}, "less_or_equal"},
-	{std::regex{"<"}, "less"},
-	{std::regex{">="}, "great_or_equal"},
-	{std::regex{">"}, "great"},
 	{std::regex{R"(\+)"}, "plus"},
 	{std::regex{"-"}, "minus"},
 	{std::regex{R"(\*)"}, "star"},
@@ -61,7 +54,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\))"}, "closing_parenthesis"},
 	{std::regex{","}, "comma"},
 	{std::regex{R"(\d+(?:\.\d+)?(?:e-?\d+)?)"}, "number"},
-	{std::regex{R"([A-Za-z_]\w*)"}, "base_identifier"},
+	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
 
@@ -92,25 +85,19 @@ void stop(const int& code, std::ostream& stream, const std::string& message) {
 
 parser::rule_parser::pointer make_parser() {
 	const auto expression_dummy = parser::dummy();
-	RULE(key_words) = "not"_v | "and"_v | "or"_v;
-	RULE(identifier) = "base_identifier"_t - key_words;
-	RULE(function_call) = identifier >> &"("_v >>
+	RULE(function_call) = "identifier"_t >> &"("_v >>
 		-(expression_dummy >> *(&","_v >> expression_dummy))
 	>> &")"_v;
 	RULE(atom) = "number"_t
 		| function_call
-		| identifier
+		| "identifier"_t
 		| (&"("_v >> expression_dummy >> &")"_v);
-	RULE(unary) = *("-"_v | "not"_v) >> atom;
+	RULE(unary) = *("-"_v) >> atom;
 	RULE(product) = unary >> *(("*"_v | "/"_v | "%"_v) >> unary);
 	RULE(sum) = product >> *(("+"_v | "-"_v) >> product);
-	RULE(comparison) = sum >> *(("<"_v | "<="_v | ">"_v | ">="_v) >> sum);
-	RULE(equality) = comparison >> *(("=="_v | "/="_v) >> comparison);
-	RULE(conjunction) = equality >> *(&"and"_v >> equality);
-	RULE(disjunction) = conjunction >> *(&"or"_v >> conjunction);
-	expression_dummy->set_parser(disjunction);
+	expression_dummy->set_parser(sum);
 
-	return disjunction;
+	return sum;
 }
 
 parser::ast_node walk_ast(
