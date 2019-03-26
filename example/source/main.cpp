@@ -2,12 +2,12 @@
 
 #include "vendor/better-enums/enum_strict.hpp"
 #include "vendor/fmt/format.hpp"
-#include "vendor/range/v3/view/transform.hpp"
-#include "vendor/docopt/docopt.hpp"
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
-#include "vendor/json.hpp"
+#include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/join.hpp"
+#include "vendor/docopt/docopt.hpp"
+#include "vendor/json.hpp"
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
@@ -26,11 +26,11 @@
 #include <stdexcept>
 #include <cstddef>
 #include <regex>
+#include <vector>
 #include <iostream>
 #include <string>
 #include <cstdlib>
 #include <iterator>
-#include <vector>
 #include <exception>
 
 using namespace thewizardplusplus::wizard_parser;
@@ -83,6 +83,31 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\d+(?:\.\d+)?(?:e-?\d+)?)"}, "number"},
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
+};
+const auto handlers = std::vector<ast_node_handler>{
+	[] (const auto& ast) {
+		const auto type = (+parser::ast_node_type::nothing)._to_string();
+		const auto new_children = ast.children
+			| ranges::view::filter([&] (const auto& ast) { return ast.type != type; })
+			| ranges::to_<parser::ast_node_group>();
+		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
+	},
+	[] (const auto& ast) {
+		const auto type = (+parser::ast_node_type::sequence)._to_string();
+		if (ast.type != type) {
+			return ast;
+		}
+
+		const auto new_children_set = ast.children
+			| ranges::view::transform([&] (const auto& ast) {
+				return ast.type == type ? ast.children : parser::ast_node_group{ast};
+			})
+			| ranges::to_<std::vector<parser::ast_node_group>>();
+		const auto new_children = new_children_set
+			| ranges::view::join
+			| ranges::to_<parser::ast_node_group>();
+		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
+	}
 };
 
 void stop(const int& code, std::ostream& stream, const std::string& message) {
@@ -140,7 +165,7 @@ int main(int argc, char* argv[]) try {
 	const auto ast = make_parser()->parse(cleaned_tokens);
 	if (!ast.rest_tokens.empty()) {
 		throw unexpected_entity_exception<entity_type::token>{
-			get_offset(ast.rest_tokens)
+			lexer::get_offset(ast.rest_tokens)
 		};
 	}
 	if (!ast.node) {
@@ -153,29 +178,8 @@ int main(int argc, char* argv[]) try {
 			: ast.offset;
 		return parser::ast_node{ast.type, ast.value, ast.children, offset};
 	});
-	transformed_ast = walk_ast_node(transformed_ast, [] (const auto& ast) {
-		const auto type = (+parser::ast_node_type::nothing)._to_string();
-		const auto new_children = ast.children
-			| ranges::view::filter([&] (const auto& ast) { return ast.type != type; })
-			| ranges::to_<parser::ast_node_group>();
-		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
-	});
-	transformed_ast = walk_ast_node(transformed_ast, [] (const auto& ast) {
-		const auto type = (+parser::ast_node_type::sequence)._to_string();
-		if (ast.type != type) {
-			return ast;
-		}
-
-		const auto new_children_set = ast.children
-			| ranges::view::transform([&] (const auto& ast) {
-				return ast.type == type ? ast.children : parser::ast_node_group{ast};
-			})
-			| ranges::to_<std::vector<parser::ast_node_group>>();
-		const auto new_children = new_children_set
-			| ranges::view::join
-			| ranges::to_<parser::ast_node_group>();
-		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
-	});
+	transformed_ast = walk_ast_node(transformed_ast, handlers[0]);
+	transformed_ast = walk_ast_node(transformed_ast, handlers[1]);
 	if (options.at("--target") == "cst"s) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
 	}
