@@ -265,18 +265,6 @@ const parser::ast_node_group& inspect_sequence(const parser::ast_node& ast) {
 	return ast.children.front().children;
 }
 
-std::size_t get_offset(const parser::ast_node& ast) {
-	if (ast.offset) {
-		return *ast.offset;
-	}
-
-	if (ast.children.empty()) {
-		return utilities::integral_infinity;
-	}
-
-	return get_offset(ast.children.front());
-}
-
 double evaluate_ast_node(
 	const parser::ast_node& ast,
 	const constant_group& constants,
@@ -292,7 +280,9 @@ double evaluate_ast_node(
 		try {
 			return constants.at(ast.value);
 		} catch (const std::out_of_range& exception) {
-			throw unexpected_entity_exception<entity_type::constant>{get_offset(ast)};
+			throw unexpected_entity_exception<entity_type::constant>{
+				parser::get_offset(ast)
+			};
 		}
 	} else if (ast.type == "atom") {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
@@ -320,13 +310,15 @@ double evaluate_ast_node(
 						function.arity,
 						function.arity == 1 ? "argument" : "arguments"
 					),
-					get_offset(ast)
+					parser::get_offset(ast)
 				};
 			}
 
 			return function.handler(arguments);
 		} catch (const std::out_of_range& exception) {
-			throw unexpected_entity_exception<entity_type::function>{get_offset(ast)};
+			throw unexpected_entity_exception<entity_type::function>{
+				parser::get_offset(ast)
+			};
 		}
 	} else if (ast.type == "product" || ast.type == "sum") {
 		const auto first_operand =
@@ -347,7 +339,7 @@ double evaluate_ast_node(
 			}
 		);
 	} else {
-		throw unexpected_entity_exception<entity_type::node>{get_offset(ast)};
+		throw unexpected_entity_exception<entity_type::node>{parser::get_offset(ast)};
 	}
 }
 
