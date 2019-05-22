@@ -1,4 +1,5 @@
 #include "ast_node.hpp"
+#include "../utilities/utilities.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
 
@@ -26,6 +27,17 @@ void to_json(nlohmann::json& json, const ast_node& ast) {
 	if (ast.offset) {
 		json["offset"] = *ast.offset;
 	}
+}
+
+std::size_t get_offset(const ast_node& ast) {
+	if (ast.offset) {
+		return *ast.offset;
+	}
+	if (ast.children.empty()) {
+		return utilities::integral_infinity;
+	}
+
+	return get_offset(ast.children.front());
 }
 
 }

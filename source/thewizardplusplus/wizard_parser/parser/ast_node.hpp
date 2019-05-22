@@ -33,6 +33,7 @@ bool operator==(const ast_node& ast_1, const ast_node& ast_2);
 std::ostream& operator<<(std::ostream& stream, const ast_node& ast);
 ast_node_tuple to_tuple(const ast_node& ast);
 void to_json(nlohmann::json& json, const ast_node& ast);
+std::size_t get_offset(const ast_node& ast);
 
 }
 #endif
