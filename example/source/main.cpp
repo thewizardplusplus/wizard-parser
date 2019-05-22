@@ -13,8 +13,9 @@
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/range/v3/view/concat.hpp"
 #include "vendor/range/v3/view/single.hpp"
-#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
+#include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
+#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
@@ -26,10 +27,10 @@
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
-#include <functional>
 #include <unordered_map>
 #include <string>
 #include <cstddef>
+#include <functional>
 #include <vector>
 #include <stdexcept>
 #include <cstdint>
@@ -42,9 +43,6 @@
 using namespace thewizardplusplus::wizard_parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
 using namespace std::literals::string_literals;
-
-using ast_node_handler =
-	std::function<parser::ast_node(const parser::ast_node&)>;
 
 using constant_group = std::unordered_map<std::string, double>;
 
@@ -127,7 +125,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
-const auto handlers = std::vector<ast_node_handler>{
+const auto handlers = std::vector<transformers::ast_node_handler>{
 	// remove CST nodes with the nothing type
 	[] (const auto& ast) {
 		const auto type = (+parser::ast_node_type::nothing)._to_string();
@@ -248,17 +246,6 @@ parser::rule_parser::pointer make_parser() {
 	expression_dummy->set_parser(sum);
 
 	return sum;
-}
-
-parser::ast_node walk_ast_node(
-	const parser::ast_node& ast,
-	const ast_node_handler& handler
-) {
-	const auto new_children = ast.children
-		| ranges::view::transform([&] (const auto& ast) {
-			return walk_ast_node(ast, handler);
-		});
-	return handler({ast.type, ast.value, new_children, ast.offset});
 }
 
 const parser::ast_node_group& inspect_sequence(const parser::ast_node& ast) {
@@ -386,7 +373,7 @@ int main(int argc, char* argv[]) try {
 	const auto transformed_ast = ranges::accumulate(
 		completed_handlers,
 		*ast.node,
-		walk_ast_node
+		transformers::transform
 	);
 	if (options.at("--target") == "cst"s) {
 		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
