@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12.2)
+cmake_minimum_required(VERSION 3.10.2)
 
 get_filename_component(PROJECT_NAME "${CMAKE_SOURCE_DIR}" NAME)
 string(MAKE_C_IDENTIFIER "${PROJECT_NAME}" PROJECT_NAME)
