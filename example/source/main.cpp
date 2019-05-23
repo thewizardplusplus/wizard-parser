@@ -2,19 +2,20 @@
 
 #include "vendor/fmt/format.hpp"
 #include "vendor/better-enums/enum_strict.hpp"
-#include "vendor/range/v3/view/filter.hpp"
-#include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/view/transform.hpp"
+#include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/view/join.hpp"
 #include "vendor/range/v3/view/drop.hpp"
 #include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
+#include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/view/concat.hpp"
 #include "vendor/range/v3/view/single.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
+#include <thewizardplusplus/wizard_parser/transformers/transformers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
@@ -126,14 +127,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
 const auto handlers = std::vector<transformers::ast_node_handler>{
-	// remove CST nodes with the nothing type
-	[] (const auto& ast) {
-		const auto type = (+parser::ast_node_type::nothing)._to_string();
-		const auto new_children = ast.children
-			| ranges::view::filter([&] (const auto& ast) { return ast.type != type; })
-			| ranges::to_<parser::ast_node_group>();
-		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
-	},
+	transformers::remove_nothings,
 	// join CST nodes with the sequence type
 	[] (const auto& ast) {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
