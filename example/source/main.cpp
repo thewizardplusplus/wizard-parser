@@ -2,21 +2,19 @@
 
 #include "vendor/fmt/format.hpp"
 #include "vendor/better-enums/enum_strict.hpp"
-#include "vendor/range/v3/view/transform.hpp"
-#include "vendor/range/v3/to_container.hpp"
-#include "vendor/range/v3/view/join.hpp"
 #include "vendor/range/v3/view/drop.hpp"
+#include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/json.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/range/v3/view/filter.hpp"
+#include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/view/concat.hpp"
 #include "vendor/range/v3/view/single.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
 #include <thewizardplusplus/wizard_parser/transformers/transformers.hpp>
-#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
@@ -25,6 +23,7 @@
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
@@ -128,23 +127,7 @@ const auto lexemes = lexer::lexeme_group{
 };
 const auto handlers = std::vector<transformers::ast_node_handler>{
 	transformers::remove_nothings,
-	// join CST nodes with the sequence type
-	[] (const auto& ast) {
-		const auto type = (+parser::ast_node_type::sequence)._to_string();
-		if (ast.type != type) {
-			return ast;
-		}
-
-		const auto new_children_set = ast.children
-			| ranges::view::transform([&] (const auto& ast) {
-				return ast.type == type ? ast.children : parser::ast_node_group{ast};
-			})
-			| ranges::to_<std::vector<parser::ast_node_group>>();
-		const auto new_children = new_children_set
-			| ranges::view::join
-			| ranges::to_<parser::ast_node_group>();
-		return parser::ast_node{ast.type, ast.value, new_children, ast.offset};
-	}
+	transformers::join_sequences
 };
 const auto constants = constant_group{
 	{"pi", 3.1415926535897932384626433},
