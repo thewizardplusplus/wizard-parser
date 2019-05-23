@@ -10,11 +10,7 @@
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
-#include "vendor/range/v3/view/concat.hpp"
-#include "vendor/range/v3/view/single.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
-#include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
-#include <thewizardplusplus/wizard_parser/transformers/transformers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
@@ -24,9 +20,10 @@
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
-#include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
+#include <thewizardplusplus/wizard_parser/transformers/transformers.hpp>
+#include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
 #include <unordered_map>
 #include <string>
 #include <cstddef>
@@ -124,10 +121,6 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\d+(?:\.\d+)?(?:e-?\d+)?)"}, "number"},
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
-};
-const auto handlers = std::vector<transformers::ast_node_handler>{
-	transformers::remove_nothings,
-	transformers::join_sequences
 };
 const auto constants = constant_group{
 	{"pi", 3.1415926535897932384626433},
@@ -336,19 +329,8 @@ int main(int argc, char* argv[]) try {
 		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
 	}
 
-	const auto completed_handlers = ranges::view::concat(
-		// replace CST nodes offsets which are equal
-		// to the utilities::integral_infinity constant to a code size
-		ranges::view::single([&] (const auto& ast) {
-			const auto offset = ast.offset == utilities::integral_infinity
-				? code.size()
-				: ast.offset;
-			return parser::ast_node{ast.type, ast.value, ast.children, offset};
-		}),
-		handlers
-	);
 	const auto transformed_ast = ranges::accumulate(
-		completed_handlers,
+		{transformers::remove_nothings, transformers::join_sequences},
 		*ast.node,
 		transformers::transform
 	);
