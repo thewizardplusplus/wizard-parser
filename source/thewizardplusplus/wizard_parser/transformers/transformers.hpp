@@ -6,6 +6,7 @@
 namespace thewizardplusplus::wizard_parser::transformers {
 
 parser::ast_node remove_nothings(const parser::ast_node& ast);
+parser::ast_node join_sequences(const parser::ast_node& ast);
 
 }
 #endif
