@@ -6,7 +6,6 @@
 #include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/docopt/docopt.hpp"
-#include "vendor/json.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
@@ -196,8 +195,9 @@ const auto functions = function_group{
 	}}},
 };
 
-void stop(const int& code, std::ostream& stream, const std::string& message) {
-	stream << fmt::format("{:s}\n", message);
+template<typename streamable>
+void stop(const int& code, std::ostream& stream, const streamable& message) {
+	stream << message << '\n';
 	std::exit(code);
 }
 
@@ -316,7 +316,7 @@ int main(int argc, char* argv[]) try {
 		})
 		| ranges::to_<lexer::token_group>();
 	if (options.at("--target") == "tokens"s) {
-		stop(EXIT_SUCCESS, std::cout, nlohmann::json(cleaned_tokens).dump());
+		stop(EXIT_SUCCESS, std::cout, cleaned_tokens);
 	}
 
 	const auto ast = make_parser()->parse(cleaned_tokens);
@@ -335,7 +335,7 @@ int main(int argc, char* argv[]) try {
 		transformers::transform
 	);
 	if (options.at("--target") == "cst"s) {
-		stop(EXIT_SUCCESS, std::cout, nlohmann::json(transformed_ast).dump());
+		stop(EXIT_SUCCESS, std::cout, transformed_ast);
 	}
 
 	const auto result = evaluate_ast_node(transformed_ast, constants, functions);
