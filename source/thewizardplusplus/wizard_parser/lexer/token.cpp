@@ -15,6 +15,11 @@ std::ostream& operator<<(std::ostream& stream, const token& some_token) {
 	return stream;
 }
 
+std::ostream& operator<<(std::ostream& stream, const token_group& tokens) {
+	stream << nlohmann::json(tokens);
+	return stream;
+}
+
 token_tuple to_tuple(const token& some_token) {
 	return std::make_tuple(some_token.type, some_token.value, some_token.offset);
 }
