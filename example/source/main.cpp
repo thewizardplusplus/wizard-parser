@@ -121,9 +121,10 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
+// Boost 1.70.0, Math Toolkit 2.9.0
 const auto constants = constant_group{
-	{"pi", 3.1415926535897932384626433},
-	{"e", 2.7182818284590452353602874}
+	{"pi", 3.141592653589793238462643383279502884},
+	{"e", 2.718281828459045235360287471352662497}
 };
 const auto functions = function_group{
 	{"+", {2, [] (const auto& arguments) {
