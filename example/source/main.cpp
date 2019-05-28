@@ -99,15 +99,14 @@ unexpected_entity_exception<type>::unexpected_entity_exception(
 
 const auto usage =
 R"(Usage:
-  ./example -h | --help
-  ./example [-t TARGET | --target TARGET] [--] <expression>
-  ./example [-t TARGET | --target TARGET] (-s | --stdin)
+  ./example [options] [--] [<expression>]
 
 Options:
-  -h, --help                  - show this message;
-  -t TARGET, --target TARGET  - preliminary target of processing
-                              (allowed: tokens, cst);
-  -s, --stdin                 - read an expression from stdin.)";
+  -h, --help                           - show this message;
+  -t TARGET, --target TARGET           - preliminary target of processing
+                                       (allowed: tokens, cst);
+  -p PRECISION, --precision PRECISION  - precision of a result;
+  -s, --stdin                          - read an expression from stdin.)";
 const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\+)"}, "plus"},
 	{std::regex{"-"}, "minus"},
