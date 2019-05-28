@@ -34,6 +34,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <iterator>
+#include <sstream>
+#include <limits>
+#include <iomanip>
 #include <exception>
 
 using namespace thewizardplusplus::wizard_parser;
@@ -338,8 +341,14 @@ int main(int argc, char* argv[]) try {
 		stop(EXIT_SUCCESS, std::cout, transformed_ast);
 	}
 
+	auto buffer = std::ostringstream{};
+	const auto precision = options.at("--precision")
+		? options.at("--precision").asLong()
+		: std::numeric_limits<double>::max_digits10;
 	const auto result = evaluate_ast_node(transformed_ast, constants, functions);
-	stop(EXIT_SUCCESS, std::cout, std::to_string(result));
+	buffer << std::setprecision(precision) << result;
+
+	stop(EXIT_SUCCESS, std::cout, buffer.str());
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
 }
