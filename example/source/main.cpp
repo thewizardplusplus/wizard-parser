@@ -305,9 +305,12 @@ double evaluate_ast_node(
 
 int main(int argc, char* argv[]) try {
 	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
+	const auto expression = options.at("<expression>")
+		? options.at("<expression>").asString()
+		: "";
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
-		: options.at("<expression>").asString();
+		: expression;
 	const auto [tokens, rest_offset] = lexer::tokenize(lexemes, code);
 	if (rest_offset != code.size()) {
 		throw unexpected_entity_exception<entity_type::symbol>{rest_offset};
