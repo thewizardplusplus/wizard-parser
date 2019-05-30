@@ -1,6 +1,41 @@
 # Change Log
 
-## [v4.0](https://github.com/thewizardplusplus/wizard-parser/tree/v4.0) (2019-03-26)
+## [v4.1](https://github.com/thewizardplusplus/wizard-parser/tree/v4.1) (2019-05-30)
+
+**Closed issues:**
+
+- Downgrade a minimal required version of the CMake build tool.
+- Improvements:
+  - Stream insertion operator for the `lexer::token_group` type:
+    - implement it;
+    - use it in the example.
+  - Add the `parser::get_offset()` function:
+    - implement it;
+    - cover it with tests;
+    - use it in the example.
+  - Add the `transformers` module:
+    - add the `transform()` function:
+      - implement it;
+      - cover it with tests;
+      - use it in the example;
+    - add the `remove_nothings()` function:
+      - implement it;
+      - cover it with tests;
+      - use it in the example;
+    - add the `join_sequences()` function:
+      - implement it;
+      - cover it with tests;
+      - use it in the example;
+    - simplify the example.
+- In the example:
+  - Fix a precision of constants.
+  - Add the `precision` option:
+    - parse it;
+    - use it;
+    - upgrade tests of evaluation;
+    - fix parsing of the `expression` parameter.
+
+## [v4.0](https://github.com/thewizardplusplus/wizard-parser/tree/v4.0) (2019-03-27)
 
 **Closed issues:**
 
