@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.16"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Wizard Parser: Исходный файл source/thewizardplusplus/wizard_parser/transformers/transform.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Wizard Parser
+   &#160;<span id="projectnumber">v4.1</span>
+   </div>
+   <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.16 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_3f59cb33ca77b8afa9cb7e595642545b.html">thewizardplusplus</a></li><li class="navelem"><a class="el" href="dir_0e8cdca62bc04c6693971f236b26614a.html">wizard_parser</a></li><li class="navelem"><a class="el" href="dir_ec84c518a9e812a34ac48b6945d8efc3.html">transformers</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">transform.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="transform_8hpp.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef THEWIZARDPLUSPLUS_WIZARD_PARSER_TRANSFORMERS_TRANSFORM_HEADER</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define THEWIZARDPLUSPLUS_WIZARD_PARSER_TRANSFORMERS_TRANSFORM_HEADER</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../parser/ast_node.hpp&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html">thewizardplusplus::wizard_parser::transformers</a> {</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a3e0c06f2d76976d107d88a338f0e0fe4">ast_node_handler</a> =</div><div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a3e0c06f2d76976d107d88a338f0e0fe4">   10</a></span>&#160;    std::function&lt;<a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">parser::ast_node</a>(<span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">parser::ast_node</a>&amp;)&gt;;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">parser::ast_node</a> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a607fab59e3202b0260a7cd2e44d95994">transform</a>(</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">const</span> <a class="code" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">parser::ast_node</a>&amp; ast,</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a3e0c06f2d76976d107d88a338f0e0fe4">ast_node_handler</a>&amp; handler</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;);</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="anamespacethewizardplusplus_1_1wizard__parser_1_1transformers_html_a607fab59e3202b0260a7cd2e44d95994"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a607fab59e3202b0260a7cd2e44d95994">thewizardplusplus::wizard_parser::transformers::transform</a></div><div class="ttdeci">parser::ast_node transform(const parser::ast_node &amp;ast, const ast_node_handler &amp;handler)</div><div class="ttdef"><b>Definition:</b> transform.cpp:6</div></div>
+<div class="ttc" id="anamespacethewizardplusplus_1_1wizard__parser_1_1transformers_html_a3e0c06f2d76976d107d88a338f0e0fe4"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a3e0c06f2d76976d107d88a338f0e0fe4">thewizardplusplus::wizard_parser::transformers::ast_node_handler</a></div><div class="ttdeci">std::function&lt; parser::ast_node(const parser::ast_node &amp;)&gt; ast_node_handler</div><div class="ttdef"><b>Definition:</b> transform.hpp:10</div></div>
+<div class="ttc" id="anamespacethewizardplusplus_1_1wizard__parser_1_1transformers_html"><div class="ttname"><a href="namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html">thewizardplusplus::wizard_parser::transformers</a></div><div class="ttdef"><b>Definition:</b> transform.cpp:4</div></div>
+<div class="ttc" id="astructthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node_html"><div class="ttname"><a href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1ast__node.html">thewizardplusplus::wizard_parser::parser::ast_node</a></div><div class="ttdef"><b>Definition:</b> ast_node.hpp:20</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по Wizard Parser. Последние изменения: Вс 2 Июн 2019 14:31:15. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
+</body>
+</html>
