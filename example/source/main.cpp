@@ -19,9 +19,8 @@
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
+#include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
-#include <thewizardplusplus/wizard_parser/transformers/transformers.hpp>
-#include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
 #include <unordered_map>
 #include <string>
 #include <cstddef>
@@ -319,7 +318,7 @@ int main(int argc, char* argv[]) try {
 		stop(EXIT_SUCCESS, std::cout, tokens);
 	}
 
-	const auto ast = make_parser()->parse(tokens);
+	const auto ast = parser::parse(make_parser(), tokens);
 	if (!ast.rest_tokens.empty()) {
 		throw unexpected_entity_exception<entity_type::token>{
 			lexer::get_offset(ast.rest_tokens)
@@ -328,21 +327,15 @@ int main(int argc, char* argv[]) try {
 	if (!ast.node) {
 		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
 	}
-
-	const auto transformed_ast = ranges::accumulate(
-		{transformers::remove_nothings, transformers::join_sequences},
-		*ast.node,
-		transformers::transform
-	);
 	if (options.at("--target") == "cst"s) {
-		stop(EXIT_SUCCESS, std::cout, transformed_ast);
+		stop(EXIT_SUCCESS, std::cout, *ast.node);
 	}
 
 	auto buffer = std::ostringstream{};
 	const auto precision = options.at("--precision")
 		? options.at("--precision").asLong()
 		: std::numeric_limits<double>::max_digits10;
-	const auto result = evaluate_ast_node(transformed_ast, constants, functions);
+	const auto result = evaluate_ast_node(*ast.node, constants, functions);
 	buffer << std::setprecision(precision) << result;
 
 	stop(EXIT_SUCCESS, std::cout, buffer.str());
