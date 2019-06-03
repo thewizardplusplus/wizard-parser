@@ -1,14 +1,14 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MACROSES
 
 #include "vendor/better-enums/enum_strict.hpp"
-#include "vendor/fmt/format.hpp"
 #include "vendor/range/v3/view/drop.hpp"
 #include "vendor/range/v3/view/transform.hpp"
+#include "vendor/fmt/format.hpp"
 #include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/docopt/docopt.hpp"
-#include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
+#include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
@@ -20,6 +20,7 @@
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
+#include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <unordered_map>
@@ -51,33 +52,14 @@ struct function final {
 using function_group = std::unordered_map<std::string, function>;
 
 BETTER_ENUM(entity_type, std::uint8_t,
-	symbol,
-	token,
-	eoi,
-	node,
+	node = exceptions::entity_type::_size(),
 	constant,
 	function
 )
 
 template<entity_type::_integral type>
-struct unexpected_entity_exception final: exceptions::positional_exception {
-	static_assert(entity_type::_is_valid(type));
-
-	explicit unexpected_entity_exception(const std::size_t& offset);
-};
-
-template<entity_type::_integral type>
-unexpected_entity_exception<type>::unexpected_entity_exception(
-	const std::size_t& offset
-):
-	exceptions::positional_exception{
-		fmt::format(
-			"unexpected {:s}",
-			entity_type::_from_integral(type)._to_string()
-		),
-		offset
-	}
-{}
+using unexpected_entity_exception =
+	exceptions::base_unexpected_entity_exception<entity_type, type>;
 
 const auto usage =
 R"(Usage:
@@ -297,7 +279,9 @@ int main(int argc, char* argv[]) try {
 		code
 	);
 	if (rest_offset != code.size()) {
-		throw unexpected_entity_exception<entity_type::symbol>{rest_offset};
+		throw exceptions::unexpected_entity_exception<
+			exceptions::entity_type::symbol
+		>{rest_offset};
 	}
 	if (options.at("--target") == "tokens"s) {
 		stop(EXIT_SUCCESS, std::cout, tokens);
@@ -305,12 +289,14 @@ int main(int argc, char* argv[]) try {
 
 	const auto ast = parser::parse(make_parser(), tokens);
 	if (!ast.rest_tokens.empty()) {
-		throw unexpected_entity_exception<entity_type::token>{
-			lexer::get_offset(ast.rest_tokens)
-		};
+		throw exceptions::unexpected_entity_exception<
+			exceptions::entity_type::token
+		>{lexer::get_offset(ast.rest_tokens)};
 	}
 	if (!ast.node) {
-		throw unexpected_entity_exception<entity_type::eoi>{code.size()};
+		throw exceptions::unexpected_entity_exception<
+			exceptions::entity_type::eoi
+		>{code.size()};
 	}
 	if (options.at("--target") == "cst"s) {
 		stop(EXIT_SUCCESS, std::cout, *ast.node);
