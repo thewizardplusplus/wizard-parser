@@ -5,11 +5,11 @@
 #include "vendor/range/v3/view/drop.hpp"
 #include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/chunk.hpp"
-#include "vendor/docopt/docopt.hpp"
-#include "vendor/range/v3/numeric/accumulate.hpp"
-#include "vendor/range/v3/view/filter.hpp"
 #include "vendor/range/v3/to_container.hpp"
+#include "vendor/range/v3/numeric/accumulate.hpp"
+#include "vendor/docopt/docopt.hpp"
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
+#include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
@@ -19,7 +19,6 @@
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
-#include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <thewizardplusplus/wizard_parser/transformers/transformers.hpp>
 #include <thewizardplusplus/wizard_parser/transformers/transform.hpp>
@@ -123,6 +122,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
+const auto exceptions = lexer::exception_group{"whitespace"};
 // Boost 1.70.0, Math Toolkit 2.9.0
 const auto constants = constant_group{
 	{"pi", 3.141592653589793238462643383279502884},
@@ -311,21 +311,15 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: expression;
-	const auto [tokens, rest_offset] = lexer::tokenize(lexemes, code);
+	auto [tokens, rest_offset] = lexer::tokenize(lexemes, exceptions, code);
 	if (rest_offset != code.size()) {
 		throw unexpected_entity_exception<entity_type::symbol>{rest_offset};
 	}
-
-	auto cleaned_tokens = tokens
-		| ranges::view::filter([] (const auto& token) {
-			return token.type != "whitespace";
-		})
-		| ranges::to_<lexer::token_group>();
 	if (options.at("--target") == "tokens"s) {
-		stop(EXIT_SUCCESS, std::cout, cleaned_tokens);
+		stop(EXIT_SUCCESS, std::cout, tokens);
 	}
 
-	const auto ast = make_parser()->parse(cleaned_tokens);
+	const auto ast = make_parser()->parse(tokens);
 	if (!ast.rest_tokens.empty()) {
 		throw unexpected_entity_exception<entity_type::token>{
 			lexer::get_offset(ast.rest_tokens)
