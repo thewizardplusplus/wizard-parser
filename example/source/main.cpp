@@ -22,7 +22,6 @@
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
-#include <thewizardplusplus/wizard_parser/lexer/token.hpp>
 #include <unordered_map>
 #include <string>
 #include <cstddef>
@@ -278,26 +277,16 @@ int main(int argc, char* argv[]) try {
 		stop(EXIT_SUCCESS, std::cout, tokens);
 	}
 
-	const auto ast = parser::parse(make_parser(), tokens);
-	if (!ast.rest_tokens.empty()) {
-		throw exceptions::unexpected_entity_exception<
-			exceptions::entity_type::token
-		>{lexer::get_offset(ast.rest_tokens)};
-	}
-	if (!ast.node) {
-		throw exceptions::unexpected_entity_exception<
-			exceptions::entity_type::eoi
-		>{code.size()};
-	}
+	const auto ast = parser::parse_all(make_parser(), tokens);
 	if (options.at("--target") == "cst"s) {
-		stop(EXIT_SUCCESS, std::cout, *ast.node);
+		stop(EXIT_SUCCESS, std::cout, ast);
 	}
 
 	auto buffer = std::ostringstream{};
 	const auto precision = options.at("--precision")
 		? options.at("--precision").asLong()
 		: std::numeric_limits<double>::max_digits10;
-	const auto result = evaluate_ast_node(*ast.node, constants, functions);
+	const auto result = evaluate_ast_node(ast, constants, functions);
 	buffer << std::setprecision(precision) << result;
 
 	stop(EXIT_SUCCESS, std::cout, buffer.str());
