@@ -1,13 +1,14 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MACROSES
 
-#include "vendor/fmt/format.hpp"
 #include "vendor/better-enums/enum_strict.hpp"
+#include "vendor/fmt/format.hpp"
 #include "vendor/range/v3/view/drop.hpp"
 #include "vendor/range/v3/view/transform.hpp"
 #include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/docopt/docopt.hpp"
+#include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
@@ -26,7 +27,6 @@
 #include <cstddef>
 #include <functional>
 #include <vector>
-#include <stdexcept>
 #include <cstdint>
 #include <regex>
 #include <iostream>
@@ -50,25 +50,6 @@ struct function final {
 
 using function_group = std::unordered_map<std::string, function>;
 
-struct positional_exception: std::runtime_error {
-	const std::string description;
-	const std::size_t offset;
-
-	positional_exception(
-		const std::string& description,
-		const std::size_t& offset
-	);
-};
-
-positional_exception::positional_exception(
-	const std::string& description,
-	const std::size_t& offset
-):
-	std::runtime_error{fmt::format("{:s} (offset: {:d})", description, offset)},
-	description{description},
-	offset{offset}
-{}
-
 BETTER_ENUM(entity_type, std::uint8_t,
 	symbol,
 	token,
@@ -79,7 +60,7 @@ BETTER_ENUM(entity_type, std::uint8_t,
 )
 
 template<entity_type::_integral type>
-struct unexpected_entity_exception final: positional_exception {
+struct unexpected_entity_exception final: exceptions::positional_exception {
 	static_assert(entity_type::_is_valid(type));
 
 	explicit unexpected_entity_exception(const std::size_t& offset);
@@ -89,7 +70,7 @@ template<entity_type::_integral type>
 unexpected_entity_exception<type>::unexpected_entity_exception(
 	const std::size_t& offset
 ):
-	positional_exception{
+	exceptions::positional_exception{
 		fmt::format(
 			"unexpected {:s}",
 			entity_type::_from_integral(type)._to_string()
@@ -121,7 +102,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
-const auto exceptions = lexer::exception_group{"whitespace"};
+const auto lexemes_exceptions = lexer::exception_group{"whitespace"};
 // Boost 1.70.0, Math Toolkit 2.9.0
 const auto constants = constant_group{
 	{"pi", 3.141592653589793238462643383279502884},
@@ -263,7 +244,7 @@ double evaluate_ast_node(
 				});
 			const auto function = functions.at(name);
 			if (arguments.size() != function.arity) {
-				throw positional_exception{
+				throw exceptions::positional_exception{
 					fmt::format(
 						"function requires {:d} {:s}",
 						function.arity,
@@ -310,7 +291,11 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: expression;
-	auto [tokens, rest_offset] = lexer::tokenize(lexemes, exceptions, code);
+	auto [tokens, rest_offset] = lexer::tokenize(
+		lexemes,
+		lexemes_exceptions,
+		code
+	);
 	if (rest_offset != code.size()) {
 		throw unexpected_entity_exception<entity_type::symbol>{rest_offset};
 	}
