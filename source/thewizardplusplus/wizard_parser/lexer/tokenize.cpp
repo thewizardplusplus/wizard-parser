@@ -3,6 +3,7 @@
 #include "../vendor/range/v3/view/single.hpp"
 #include "../vendor/range/v3/view/filter.hpp"
 #include "../vendor/range/v3/to_container.hpp"
+#include "../exceptions/unexpected_entity_exception.hpp"
 
 namespace thewizardplusplus::wizard_parser::lexer {
 
@@ -41,6 +42,21 @@ tokenizing_result tokenize(
 		})
 		| ranges::to_<lexer::token_group>();
 	return {filtered_tokens, rest_offset};
+}
+
+token_group tokenize_all(
+	const lexeme_group& lexemes,
+	const exception_group& exceptions,
+	const std::string_view& code,
+	const std::size_t& offset
+) {
+	const auto [tokens, rest_offset] = tokenize(lexemes, exceptions, code, offset);
+	if (rest_offset != code.size()) {
+		const auto type = exceptions::entity_type::symbol;
+		throw exceptions::unexpected_entity_exception<type>{rest_offset};
+	}
+
+	return tokens;
 }
 
 }

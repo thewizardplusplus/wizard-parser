@@ -28,6 +28,12 @@ tokenizing_result tokenize(
 	const std::string_view& code,
 	const std::size_t& offset=0
 );
+token_group tokenize_all(
+	const lexeme_group& lexemes,
+	const exception_group& exceptions,
+	const std::string_view& code,
+	const std::size_t& offset=0
+);
 
 }
 #endif
