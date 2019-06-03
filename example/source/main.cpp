@@ -273,16 +273,7 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: expression;
-	auto [tokens, rest_offset] = lexer::tokenize(
-		lexemes,
-		lexemes_exceptions,
-		code
-	);
-	if (rest_offset != code.size()) {
-		throw exceptions::unexpected_entity_exception<
-			exceptions::entity_type::symbol
-		>{rest_offset};
-	}
+	auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
 	if (options.at("--target") == "tokens"s) {
 		stop(EXIT_SUCCESS, std::cout, tokens);
 	}
