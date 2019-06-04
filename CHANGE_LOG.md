@@ -1,6 +1,39 @@
 # Change Log
 
-## [v4.1](https://github.com/thewizardplusplus/wizard-parser/tree/v4.1) (2019-05-30)
+## [v4.2](https://github.com/thewizardplusplus/wizard-parser/tree/v4.2) (2019-06-05)
+
+**Closed issues:**
+
+- `lexer` module:
+  - Add the `tokenize()` function with filters:
+    - implement it;
+    - cover it with tests;
+    - use it in the example.
+  - Add the `tokenize_all()` function:
+    - implement it;
+    - cover it with tests;
+    - use it in the example.
+- `parser` module:
+  - Add the `parse()` function:
+    - implement it;
+    - cover it with tests;
+    - use it in the example.
+  - Add the `parse_all()` function:
+    - implement it;
+    - cover it with tests;
+    - in the example:
+      - use it;
+      - replace the `utilities::integral_infinity` constant to a code size in an exception.
+- `exceptions` module:
+  - Add it.
+  - Add the `positional_exception` class:
+    - implement it;
+    - use it in the example.
+  - Add the `unexpected_entity_exception` class:
+    - implement it;
+    - use it in the example.
+
+## [v4.1](https://github.com/thewizardplusplus/wizard-parser/tree/v4.1) (2019-06-02)
 
 **Closed issues:**
 
