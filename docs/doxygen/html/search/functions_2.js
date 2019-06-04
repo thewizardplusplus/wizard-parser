@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dummy',['dummy',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a5b667fd2562982ea7d7a49e180b95c6b',1,'thewizardplusplus::wizard_parser::parser']]]
+  ['concatenation_5fparser',['concatenation_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1concatenation__parser.html#a3afbfb5cde8c72a9a9d0c2e2a4405fca',1,'thewizardplusplus::wizard_parser::parser::concatenation_parser']]]
 ];

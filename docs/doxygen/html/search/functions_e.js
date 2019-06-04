@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['_7erule_5fparser',['~rule_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1rule__parser.html#a977cf61c23e17be214efcd9547a696f9',1,'thewizardplusplus::wizard_parser::parser::rule_parser']]]
+  ['to_5fjson',['to_json',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a914a1d10577f76faea41572b5ad49543',1,'thewizardplusplus::wizard_parser::lexer::to_json()'],['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#a647dbb58551edac637cba061b291109f',1,'thewizardplusplus::wizard_parser::parser::to_json()']]],
+  ['to_5ftuple',['to_tuple',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a35e01705bd8b2f56bd1825160126dd05',1,'thewizardplusplus::wizard_parser::lexer::to_tuple()'],['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#aee6fab85299f91b307360101b825179b',1,'thewizardplusplus::wizard_parser::parser::to_tuple()']]],
+  ['tokenize',['tokenize',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a763b1e95607906f9ce4f42ec7f40943a',1,'thewizardplusplus::wizard_parser::lexer::tokenize(const lexeme_group &amp;lexemes, const std::string_view &amp;code, const std::size_t &amp;offset)'],['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aa830d61dee3e91574a1f99cc72211ea8',1,'thewizardplusplus::wizard_parser::lexer::tokenize(const lexeme_group &amp;lexemes, const exception_group &amp;exceptions, const std::string_view &amp;code, const std::size_t &amp;offset)']]],
+  ['tokenize_5fall',['tokenize_all',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a21b7e6c05f2c7ba883c72580bc0fcaad',1,'thewizardplusplus::wizard_parser::lexer']]],
+  ['transform',['transform',['../namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a607fab59e3202b0260a7cd2e44d95994',1,'thewizardplusplus::wizard_parser::transformers']]],
+  ['typing_5fparser',['typing_parser',['../structthewizardplusplus_1_1wizard__parser_1_1parser_1_1typing__parser.html#a6b16cca382a94d2b59d7d31836bfdafd',1,'thewizardplusplus::wizard_parser::parser::typing_parser']]]
 ];

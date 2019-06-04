@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['exceptions',['exceptions',['../namespacethewizardplusplus_1_1wizard__parser_1_1exceptions.html',1,'thewizardplusplus::wizard_parser']]],
   ['lexer',['lexer',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html',1,'thewizardplusplus::wizard_parser']]],
   ['operators',['operators',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html',1,'thewizardplusplus::wizard_parser::parser']]],
   ['parser',['parser',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html',1,'thewizardplusplus::wizard_parser']]],

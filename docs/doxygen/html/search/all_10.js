@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['exceptions',['exceptions',['../namespacethewizardplusplus_1_1wizard__parser_1_1exceptions.html',1,'thewizardplusplus::wizard_parser']]],
   ['lexer',['lexer',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html',1,'thewizardplusplus::wizard_parser']]],
   ['operators',['operators',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html',1,'thewizardplusplus::wizard_parser::parser']]],
   ['parser',['parser',['../namespacethewizardplusplus_1_1wizard__parser_1_1parser.html',1,'thewizardplusplus::wizard_parser']]],
@@ -13,9 +14,10 @@ var searchData=
   ['token_5foptional',['token_optional',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a71d00854c1cbb0e09df63a3de04fa72e',1,'thewizardplusplus::wizard_parser::lexer']]],
   ['token_5fspan',['token_span',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a9250e76585427d276705f23443ac4a55',1,'thewizardplusplus::wizard_parser::lexer']]],
   ['token_5ftuple',['token_tuple',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aeef0350d78dccb52811f3f3d97b94ffc',1,'thewizardplusplus::wizard_parser::lexer']]],
-  ['tokenize',['tokenize',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a763b1e95607906f9ce4f42ec7f40943a',1,'thewizardplusplus::wizard_parser::lexer']]],
+  ['tokenize',['tokenize',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a763b1e95607906f9ce4f42ec7f40943a',1,'thewizardplusplus::wizard_parser::lexer::tokenize(const lexeme_group &amp;lexemes, const std::string_view &amp;code, const std::size_t &amp;offset)'],['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#aa830d61dee3e91574a1f99cc72211ea8',1,'thewizardplusplus::wizard_parser::lexer::tokenize(const lexeme_group &amp;lexemes, const exception_group &amp;exceptions, const std::string_view &amp;code, const std::size_t &amp;offset)']]],
   ['tokenize_2ecpp',['tokenize.cpp',['../tokenize_8cpp.html',1,'']]],
   ['tokenize_2ehpp',['tokenize.hpp',['../tokenize_8hpp.html',1,'']]],
+  ['tokenize_5fall',['tokenize_all',['../namespacethewizardplusplus_1_1wizard__parser_1_1lexer.html#a21b7e6c05f2c7ba883c72580bc0fcaad',1,'thewizardplusplus::wizard_parser::lexer']]],
   ['tokenizing_5fresult',['tokenizing_result',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1tokenizing__result.html',1,'thewizardplusplus::wizard_parser::lexer']]],
   ['tokens',['tokens',['../structthewizardplusplus_1_1wizard__parser_1_1lexer_1_1tokenizing__result.html#ad21bad2b1f2ecf41b1d466d6d9e8c800',1,'thewizardplusplus::wizard_parser::lexer::tokenizing_result']]],
   ['transform',['transform',['../namespacethewizardplusplus_1_1wizard__parser_1_1transformers.html#a607fab59e3202b0260a7cd2e44d95994',1,'thewizardplusplus::wizard_parser::transformers']]],
