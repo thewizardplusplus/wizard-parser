@@ -38,12 +38,12 @@ TEST_CASE("parser::concatenation_parser class", "[parser]") {
 		};
 		auto left_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(left_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(left_mock_parser));
 
 		auto right_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(right_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(2)});
 		fakeit::Fake(Dtor(right_mock_parser));
 
 		const auto concatenation_parser =
@@ -51,7 +51,7 @@ TEST_CASE("parser::concatenation_parser class", "[parser]") {
 			>> parser::rule_parser::pointer{&right_mock_parser.get()};
 		const auto [ast, rest_tokens] = concatenation_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
 	}
@@ -72,7 +72,7 @@ TEST_CASE("parser::concatenation_parser class", "[parser]") {
 
 		auto right_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(right_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(2)});
 		fakeit::Fake(Dtor(right_mock_parser));
 
 		const auto concatenation_parser =
@@ -80,7 +80,7 @@ TEST_CASE("parser::concatenation_parser class", "[parser]") {
 			>> parser::rule_parser::pointer{&right_mock_parser.get()};
 		const auto [ast, rest_tokens] = concatenation_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(2));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
 		fakeit::Verify(Method(right_mock_parser, parse)).Once();
@@ -94,7 +94,7 @@ TEST_CASE("parser::concatenation_parser class", "[parser]") {
 		};
 		auto left_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(left_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(left_mock_parser));
 
 		auto right_mock_parser = fakeit::Mock<parser::rule_parser>{};
@@ -110,7 +110,7 @@ TEST_CASE("parser::concatenation_parser class", "[parser]") {
 			>> parser::rule_parser::pointer{&right_mock_parser.get()};
 		const auto [ast, rest_tokens] = concatenation_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
 	}
