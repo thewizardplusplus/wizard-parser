@@ -17,12 +17,12 @@ parsing_result concatenation_parser::parse(
 ) const {
 	const auto left_ast = left_parser->parse(tokens);
 	if (!left_ast.node) {
-		return left_ast;
+		return {{}, left_ast.rest_tokens};
 	}
 
 	const auto right_ast = right_parser->parse(left_ast.rest_tokens);
 	if (!right_ast.node) {
-		return right_ast;
+		return {{}, right_ast.rest_tokens};
 	}
 
 	const auto type = (+ast_node_type::sequence)._to_string();
