@@ -16,7 +16,7 @@ parsing_result typing_parser::parse(const lexer::token_span& tokens) const {
 	const auto ast = parser->parse(tokens);
 	return ast.node
 		? parsing_result{ast_node{type, {}, {*ast.node}}, ast.rest_tokens}
-		: ast;
+		: parsing_result{{}, ast.rest_tokens};
 }
 
 }
