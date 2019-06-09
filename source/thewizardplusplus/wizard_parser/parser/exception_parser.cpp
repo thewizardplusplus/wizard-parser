@@ -13,10 +13,18 @@ exception_parser::exception_parser(
 
 parsing_result exception_parser::parse(const lexer::token_span& tokens) const {
 	const auto left_ast = left_parser->parse(tokens);
+	if (!left_ast.node) {
+		return {{}, left_ast.rest_tokens};
+	}
+
+	// there should be no a match by the right parser at a current offset,
+	// so rest tokens are returns without additional one
 	const auto right_ast = right_parser->parse(tokens);
-	return left_ast.node && right_ast.node
-		? parsing_result{{}, right_ast.rest_tokens}
-		: left_ast;
+	if (right_ast.node) {
+		return {{}, tokens};
+	}
+
+	return left_ast;
 }
 
 namespace operators {
