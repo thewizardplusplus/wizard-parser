@@ -11,15 +11,14 @@ match_parser::match_parser(const match_type& type, const std::string& sample):
 
 parsing_result match_parser::parse(const lexer::token_span& tokens) const {
 	if (tokens.empty()) {
-		return {};
+		return {{}, {}};
 	}
 
-	const auto matched_value = type == match_type::by_type
-		? tokens[0].type
-		: tokens[0].value;
-	return matched_value == sample
+	const auto token = tokens[0];
+	const auto match = type == match_type::by_type ? token.type : token.value;
+	return match == sample
 		? parsing_result{
-			ast_node{tokens[0].type, tokens[0].value, {}, lexer::get_offset(tokens)},
+			ast_node{token.type, token.value, {}, lexer::get_offset(tokens)},
 			tokens.subspan(1)
 		}
 		: parsing_result{{}, tokens};
