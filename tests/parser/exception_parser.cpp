@@ -28,19 +28,22 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 		CHECK(rest_tokens.empty());
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
-		fakeit::Verify(Method(right_mock_parser, parse)).Once();
 	}
 
 	SECTION("without matches") {
-		auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
+		auto tokens = lexer::token_group{
+			{"one", "two", 1},
+			{"three", "four", 4},
+			{"five", "six", 8}
+		};
 		auto left_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(left_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(left_mock_parser));
 
 		auto right_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(right_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(2)});
 		fakeit::Fake(Dtor(right_mock_parser));
 
 		const auto exception_parser =
@@ -48,14 +51,17 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 			- parser::rule_parser::pointer{&right_mock_parser.get()};
 		const auto [ast, rest_tokens] = exception_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
-		fakeit::Verify(Method(right_mock_parser, parse)).Once();
 	}
 
 	SECTION("with a left match") {
-		auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
+		auto tokens = lexer::token_group{
+			{"one", "two", 1},
+			{"three", "four", 4},
+			{"five", "six", 8}
+		};
 		auto left_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(left_mock_parser, parse))
 			.Return(parser::parsing_result{
@@ -66,7 +72,7 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 
 		auto right_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(right_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(2)});
 		fakeit::Fake(Dtor(right_mock_parser));
 
 		const auto exception_parser =
@@ -82,17 +88,21 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 	}
 
 	SECTION("with a right match") {
-		auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
+		auto tokens = lexer::token_group{
+			{"one", "two", 1},
+			{"three", "four", 4},
+			{"five", "six", 8}
+		};
 		auto left_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(left_mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(left_mock_parser));
 
 		auto right_mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(right_mock_parser, parse))
 			.Return(parser::parsing_result{
-				parser::ast_node{"one", "two", {}, 1},
-				lexer::token_span{tokens}.subspan(1)
+				parser::ast_node{"three", "four", {}, 4},
+				lexer::token_span{tokens}.subspan(2)
 			});
 		fakeit::Fake(Dtor(right_mock_parser));
 
@@ -101,10 +111,9 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 			- parser::rule_parser::pointer{&right_mock_parser.get()};
 		const auto [ast, rest_tokens] = exception_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
-		fakeit::Verify(Method(right_mock_parser, parse)).Once();
 	}
 
 	SECTION("with left and right matches") {
@@ -134,7 +143,7 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 			- parser::rule_parser::pointer{&right_mock_parser.get()};
 		const auto [ast, rest_tokens] = exception_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(2));
+		CHECK(rest_tokens == lexer::token_span{tokens});
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
 		fakeit::Verify(Method(right_mock_parser, parse)).Once();
