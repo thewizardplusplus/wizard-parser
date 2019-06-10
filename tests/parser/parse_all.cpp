@@ -37,9 +37,9 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		fakeit::Fake(Dtor(mock_parser));
 
 		auto ast = std::optional<parser::ast_node>{};
+		const auto mock_parser_pointer =
+			parser::rule_parser::pointer{&mock_parser.get()};
 		const auto call = [&] {
-			const auto mock_parser_pointer =
-				parser::rule_parser::pointer{&mock_parser.get()};
 			auto tokens = lexer::token_group{
 				{"identifier", "one", 1},
 				{"comma", ",", 4},
@@ -69,6 +69,7 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		}});
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("with a match and with rest") {
@@ -107,9 +108,9 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		fakeit::Fake(Dtor(mock_parser));
 
 		auto ast = std::optional<parser::ast_node>{};
+		const auto mock_parser_pointer =
+			parser::rule_parser::pointer{&mock_parser.get()};
 		const auto call = [&] {
-			const auto mock_parser_pointer =
-				parser::rule_parser::pointer{&mock_parser.get()};
 			ast = parser::parse_all(mock_parser_pointer, tokens, {});
 		};
 		CHECK_THROWS_AS(
@@ -119,6 +120,7 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		CHECK(!ast.has_value());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("without a match and with rest") {
@@ -139,9 +141,9 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		fakeit::Fake(Dtor(mock_parser));
 
 		auto ast = std::optional<parser::ast_node>{};
+		const auto mock_parser_pointer =
+			parser::rule_parser::pointer{&mock_parser.get()};
 		const auto call = [&] {
-			const auto mock_parser_pointer =
-				parser::rule_parser::pointer{&mock_parser.get()};
 			ast = parser::parse_all(mock_parser_pointer, tokens, {});
 		};
 		CHECK_THROWS_AS(
@@ -151,6 +153,7 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		CHECK(!ast.has_value());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("without a match and without rest") {
@@ -161,9 +164,9 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		fakeit::Fake(Dtor(mock_parser));
 
 		auto ast = std::optional<parser::ast_node>{};
+		const auto mock_parser_pointer =
+			parser::rule_parser::pointer{&mock_parser.get()};
 		const auto call = [&] {
-			const auto mock_parser_pointer =
-				parser::rule_parser::pointer{&mock_parser.get()};
 			auto tokens = lexer::token_group{
 				{"identifier", "one", 1},
 				{"comma", ",", 4},
@@ -178,5 +181,6 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		CHECK(!ast.has_value());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 }
