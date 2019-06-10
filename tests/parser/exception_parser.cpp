@@ -28,6 +28,8 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 		CHECK(rest_tokens.empty());
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(left_mock_parser);
+		fakeit::VerifyNoOtherInvocations(right_mock_parser);
 	}
 
 	SECTION("without matches") {
@@ -54,6 +56,8 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(left_mock_parser);
+		fakeit::VerifyNoOtherInvocations(right_mock_parser);
 	}
 
 	SECTION("with a left match") {
@@ -85,6 +89,8 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
 		fakeit::Verify(Method(right_mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(left_mock_parser);
+		fakeit::VerifyNoOtherInvocations(right_mock_parser);
 	}
 
 	SECTION("with a right match") {
@@ -114,6 +120,8 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(left_mock_parser);
+		fakeit::VerifyNoOtherInvocations(right_mock_parser);
 	}
 
 	SECTION("with left and right matches") {
@@ -147,5 +155,7 @@ TEST_CASE("parser::exception_parser class", "[parser]") {
 
 		fakeit::Verify(Method(left_mock_parser, parse)).Once();
 		fakeit::Verify(Method(right_mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(left_mock_parser);
+		fakeit::VerifyNoOtherInvocations(right_mock_parser);
 	}
 }
