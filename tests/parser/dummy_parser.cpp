@@ -24,6 +24,7 @@ TEST_CASE("parser::dummy_parser class", "[parser]") {
 		CHECK(rest_tokens.empty());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("without a match") {
@@ -43,6 +44,7 @@ TEST_CASE("parser::dummy_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("with a match") {
@@ -66,5 +68,6 @@ TEST_CASE("parser::dummy_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 }
