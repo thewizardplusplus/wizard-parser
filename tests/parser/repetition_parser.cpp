@@ -23,7 +23,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		};
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(mock_parser));
 
 		const auto repetition_parser =
@@ -62,7 +62,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 			);
 		const auto [ast, rest_tokens] = repetition_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(mock_parser, parse)).Exactly(2_Times);
 	}
@@ -276,7 +276,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		}});
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(5));
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(6_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Exactly(5_Times);
 	}
 
 	SECTION("repetition from 2 to 5 times with 6 matches") {
@@ -345,7 +345,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		}});
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(5));
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(6_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Exactly(5_Times);
 	}
 
 	SECTION("optionality without a match") {
@@ -353,7 +353,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		auto tokens = lexer::token_group{{"three", "four", 19}, {"five", "six", 23}};
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(mock_parser));
 
 		const auto repetition_parser =
@@ -397,7 +397,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		}});
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(2_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
 	}
 
 	SECTION("repetition from 0 to infinity times without matches") {
@@ -405,7 +405,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		auto tokens = lexer::token_group{{"three", "four", 19}, {"five", "six", 23}};
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(mock_parser));
 
 		const auto repetition_parser =
@@ -491,7 +491,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		auto tokens = lexer::token_group{{"three", "four", 19}, {"five", "six", 23}};
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(mock_parser));
 
 		const auto repetition_parser =
