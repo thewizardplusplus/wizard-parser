@@ -16,7 +16,8 @@ repetition_parser::repetition_parser(
 
 parsing_result repetition_parser::parse(const lexer::token_span& tokens) const {
 	const auto [ast, counter] = parse_and_count(tokens);
-	return counter >= minimal_number ? ast : parsing_result{{}, tokens};
+	// if not enough repetitions, return an offset of a first nonmatch
+	return counter >= minimal_number ? ast : parsing_result{{}, ast.rest_tokens};
 }
 
 repetition_parser::counted_result repetition_parser::parse_and_count(
@@ -24,9 +25,17 @@ repetition_parser::counted_result repetition_parser::parse_and_count(
 	const std::size_t& counter
 ) const {
 	const auto type = (+ast_node_type::sequence)._to_string();
+	const auto final_result = counted_result{
+		{ast_node{type, {}, {}, lexer::get_offset(tokens)}, tokens},
+		counter
+	};
+	if (counter >= maximal_number) {
+		return final_result;
+	}
+
 	const auto ast = parser->parse(tokens);
-	if (counter >= maximal_number || !ast.node) {
-		return {{ast_node{type, {}, {}, lexer::get_offset(tokens)}, tokens}, counter};
+	if (!ast.node) {
+		return final_result;
 	}
 
 	const auto [rest_ast, rest_counter] = parse_and_count(
