@@ -70,6 +70,7 @@ TEST_CASE("parser::parse() function", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(5));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("with any handlers") {
@@ -124,6 +125,7 @@ TEST_CASE("parser::parse() function", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(5));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("with default handlers") {
@@ -172,5 +174,6 @@ TEST_CASE("parser::parse() function", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(5));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 }
