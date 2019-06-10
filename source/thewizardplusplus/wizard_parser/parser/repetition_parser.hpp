@@ -12,7 +12,7 @@ namespace thewizardplusplus::wizard_parser::parser {
 struct repetition_parser final: rule_parser {
 	repetition_parser(
 		const rule_parser::pointer& parser,
-		const std::size_t& minimal_number,
+		const std::size_t& minimal_number=0,
 		const std::size_t& maximal_number=utilities::integral_infinity
 	);
 	parsing_result parse(const lexer::token_span& tokens) const override;

@@ -46,7 +46,7 @@ rule_parser::pointer operator-(const rule_parser::pointer& parser) {
 }
 
 rule_parser::pointer operator*(const rule_parser::pointer& parser) {
-	return std::make_shared<repetition_parser>(parser, 0);
+	return std::make_shared<repetition_parser>(parser);
 }
 
 rule_parser::pointer operator+(const rule_parser::pointer& parser) {
