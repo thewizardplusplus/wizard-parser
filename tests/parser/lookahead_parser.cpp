@@ -23,6 +23,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		CHECK(rest_tokens.empty());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("positive lookahead without a match") {
@@ -39,6 +40,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("positive lookahead with a match") {
@@ -60,6 +62,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("negative lookahead without tokens") {
@@ -77,6 +80,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		CHECK(rest_tokens.empty());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("negative lookahead without a match") {
@@ -95,6 +99,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens});
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
 	SECTION("negative lookahead with a match") {
@@ -114,5 +119,6 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens});
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 }
