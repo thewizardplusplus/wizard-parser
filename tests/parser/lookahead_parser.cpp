@@ -29,14 +29,14 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(mock_parser));
 
 		const auto lookahead_parser =
 			&parser::rule_parser::pointer{&mock_parser.get()};
 		const auto [ast, rest_tokens] = lookahead_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens});
+		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
 	}
@@ -84,7 +84,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 		auto tokens = lexer::token_group{{"one", "two", 1}, {"three", "four", 4}};
 		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
 		fakeit::When(Method(mock_parser, parse))
-			.Return(parser::parsing_result{{}, tokens});
+			.Return(parser::parsing_result{{}, lexer::token_span{tokens}.subspan(1)});
 		fakeit::Fake(Dtor(mock_parser));
 
 		const auto lookahead_parser =
@@ -111,7 +111,7 @@ TEST_CASE("parser::lookahead_parser class", "[parser]") {
 			!parser::rule_parser::pointer{&mock_parser.get()};
 		const auto [ast, rest_tokens] = lookahead_parser->parse(tokens);
 		CHECK(!ast.has_value());
-		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
+		CHECK(rest_tokens == lexer::token_span{tokens});
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
 	}
