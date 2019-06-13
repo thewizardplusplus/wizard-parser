@@ -293,6 +293,13 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: expression;
+	const auto enrich = options.at("--verbose").asBool()
+		? std::function{enrich_exception}
+		: [] (
+			const exceptions::positional_exception& exception,
+			const std::string_view& code,
+			const std::size_t& mark_length
+		) { return exception; };
 	try {
 		auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
 		if (options.at("--target") == "tokens"s) {
@@ -323,10 +330,10 @@ int main(int argc, char* argv[]) try {
 			const auto token = ranges::find_if(tokens, [&] (const auto& token) {
 				return token.offset == exception.offset;
 			});
-			throw enrich_exception(exception, code, token->value.size());
+			throw enrich(exception, code, token->value.size());
 		}
 	} catch (const exceptions::positional_exception& exception) {
-		throw enrich_exception(exception, code, 1);
+		throw enrich(exception, code, 1);
 	}
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
