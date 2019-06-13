@@ -8,6 +8,7 @@
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
 #include "vendor/docopt/docopt.hpp"
+#include "vendor/range/v3/algorithm/find_if.hpp"
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
@@ -269,14 +270,17 @@ double evaluate_ast_node(
 
 std::runtime_error enrich_exception(
 	const exceptions::positional_exception& exception,
-	const std::string_view& code
+	const std::string_view& code,
+	const std::size_t& mark_length
 ) {
 	const auto mark_offset = std::string(exception.offset, ' ');
+	const auto mark = std::string(mark_length, '^');
 	return std::runtime_error{fmt::format(
-		"{:s}\n| \"{:s}\"\n|  {:s}^",
+		"{:s}\n| \"{:s}\"\n|  {:s}{:s}",
 		exception.what(),
 		code,
-		mark_offset
+		mark_offset,
+		mark
 	)};
 }
 
@@ -294,6 +298,7 @@ int main(int argc, char* argv[]) try {
 			stop(EXIT_SUCCESS, std::cout, tokens);
 		}
 
+		const auto eoi = exceptions::entity_type::eoi;
 		try {
 			const auto ast = parser::parse_all(make_parser(), tokens);
 			if (options.at("--target") == "cst"s) {
@@ -308,14 +313,19 @@ int main(int argc, char* argv[]) try {
 			buffer << std::setprecision(precision) << result;
 
 			stop(EXIT_SUCCESS, std::cout, buffer.str());
-		} catch (const exceptions::positional_exception& exception) {
+		} catch (const exceptions::unexpected_entity_exception<eoi>& exception) {
 			const auto offset = exception.offset == utilities::integral_infinity
 				? code.size()
 				: exception.offset;
-			throw exceptions::positional_exception{exception.description, offset};
+			throw exceptions::unexpected_entity_exception<eoi>{offset};
+		} catch (const exceptions::positional_exception& exception) {
+			const auto token = ranges::find_if(tokens, [&] (const auto& token) {
+				return token.offset == exception.offset;
+			});
+			throw enrich_exception(exception, code, token->value.size());
 		}
 	} catch (const exceptions::positional_exception& exception) {
-		throw enrich_exception(exception, code);
+		throw enrich_exception(exception, code, 1);
 	}
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
