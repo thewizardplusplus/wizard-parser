@@ -73,7 +73,8 @@ Options:
   -t TARGET, --target TARGET           - preliminary target of processing
                                        (allowed: tokens, cst);
   -p PRECISION, --precision PRECISION  - precision of a result;
-  -s, --stdin                          - read an expression from stdin.)";
+  -s, --stdin                          - read an expression from stdin;
+  -V, --verbose                        - mark an error.)";
 const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\+)"}, "plus"},
 	{std::regex{"-"}, "minus"},
