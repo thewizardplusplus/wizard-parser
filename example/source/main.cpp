@@ -32,6 +32,8 @@
 #include <regex>
 #include <iostream>
 #include <cstdlib>
+#include <stdexcept>
+#include <string_view>
 #include <iterator>
 #include <sstream>
 #include <limits>
@@ -265,6 +267,19 @@ double evaluate_ast_node(
 	}
 }
 
+std::runtime_error enrich_exception(
+	const exceptions::positional_exception& exception,
+	const std::string_view& code
+) {
+	const auto mark_offset = std::string(exception.offset, ' ');
+	return std::runtime_error{fmt::format(
+		"{:s}\n| \"{:s}\"\n|  {:s}^",
+		exception.what(),
+		code,
+		mark_offset
+	)};
+}
+
 int main(int argc, char* argv[]) try {
 	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
 	const auto expression = options.at("<expression>")
@@ -273,30 +288,34 @@ int main(int argc, char* argv[]) try {
 	const auto code = options.at("--stdin").asBool()
 		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 		: expression;
-	auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
-	if (options.at("--target") == "tokens"s) {
-		stop(EXIT_SUCCESS, std::cout, tokens);
-	}
-
 	try {
-		const auto ast = parser::parse_all(make_parser(), tokens);
-		if (options.at("--target") == "cst"s) {
-			stop(EXIT_SUCCESS, std::cout, ast);
+		auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
+		if (options.at("--target") == "tokens"s) {
+			stop(EXIT_SUCCESS, std::cout, tokens);
 		}
 
-		auto buffer = std::ostringstream{};
-		const auto precision = options.at("--precision")
-			? options.at("--precision").asLong()
-			: std::numeric_limits<double>::max_digits10;
-		const auto result = evaluate_ast_node(ast, constants, functions);
-		buffer << std::setprecision(precision) << result;
+		try {
+			const auto ast = parser::parse_all(make_parser(), tokens);
+			if (options.at("--target") == "cst"s) {
+				stop(EXIT_SUCCESS, std::cout, ast);
+			}
 
-		stop(EXIT_SUCCESS, std::cout, buffer.str());
+			auto buffer = std::ostringstream{};
+			const auto precision = options.at("--precision")
+				? options.at("--precision").asLong()
+				: std::numeric_limits<double>::max_digits10;
+			const auto result = evaluate_ast_node(ast, constants, functions);
+			buffer << std::setprecision(precision) << result;
+
+			stop(EXIT_SUCCESS, std::cout, buffer.str());
+		} catch (const exceptions::positional_exception& exception) {
+			const auto offset = exception.offset == utilities::integral_infinity
+				? code.size()
+				: exception.offset;
+			throw exceptions::positional_exception{exception.description, offset};
+		}
 	} catch (const exceptions::positional_exception& exception) {
-		const auto offset = exception.offset == utilities::integral_infinity
-			? code.size()
-			: exception.offset;
-		throw exceptions::positional_exception{exception.description, offset};
+		throw enrich_exception(exception, code);
 	}
 } catch (const std::exception& exception) {
 	stop(EXIT_FAILURE, std::cerr, fmt::format("error: {:s}", exception.what()));
