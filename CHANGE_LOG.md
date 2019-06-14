@@ -1,5 +1,56 @@
 # Change Log
 
+## [v4.3](https://github.com/thewizardplusplus/wizard-parser/tree/v4.3) (2019-06-14)
+
+**Closed issues:**
+
+- In the `parser` module:
+  - Fix default values in a constructor of the `repetition_parser` class.
+  - Fix error handling:
+    - in the `alternation_parser::parse()` method;
+    - in the `exception_parser::parse()` method;
+    - in the `lookahead_parser::parse()` method;
+    - in the `repetition_parser::parse()` method.
+  - Refactor:
+    - `concatenation_parser::parse()` method;
+    - `match_parser::parse()` method;
+    - `typing_parser::parse()` method.
+  - In the tests:
+    - Upgrade tests:
+      - of the `alternation_parser` class;
+      - of the `exception_parser` class;
+      - of the `lookahead_parser` class;
+      - of the `repetition_parser` class.
+    - Improve tests:
+      - of the `alternation_parser` class;
+      - of the `concatenation_parser` class;
+      - of the `dummy_parser` class;
+      - of the `exception_parser` class;
+      - of the `lookahead_parser` class;
+      - of the `repetition_parser` class;
+      - of the `typing_parser` class.
+    - Complete checking of methods calls:
+      - in classes:
+        - `alternation_parser`;
+        - `concatenation_parser`;
+        - `dummy_parser`;
+        - `exception_parser`;
+        - `lookahead_parser`;
+        - `repetition_parser`;
+        - `typing_parser`;
+      - in functions:
+        - `parse_all()`;
+        - `parse()`.
+- In the example:
+  - Enrich positional exceptions:
+    - mark an unexpected entity:
+      - position of it;
+      - length of it;
+    - add the `verbose` option:
+      - parse it;
+      - use it.
+  - Extend tests of errors in the example.
+
 ## [v4.2](https://github.com/thewizardplusplus/wizard-parser/tree/v4.2) (2019-06-05)
 
 **Closed issues:**
