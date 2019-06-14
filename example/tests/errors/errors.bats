@@ -14,6 +14,18 @@ declare -gra OPTIONS=("--stdin")
 	test_text_output stderr
 }
 
+@test "errors: unexpected token within a concatenation" {
+	declare -r INPUT="    x ++ y"
+	declare -r OUTPUT="error: unexpected token (offset: 6)"
+	test_text_output stderr
+}
+
+@test "errors: unexpected token selected between an identifier and a function" {
+	declare -r INPUT="    test(5,, 12)"
+	declare -r OUTPUT="error: unexpected token (offset: 8)"
+	test_text_output stderr
+}
+
 @test "errors: unexpected eoi" {
 	declare -r INPUT="    -"
 	declare -r OUTPUT="error: unexpected eoi (offset: 5)"
