@@ -15,17 +15,17 @@ namespace thewizardplusplus::wizard_parser::parser {
 
 BETTER_ENUM(ast_node_type, std::uint8_t, sequence, nothing)
 
-using optional_offset = std::optional<std::size_t>;
+using offset_optional = std::optional<std::size_t>;
 
 struct ast_node {
 	std::string type;
 	std::string value;
 	std::vector<ast_node> children;
-	optional_offset offset;
+	offset_optional offset;
 };
 
 using ast_node_tuple =
-	std::tuple<std::string, std::string, std::vector<ast_node>, optional_offset>;
+	std::tuple<std::string, std::string, std::vector<ast_node>, offset_optional>;
 
 using ast_node_group = std::vector<ast_node>;
 
