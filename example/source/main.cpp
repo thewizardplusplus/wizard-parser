@@ -95,73 +95,31 @@ const auto constants = constant_group{
 	{"e", 2.718281828459045235360287471352662497}
 };
 const auto functions = function_group{
-	{"+", {2, [] (const auto& arguments) {
-		return arguments.front() + arguments.back();
-	}}},
-	{"-", {2, [] (const auto& arguments) {
-		return arguments.front() - arguments.back();
-	}}},
-	{"*", {2, [] (const auto& arguments) {
-		return arguments.front() * arguments.back();
-	}}},
-	{"/", {2, [] (const auto& arguments) {
-		return arguments.front() / arguments.back();
-	}}},
+	{"+", {2, [] (const auto& args) { return args[0] + args[1]; }}},
+	{"-", {2, [] (const auto& args) { return args[0] - args[1]; }}},
+	{"*", {2, [] (const auto& args) { return args[0] * args[1]; }}},
+	{"/", {2, [] (const auto& args) { return args[0] / args[1]; }}},
 	{"%", {2, [] (const auto& arguments) {
 		return static_cast<std::int64_t>(arguments.front())
 			% static_cast<std::int64_t>(arguments.back());
 	}}},
-	{"floor", {1, [] (const auto& arguments) {
-		return std::floor(arguments.front());
-	}}},
-	{"ceil", {1, [] (const auto& arguments) {
-		return std::ceil(arguments.front());
-	}}},
-	{"trunc", {1, [] (const auto& arguments) {
-		return std::trunc(arguments.front());
-	}}},
-	{"round", {1, [] (const auto& arguments) {
-		return std::round(arguments.front());
-	}}},
-	{"sin", {1, [] (const auto& arguments) {
-		return std::sin(arguments.front());
-	}}},
-	{"cos", {1, [] (const auto& arguments) {
-		return std::cos(arguments.front());
-	}}},
-	{"tn", {1, [] (const auto& arguments) {
-		return std::tan(arguments.front());
-	}}},
-	{"arcsin", {1, [] (const auto& arguments) {
-		return std::asin(arguments.front());
-	}}},
-	{"arccos", {1, [] (const auto& arguments) {
-		return std::acos(arguments.front());
-	}}},
-	{"arctn", {1, [] (const auto& arguments) {
-		return std::atan(arguments.front());
-	}}},
-	{"angle", {2, [] (const auto& arguments) {
-		return std::atan2(arguments.back(), arguments.front());
-	}}},
-	{"pow", {2, [] (const auto& arguments) {
-		return std::pow(arguments.front(), arguments.back());
-	}}},
-	{"sqrt", {1, [] (const auto& arguments) {
-		return std::sqrt(arguments.front());
-	}}},
-	{"exp", {1, [] (const auto& arguments) {
-		return std::exp(arguments.front());
-	}}},
-	{"ln", {1, [] (const auto& arguments) {
-		return std::log(arguments.front());
-	}}},
-	{"lg", {1, [] (const auto& arguments) {
-		return std::log10(arguments.front());
-	}}},
-	{"abs", {1, [] (const auto& arguments) {
-		return std::abs(arguments.front());
-	}}},
+	{"floor", {1, [] (const auto& args) { return std::floor(args[0]); }}},
+	{"ceil", {1, [] (const auto& args) { return std::ceil(args[0]); }}},
+	{"trunc", {1, [] (const auto& args) { return std::trunc(args[0]); }}},
+	{"round", {1, [] (const auto& args) { return std::round(args[0]); }}},
+	{"sin", {1, [] (const auto& args) { return std::sin(args[0]); }}},
+	{"cos", {1, [] (const auto& args) { return std::cos(args[0]); }}},
+	{"tn", {1, [] (const auto& args) { return std::tan(args[0]); }}},
+	{"arcsin", {1, [] (const auto& args) { return std::asin(args[0]); }}},
+	{"arccos", {1, [] (const auto& args) { return std::acos(args[0]); }}},
+	{"arctn", {1, [] (const auto& args) { return std::atan(args[0]); }}},
+	{"angle", {2, [] (const auto& args) { return std::atan2(args[1], args[0]); }}},
+	{"pow", {2, [] (const auto& args) { return std::pow(args[0], args[1]); }}},
+	{"sqrt", {1, [] (const auto& args) { return std::sqrt(args[0]); }}},
+	{"exp", {1, [] (const auto& args) { return std::exp(args[0]); }}},
+	{"ln", {1, [] (const auto& args) { return std::log(args[0]); }}},
+	{"lg", {1, [] (const auto& args) { return std::log10(args[0]); }}},
+	{"abs", {1, [] (const auto& args) { return std::abs(args[0]); }}},
 };
 
 template<typename streamable>
