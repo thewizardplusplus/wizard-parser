@@ -89,7 +89,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
 const auto lexemes_exceptions = lexer::exception_group{"whitespace"};
-// Boost 1.70.0, Math Toolkit 2.9.0
+// precision is taken from Boost 1.70.0, Math Toolkit 2.9.0
 const auto constants = constant_group{
 	{"pi", 3.141592653589793238462643383279502884},
 	{"e", 2.718281828459045235360287471352662497}
