@@ -52,8 +52,6 @@ struct function final {
 	const std::function<double(const std::vector<double>&)> handler;
 };
 
-using function_group = std::unordered_map<std::string, function>;
-
 BETTER_ENUM(entity_type, std::uint8_t,
 	node = exceptions::entity_type::_size(),
 	constant,
@@ -94,7 +92,7 @@ const auto constants = constant_group{
 	{"pi", 3.141592653589793238462643383279502884},
 	{"e", 2.718281828459045235360287471352662497}
 };
-const auto functions = function_group{
+const auto functions = std::unordered_map<std::string, function>{
 	{"+", {2, [] (const auto& args) { return args[0] + args[1]; }}},
 	{"-", {2, [] (const auto& args) { return args[0] - args[1]; }}},
 	{"*", {2, [] (const auto& args) { return args[0] * args[1]; }}},
@@ -145,7 +143,7 @@ parser::rule_parser::pointer make_parser() {
 double evaluate_ast_node(
 	const parser::ast_node& ast,
 	const constant_group& constants,
-	const function_group& functions
+	const std::unordered_map<std::string, function>& functions
 ) {
 	const auto inspect_sequence = [] (const auto& ast) -> const auto& {
 		return ast.children[0].children;
