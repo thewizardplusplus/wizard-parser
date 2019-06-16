@@ -165,7 +165,7 @@ const auto functions = function_group{
 };
 
 template<typename streamable>
-void stop(const int& code, const streamable& message) {
+void exit(const int& code, const streamable& message) {
 	(code == EXIT_SUCCESS ? std::cout : std::cerr) << message << '\n';
 	std::exit(code);
 }
@@ -297,14 +297,14 @@ int main(int argc, char* argv[]) try {
 	try {
 		auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
 		if (options.at("--target") == "tokens"s) {
-			stop(EXIT_SUCCESS, tokens);
+			exit(EXIT_SUCCESS, tokens);
 		}
 
 		const auto eoi = exceptions::entity_type::eoi;
 		try {
 			const auto ast = parser::parse_all(make_parser(), tokens);
 			if (options.at("--target") == "cst"s) {
-				stop(EXIT_SUCCESS, ast);
+				exit(EXIT_SUCCESS, ast);
 			}
 
 			auto buffer = std::ostringstream{};
@@ -314,7 +314,7 @@ int main(int argc, char* argv[]) try {
 			const auto result = evaluate_ast_node(ast, constants, functions);
 			buffer << std::setprecision(precision) << result;
 
-			stop(EXIT_SUCCESS, buffer.str());
+			exit(EXIT_SUCCESS, buffer.str());
 		} catch (const exceptions::unexpected_entity_exception<eoi>& exception) {
 			const auto offset = exception.offset == utilities::integral_infinity
 				? code.size()
@@ -330,5 +330,5 @@ int main(int argc, char* argv[]) try {
 		throw enrich(exception, code, 1);
 	}
 } catch (const std::exception& exception) {
-	stop(EXIT_FAILURE, fmt::format("error: {:s}", exception.what()));
+	exit(EXIT_FAILURE, fmt::format("error: {:s}", exception.what()));
 }
