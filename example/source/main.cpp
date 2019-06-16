@@ -193,7 +193,7 @@ double evaluate_ast_node(
 	const function_group& functions
 ) {
 	const auto inspect_sequence = [] (const auto& ast) -> const auto& {
-		return ast.children.front().children;
+		return ast.children[0].children;
 	};
 	const auto evaluate_with_context = [&] (const auto& ast) {
 		return evaluate_ast_node(ast, constants, functions);
@@ -205,23 +205,22 @@ double evaluate_ast_node(
 		try {
 			return constants.at(ast.value);
 		} catch (const std::out_of_range& exception) {
-			throw unexpected_entity_exception<entity_type::constant>{
-				parser::get_offset(ast)
-			};
+			const auto offset = parser::get_offset(ast);
+			throw unexpected_entity_exception<entity_type::constant>{offset};
 		}
 	} else if (ast.type == "atom") {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
-		const auto first_child = ast.children.front().type == type
-			? inspect_sequence(ast).front()
-			: ast.children.front();
+		const auto first_child = ast.children[0].type == type
+			? inspect_sequence(ast)[0]
+			: ast.children[0];
 		return evaluate_with_context(first_child);
 	} else if (ast.type == "unary") {
 		const auto result = evaluate_with_context(inspect_sequence(ast).back());
-		const auto sign = (inspect_sequence(ast).size()-1) % 2 ? -1 : 1;
+		const auto sign = (inspect_sequence(ast).size() - 1) % 2 ? -1 : 1;
 		return sign * result;
 	} else if (ast.type == "function_call") {
 		try {
-			const auto name = inspect_sequence(ast).front().value;
+			const auto name = inspect_sequence(ast)[0].value;
 			const auto arguments = inspect_sequence(ast)
 				| ranges::view::drop(1)
 				| ranges::view::transform([&] (const auto& ast) {
@@ -229,25 +228,20 @@ double evaluate_ast_node(
 				});
 			const auto function = functions.at(name);
 			if (arguments.size() != function.arity) {
-				throw exceptions::positional_exception{
-					fmt::format(
-						"function requires {:d} {:s}",
-						function.arity,
-						function.arity == 1 ? "argument" : "arguments"
-					),
-					parser::get_offset(ast)
-				};
+				const auto unit = function.arity == 1 ? "argument" : "arguments";
+				const auto description =
+					fmt::format("function requires {:d} {:s}", function.arity, unit);
+				const auto offset = parser::get_offset(ast);
+				throw exceptions::positional_exception{description, offset};
 			}
 
 			return function.handler(arguments);
 		} catch (const std::out_of_range& exception) {
-			throw unexpected_entity_exception<entity_type::function>{
-				parser::get_offset(ast)
-			};
+			const auto offset = parser::get_offset(ast);
+			throw unexpected_entity_exception<entity_type::function>{offset};
 		}
 	} else if (ast.type == "product" || ast.type == "sum") {
-		const auto first_operand =
-			evaluate_with_context(inspect_sequence(ast).front());
+		const auto first_operand = evaluate_with_context(inspect_sequence(ast)[0]);
 		const auto children_chunks = inspect_sequence(ast)
 			| ranges::view::drop(1)
 			| ranges::view::chunk(2)
@@ -258,13 +252,14 @@ double evaluate_ast_node(
 			children_chunks,
 			first_operand,
 			[&] (const auto& result, const auto& chunk) {
-				const auto name = chunk.front().value;
-				const auto second_operand = evaluate_with_context(chunk.back());
+				const auto name = chunk[0].value;
+				const auto second_operand = evaluate_with_context(chunk[1]);
 				return functions.at(name).handler({result, second_operand});
 			}
 		);
 	} else {
-		throw unexpected_entity_exception<entity_type::node>{parser::get_offset(ast)};
+		const auto offset = parser::get_offset(ast);
+		throw unexpected_entity_exception<entity_type::node>{offset};
 	}
 }
 
