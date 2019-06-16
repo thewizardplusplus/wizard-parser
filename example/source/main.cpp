@@ -99,10 +99,7 @@ const auto functions = function_group{
 	{"-", {2, [] (const auto& args) { return args[0] - args[1]; }}},
 	{"*", {2, [] (const auto& args) { return args[0] * args[1]; }}},
 	{"/", {2, [] (const auto& args) { return args[0] / args[1]; }}},
-	{"%", {2, [] (const auto& arguments) {
-		return static_cast<std::int64_t>(arguments.front())
-			% static_cast<std::int64_t>(arguments.back());
-	}}},
+	{"%", {2, [] (const auto& args) { return std::fmod(args[0], args[1]); }}},
 	{"floor", {1, [] (const auto& args) { return std::floor(args[0]); }}},
 	{"ceil", {1, [] (const auto& args) { return std::ceil(args[0]); }}},
 	{"trunc", {1, [] (const auto& args) { return std::trunc(args[0]); }}},
