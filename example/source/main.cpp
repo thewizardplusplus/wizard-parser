@@ -77,14 +77,14 @@ Options:
   -V, --verbose                        - mark an error.)";
 const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"(\+)"}, "plus"},
-	{std::regex{"-"}, "minus"},
+	{std::regex{R"(-)"}, "minus"},
 	{std::regex{R"(\*)"}, "star"},
-	{std::regex{"/"}, "slash"},
-	{std::regex{"%"}, "percent"},
+	{std::regex{R"(/)"}, "slash"},
+	{std::regex{R"(%)"}, "percent"},
 	{std::regex{R"(\()"}, "opening_parenthesis"},
 	{std::regex{R"(\))"}, "closing_parenthesis"},
-	{std::regex{","}, "comma"},
-	{std::regex{R"(\d+(?:\.\d+)?(?:e-?\d+)?)"}, "number"},
+	{std::regex{R"(,)"}, "comma"},
+	{std::regex{R"(\d+(\.\d+)?(e-?\d+)?)"}, "number"},
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
