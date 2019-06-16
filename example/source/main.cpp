@@ -24,13 +24,13 @@
 #include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
 #include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
-#include <unordered_map>
-#include <string>
 #include <cstddef>
 #include <functional>
 #include <vector>
 #include <cstdint>
 #include <regex>
+#include <unordered_map>
+#include <string>
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
@@ -44,8 +44,6 @@
 using namespace thewizardplusplus::wizard_parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
 using namespace std::literals::string_literals;
-
-using constant_group = std::unordered_map<std::string, double>;
 
 struct function final {
 	const std::size_t arity;
@@ -88,7 +86,7 @@ const auto lexemes = lexer::lexeme_group{
 };
 const auto lexemes_exceptions = lexer::exception_group{"whitespace"};
 // precision is taken from Boost 1.70.0, Math Toolkit 2.9.0
-const auto constants = constant_group{
+const auto constants = std::unordered_map<std::string, double>{
 	{"pi", 3.141592653589793238462643383279502884},
 	{"e", 2.718281828459045235360287471352662497}
 };
@@ -142,7 +140,7 @@ parser::rule_parser::pointer make_parser() {
 
 double evaluate_ast_node(
 	const parser::ast_node& ast,
-	const constant_group& constants,
+	const std::unordered_map<std::string, double>& constants,
 	const std::unordered_map<std::string, function>& functions
 ) {
 	const auto inspect_sequence = [] (const auto& ast) -> const auto& {
