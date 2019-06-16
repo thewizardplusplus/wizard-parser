@@ -187,15 +187,14 @@ parser::rule_parser::pointer make_parser() {
 	return sum;
 }
 
-const parser::ast_node_group& inspect_sequence(const parser::ast_node& ast) {
-	return ast.children.front().children;
-}
-
 double evaluate_ast_node(
 	const parser::ast_node& ast,
 	const constant_group& constants,
 	const function_group& functions
 ) {
+	const auto inspect_sequence = [] (const auto& ast) -> const auto& {
+		return ast.children.front().children;
+	};
 	const auto evaluate_with_context = [&] (const auto& ast) {
 		return evaluate_ast_node(ast, constants, functions);
 	};
