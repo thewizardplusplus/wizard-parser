@@ -1,5 +1,4 @@
 #include "parse.hpp"
-#include "../vendor/range/v3/numeric/accumulate.hpp"
 #include "../exceptions/unexpected_entity_exception.hpp"
 
 namespace thewizardplusplus::wizard_parser::parser {
@@ -14,10 +13,7 @@ parsing_result parse(
 		return ast;
 	}
 
-	return {
-		ranges::accumulate(handlers, *ast.node, transformers::transform),
-		ast.rest_tokens
-	};
+	return {transformers::transform(*ast.node, handlers), ast.rest_tokens};
 }
 
 ast_node parse_all(
