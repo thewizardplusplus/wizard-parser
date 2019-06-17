@@ -19,6 +19,7 @@
 #include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/list_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
@@ -124,15 +125,15 @@ void exit(const int& code, const streamable& message) {
 parser::rule_parser::pointer make_parser() {
 	const auto expression_dummy = parser::dummy();
 	RULE(function_call) = "identifier"_t >> &"("_v >>
-		-(expression_dummy >> *(&","_v >> expression_dummy))
+		-(expression_dummy % &","_v)
 	>> &")"_v;
 	RULE(atom) = "number"_t
 		| function_call
 		| "identifier"_t
 		| (&"("_v >> expression_dummy >> &")"_v);
 	RULE(unary) = *("-"_v) >> atom;
-	RULE(product) = unary >> *(("*"_v | "/"_v | "%"_v) >> unary);
-	RULE(sum) = product >> *(("+"_v | "-"_v) >> product);
+	RULE(product) = unary % ("*"_v | "/"_v | "%"_v);
+	RULE(sum) = product % ("+"_v | "-"_v);
 	expression_dummy->set_parser(sum);
 
 	return sum;
