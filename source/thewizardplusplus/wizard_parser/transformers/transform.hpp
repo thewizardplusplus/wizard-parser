@@ -13,6 +13,8 @@ using ast_node_handler =
 
 using ast_node_handler_group = std::vector<ast_node_handler>;
 
+extern const ast_node_handler_group default_ast_node_handlers;
+
 parser::ast_node transform(
 	const parser::ast_node& ast,
 	const ast_node_handler& handler

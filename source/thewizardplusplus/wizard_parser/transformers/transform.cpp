@@ -4,6 +4,11 @@
 
 namespace thewizardplusplus::wizard_parser::transformers {
 
+const ast_node_handler_group default_ast_node_handlers = {
+	remove_nothings,
+	join_sequences
+};
+
 parser::ast_node transform(
 	const parser::ast_node& ast,
 	const ast_node_handler& handler
