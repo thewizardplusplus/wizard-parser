@@ -2,6 +2,7 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_TRANSFORMERS_TRANSFORM_HEADER
 
 #include "../parser/ast_node.hpp"
+#include "transformers.hpp"
 #include <functional>
 #include <vector>
 
@@ -15,6 +16,10 @@ using ast_node_handler_group = std::vector<ast_node_handler>;
 parser::ast_node transform(
 	const parser::ast_node& ast,
 	const ast_node_handler& handler
+);
+parser::ast_node transform(
+	const parser::ast_node& ast,
+	const ast_node_handler_group& handlers = {remove_nothings, join_sequences}
 );
 
 }
