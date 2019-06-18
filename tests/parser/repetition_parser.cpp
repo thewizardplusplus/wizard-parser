@@ -389,7 +389,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(*ast == parser::ast_node{type, {}, {}, lexer::get_offset({})});
 		CHECK(rest_tokens.empty());
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
@@ -408,7 +408,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(*ast == parser::ast_node{type, {}, {}, 19});
 		CHECK(rest_tokens == lexer::token_span{tokens});
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
@@ -443,7 +443,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		}});
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
@@ -461,7 +461,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(*ast == parser::ast_node{type, {}, {}, lexer::get_offset({})});
 		CHECK(rest_tokens.empty());
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
@@ -480,7 +480,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(*ast == parser::ast_node{type, {}, {}, 19});
 		CHECK(rest_tokens == lexer::token_span{tokens});
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
@@ -566,7 +566,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(!ast.has_value());
 		CHECK(rest_tokens.empty());
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
@@ -583,7 +583,7 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(!ast.has_value());
 		CHECK(rest_tokens == lexer::token_span{tokens});
 
-		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::Verify(Method(mock_parser, parse)).Once();
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
