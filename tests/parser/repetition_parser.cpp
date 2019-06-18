@@ -1,6 +1,6 @@
-#include "../../source/thewizardplusplus/wizard_parser/lexer/token.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/rule_parser.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/repetition_parser.hpp"
+#include "../../source/thewizardplusplus/wizard_parser/lexer/token.hpp"
 #include "../../source/thewizardplusplus/wizard_parser/parser/ast_node.hpp"
 #include "../vendor/catch/catch.hpp"
 #include "../vendor/fakeit/fakeit.hpp"
@@ -9,6 +9,26 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 	using namespace thewizardplusplus::wizard_parser;
 	using namespace thewizardplusplus::wizard_parser::parser::operators;
 	using namespace fakeit;
+
+	SECTION("repetition from 2 to 5 times without tokens") {
+		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
+		fakeit::When(Method(mock_parser, parse))
+			.Return(parser::parsing_result{});
+		fakeit::Fake(Dtor(mock_parser));
+
+		const auto repetition_parser =
+			std::make_shared<parser::repetition_parser>(
+				parser::rule_parser::pointer{&mock_parser.get()},
+				2,
+				5
+			);
+		const auto [ast, rest_tokens] = repetition_parser->parse({});
+		CHECK(!ast.has_value());
+		CHECK(rest_tokens.empty());
+
+		fakeit::Verify(Method(mock_parser, parse)).Once();
+		fakeit::VerifyNoOtherInvocations(mock_parser);
+	}
 
 	SECTION("repetition from 2 to 5 times without matches") {
 		auto tokens = lexer::token_group{
@@ -355,6 +375,24 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
+	SECTION("optionality without tokens") {
+		const auto type = (+parser::ast_node_type::sequence)._to_string();
+		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
+		fakeit::When(Method(mock_parser, parse))
+			.Return(parser::parsing_result{});
+		fakeit::Fake(Dtor(mock_parser));
+
+		const auto repetition_parser =
+			-parser::rule_parser::pointer{&mock_parser.get()};
+		const auto [ast, rest_tokens] = repetition_parser->parse({});
+		REQUIRE(ast.has_value());
+		CHECK(*ast == parser::ast_node{type, {}, {}, lexer::get_offset({})});
+		CHECK(rest_tokens.empty());
+
+		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::VerifyNoOtherInvocations(mock_parser);
+	}
+
 	SECTION("optionality without a match") {
 		const auto type = (+parser::ast_node_type::sequence)._to_string();
 		auto tokens = lexer::token_group{{"three", "four", 19}, {"five", "six", 23}};
@@ -404,6 +442,24 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 			parser::ast_node{type, {}, {}, 4}
 		}});
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(1));
+
+		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
+		fakeit::VerifyNoOtherInvocations(mock_parser);
+	}
+
+	SECTION("repetition from 0 to infinity times without tokens") {
+		const auto type = (+parser::ast_node_type::sequence)._to_string();
+		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
+		fakeit::When(Method(mock_parser, parse))
+			.Return(parser::parsing_result{});
+		fakeit::Fake(Dtor(mock_parser));
+
+		const auto repetition_parser =
+			*parser::rule_parser::pointer{&mock_parser.get()};
+		const auto [ast, rest_tokens] = repetition_parser->parse({});
+		REQUIRE(ast.has_value());
+		CHECK(*ast == parser::ast_node{type, {}, {}, lexer::get_offset({})});
+		CHECK(rest_tokens.empty());
 
 		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
 		fakeit::VerifyNoOtherInvocations(mock_parser);
@@ -495,6 +551,22 @@ TEST_CASE("parser::repetition_parser class", "[parser][repetition_parser]") {
 		CHECK(rest_tokens == lexer::token_span{tokens}.subspan(6));
 
 		fakeit::Verify(Method(mock_parser, parse)).Exactly(7_Times);
+		fakeit::VerifyNoOtherInvocations(mock_parser);
+	}
+
+	SECTION("repetition from 1 to infinity times without tokens") {
+		auto mock_parser = fakeit::Mock<parser::rule_parser>{};
+		fakeit::When(Method(mock_parser, parse))
+			.Return(parser::parsing_result{});
+		fakeit::Fake(Dtor(mock_parser));
+
+		const auto repetition_parser =
+			+parser::rule_parser::pointer{&mock_parser.get()};
+		const auto [ast, rest_tokens] = repetition_parser->parse({});
+		CHECK(!ast.has_value());
+		CHECK(rest_tokens.empty());
+
+		fakeit::Verify(Method(mock_parser, parse)).Exactly(1_Times);
 		fakeit::VerifyNoOtherInvocations(mock_parser);
 	}
 
