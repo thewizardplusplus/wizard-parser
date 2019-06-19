@@ -85,7 +85,7 @@ const auto lexemes = lexer::lexeme_group{
 	{std::regex{R"([A-Za-z_]\w*)"}, "identifier"},
 	{std::regex{R"(\s+)"}, "whitespace"}
 };
-const auto lexemes_exceptions = lexer::exception_group{"whitespace"};
+const auto lexemes_exceptions = lexer::type_group{"whitespace"};
 // precision is taken from Boost 1.70.0, Math Toolkit 2.9.0
 const auto constants = std::unordered_map<std::string, double>{
 	{"pi", 3.141592653589793238462643383279502884},
