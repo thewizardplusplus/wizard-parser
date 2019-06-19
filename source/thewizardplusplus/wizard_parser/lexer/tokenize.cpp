@@ -31,7 +31,7 @@ tokenizing_result tokenize(
 
 tokenizing_result tokenize(
 	const lexeme_group& lexemes,
-	const exception_group& exceptions,
+	const type_group& exceptions,
 	const std::string_view& code,
 	const std::size_t& offset
 ) {
@@ -46,7 +46,7 @@ tokenizing_result tokenize(
 
 token_group tokenize_all(
 	const lexeme_group& lexemes,
-	const exception_group& exceptions,
+	const type_group& exceptions,
 	const std::string_view& code,
 	const std::size_t& offset
 ) {
