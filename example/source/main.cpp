@@ -13,14 +13,7 @@
 #include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
 #include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/dummy_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/typing_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/match_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/concatenation_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/lookahead_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/repetition_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/list_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/alternation_parser.hpp>
+#include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
 #include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
 #include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
