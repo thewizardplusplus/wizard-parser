@@ -31,3 +31,9 @@ declare -gra OPTIONS=("--stdin")
 	declare -r OUTPUT="error: unexpected eoi (offset: 5)"
 	test_text_output stderr
 }
+
+@test "errors: unexpected constant" {
+	declare -r INPUT="    test"
+	declare -r OUTPUT="error: unexpected constant (offset: 4)"
+	test_text_output stderr
+}
