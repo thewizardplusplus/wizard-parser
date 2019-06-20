@@ -59,9 +59,7 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 	}
 
 	SECTION("without a match and with rest") {
-		const auto sequence_type = (+parser::ast_node_type::sequence)._to_string();
-		const auto nothing_type = (+parser::ast_node_type::nothing)._to_string();
-		const auto exception_type = exceptions::entity_type::token;
+		const auto type = exceptions::entity_type::token;
 		auto tokens = lexer::token_group{
 			{"identifier", "one", 1},
 			{"comma", ",", 4},
@@ -81,10 +79,7 @@ TEST_CASE("parser::parse_all() function", "[parser]") {
 		const auto call = [&] {
 			ast = parser::parse_all(mock_parser_pointer, tokens, {});
 		};
-		CHECK_THROWS_AS(
-			call(),
-			exceptions::unexpected_entity_exception<exception_type>
-		);
+		CHECK_THROWS_AS(call(), exceptions::unexpected_entity_exception<type>);
 		CHECK(!ast.has_value());
 
 		fakeit::Verify(Method(mock_parser, parse)).Once();
