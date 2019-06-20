@@ -25,10 +25,10 @@
 #include <regex>
 #include <unordered_map>
 #include <string>
-#include <cstdlib>
-#include <iostream>
 #include <stdexcept>
 #include <string_view>
+#include <cstdlib>
+#include <iostream>
 #include <iterator>
 #include <sstream>
 #include <limits>
@@ -108,12 +108,6 @@ const auto functions = std::unordered_map<std::string, function>{
 	{"lg", {1, [] (const auto& args) { return std::log10(args[0]); }}},
 	{"abs", {1, [] (const auto& args) { return std::abs(args[0]); }}},
 };
-
-template<typename streamable>
-void exit(const int& code, const streamable& message) {
-	(code == EXIT_SUCCESS ? std::cout : std::cerr) << message << '\n';
-	std::exit(code);
-}
 
 parser::rule_parser::pointer make_parser() {
 	const auto expression_dummy = parser::dummy();
@@ -224,56 +218,63 @@ std::runtime_error enrich_exception(
 	)};
 }
 
-int main(int argc, char* argv[]) try {
-	const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
-	const auto expression = options.at("<expression>")
-		? options.at("<expression>").asString()
-		: "";
-	const auto code = options.at("--stdin").asBool()
-		? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
-		: expression;
-	const auto enrich = options.at("--verbose").asBool()
-		? std::function{enrich_exception}
-		: [] (
-			const exceptions::positional_exception& exception,
-			const std::string_view& code,
-			const std::size_t& mark_length
-		) { return exception; };
-	try {
-		auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
-		if (options.at("--target") == "tokens"s) {
-			exit(EXIT_SUCCESS, tokens);
-		}
+int main(int argc, char* argv[]) {
+	const auto exit = [] (const auto& code, const auto& message) {
+		(code == EXIT_SUCCESS ? std::cout : std::cerr) << message << '\n';
+		std::exit(code);
+	};
 
-		const auto eoi = exceptions::entity_type::eoi;
+	try {
+		const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
+		const auto expression = options.at("<expression>")
+			? options.at("<expression>").asString()
+			: "";
+		const auto code = options.at("--stdin").asBool()
+			? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
+			: expression;
+		const auto enrich = options.at("--verbose").asBool()
+			? std::function{enrich_exception}
+			: [] (
+				const exceptions::positional_exception& exception,
+				const std::string_view& code,
+				const std::size_t& mark_length
+			) { return exception; };
 		try {
-			const auto ast = parser::parse_all(make_parser(), tokens);
-			if (options.at("--target") == "cst"s) {
-				exit(EXIT_SUCCESS, ast);
+			auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
+			if (options.at("--target") == "tokens"s) {
+				exit(EXIT_SUCCESS, tokens);
 			}
 
-			auto buffer = std::ostringstream{};
-			const auto precision = options.at("--precision")
-				? options.at("--precision").asLong()
-				: std::numeric_limits<double>::max_digits10;
-			const auto result = evaluate_ast_node(ast, constants, functions);
-			buffer << std::setprecision(precision) << result;
+			const auto eoi = exceptions::entity_type::eoi;
+			try {
+				const auto ast = parser::parse_all(make_parser(), tokens);
+				if (options.at("--target") == "cst"s) {
+					exit(EXIT_SUCCESS, ast);
+				}
 
-			exit(EXIT_SUCCESS, buffer.str());
-		} catch (const exceptions::unexpected_entity_exception<eoi>& exception) {
-			const auto offset = exception.offset == utilities::integral_infinity
-				? code.size()
-				: exception.offset;
-			throw exceptions::unexpected_entity_exception<eoi>{offset};
+				auto buffer = std::ostringstream{};
+				const auto precision = options.at("--precision")
+					? options.at("--precision").asLong()
+					: std::numeric_limits<double>::max_digits10;
+				const auto result = evaluate_ast_node(ast, constants, functions);
+				buffer << std::setprecision(precision) << result;
+
+				exit(EXIT_SUCCESS, buffer.str());
+			} catch (const exceptions::unexpected_entity_exception<eoi>& exception) {
+				const auto offset = exception.offset == utilities::integral_infinity
+					? code.size()
+					: exception.offset;
+				throw exceptions::unexpected_entity_exception<eoi>{offset};
+			} catch (const exceptions::positional_exception& exception) {
+				const auto token = ranges::find_if(tokens, [&] (const auto& token) {
+					return token.offset == exception.offset;
+				});
+				throw enrich(exception, code, token->value.size());
+			}
 		} catch (const exceptions::positional_exception& exception) {
-			const auto token = ranges::find_if(tokens, [&] (const auto& token) {
-				return token.offset == exception.offset;
-			});
-			throw enrich(exception, code, token->value.size());
+			throw enrich(exception, code, 1);
 		}
-	} catch (const exceptions::positional_exception& exception) {
-		throw enrich(exception, code, 1);
+	} catch (const std::exception& exception) {
+		exit(EXIT_FAILURE, fmt::format("error: {:s}", exception.what()));
 	}
-} catch (const std::exception& exception) {
-	exit(EXIT_FAILURE, fmt::format("error: {:s}", exception.what()));
 }
