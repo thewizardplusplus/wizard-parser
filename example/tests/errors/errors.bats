@@ -37,3 +37,9 @@ declare -gra OPTIONS=("--stdin")
 	declare -r OUTPUT="error: unexpected constant (offset: 4)"
 	test_text_output stderr
 }
+
+@test "errors: unexpected function" {
+	declare -r INPUT="    test(5, 12)"
+	declare -r OUTPUT="error: unexpected function (offset: 4)"
+	test_text_output stderr
+}
