@@ -1,39 +1,17 @@
 #define THEWIZARDPLUSPLUS_WIZARD_PARSER_PARSER_MACROSES
 
 #include "vendor/better-enums/enum_strict.hpp"
-#include "vendor/range/v3/view/drop.hpp"
-#include "vendor/range/v3/view/transform.hpp"
-#include "vendor/fmt/format.hpp"
-#include "vendor/range/v3/view/chunk.hpp"
-#include "vendor/range/v3/to_container.hpp"
-#include "vendor/range/v3/numeric/accumulate.hpp"
-#include "vendor/range/v3/view/join.hpp"
 #include "vendor/docopt/docopt.hpp"
-#include "vendor/range/v3/algorithm/find_if.hpp"
+#include "vendor/fmt/format.hpp"
+#include "vendor/range/v3/all.hpp"
+
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
-#include <thewizardplusplus/wizard_parser/lexer/lexeme.hpp>
 #include <thewizardplusplus/wizard_parser/lexer/tokenize.hpp>
-#include <thewizardplusplus/wizard_parser/parser/rule_parser.hpp>
-#include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
-#include <thewizardplusplus/wizard_parser/parser/ast_node.hpp>
-#include <thewizardplusplus/wizard_parser/exceptions/positional_exception.hpp>
 #include <thewizardplusplus/wizard_parser/parser/parse.hpp>
-#include <thewizardplusplus/wizard_parser/utilities/utilities.hpp>
-#include <cstddef>
-#include <functional>
-#include <vector>
-#include <cstdint>
-#include <regex>
-#include <unordered_map>
-#include <string>
-#include <stdexcept>
-#include <cstdlib>
-#include <iostream>
-#include <iterator>
-#include <sstream>
-#include <limits>
+#include <thewizardplusplus/wizard_parser/parser/parsers.hpp>
+
 #include <iomanip>
-#include <exception>
+#include <iostream>
 
 using namespace thewizardplusplus::wizard_parser;
 using namespace thewizardplusplus::wizard_parser::parser::operators;
