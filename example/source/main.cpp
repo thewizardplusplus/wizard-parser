@@ -198,7 +198,7 @@ int main(int argc, char* argv[]) {
 		};
 
 	try {
-		const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
+		const auto options = docopt::docopt(usage, {argv + 1, argv + argc}, true);
 		const auto expression = options.at("<expression>")
 			? options.at("<expression>").asString()
 			: "";
