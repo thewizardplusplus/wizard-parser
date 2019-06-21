@@ -7,6 +7,7 @@
 #include "vendor/range/v3/view/chunk.hpp"
 #include "vendor/range/v3/to_container.hpp"
 #include "vendor/range/v3/numeric/accumulate.hpp"
+#include "vendor/range/v3/view/join.hpp"
 #include "vendor/docopt/docopt.hpp"
 #include "vendor/range/v3/algorithm/find_if.hpp"
 #include <thewizardplusplus/wizard_parser/exceptions/unexpected_entity_exception.hpp>
@@ -26,7 +27,6 @@
 #include <unordered_map>
 #include <string>
 #include <stdexcept>
-#include <string_view>
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
@@ -202,27 +202,22 @@ double evaluate_ast_node(
 	}
 }
 
-std::runtime_error enrich_exception(
-	const exceptions::positional_exception& exception,
-	const std::string_view& code,
-	const std::size_t& mark_length
-) {
-	const auto mark_offset = std::string(exception.offset, ' ');
-	const auto mark = std::string(mark_length, '^');
-	return std::runtime_error{fmt::format(
-		"{:s}\n| \"{:s}\"\n|  {:s}{:s}",
-		exception.what(),
-		code,
-		mark_offset,
-		mark
-	)};
-}
-
 int main(int argc, char* argv[]) {
 	const auto exit = [] (const auto& code, const auto& message) {
 		(code == EXIT_SUCCESS ? std::cout : std::cerr) << message << '\n';
 		std::exit(code);
 	};
+	const auto enrich =
+		[] (const auto& exception, const auto& code, const auto& token_size) {
+			const auto mark_offset = std::string(exception.offset, ' ');
+			const auto mark = std::string(token_size, '^');
+			const auto description_lines = std::vector<std::string>{
+				exception.what(),
+				fmt::format(R"(| "{:s}")", code),
+				fmt::format(R"(|  {:s}{:s})", mark_offset, mark)
+			};
+			return std::runtime_error{description_lines | ranges::view::join('\n')};
+		};
 
 	try {
 		const auto options = docopt::docopt(usage, {argv+1, argv+argc}, true);
@@ -232,13 +227,7 @@ int main(int argc, char* argv[]) {
 		const auto code = options.at("--stdin").asBool()
 			? std::string{std::istreambuf_iterator<char>{std::cin}, {}}
 			: expression;
-		const auto enrich = options.at("--verbose").asBool()
-			? std::function{enrich_exception}
-			: [] (
-				const exceptions::positional_exception& exception,
-				const std::string_view& code,
-				const std::size_t& mark_length
-			) { return exception; };
+		const auto verbose = options.at("--verbose").asBool();
 		try {
 			auto tokens = lexer::tokenize_all(lexemes, lexemes_exceptions, code);
 			if (options.at("--target") == "tokens"s) {
@@ -269,10 +258,13 @@ int main(int argc, char* argv[]) {
 				const auto token = ranges::find_if(tokens, [&] (const auto& token) {
 					return token.offset == exception.offset;
 				});
-				throw enrich(exception, code, token->value.size());
+				const auto token_size = token->value.size();
+				throw verbose
+					? enrich(exception, code, token_size)
+					: std::runtime_error{exception};
 			}
 		} catch (const exceptions::positional_exception& exception) {
-			throw enrich(exception, code, 1);
+			throw verbose ? enrich(exception, code, 1) : std::runtime_error{exception};
 		}
 	} catch (const std::exception& exception) {
 		exit(EXIT_FAILURE, fmt::format("error: {:s}", exception.what()));
