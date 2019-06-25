@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/empty_parser.hpp</title>
+<title>Wizard Parser: Файл source/thewizardplusplus/wizard_parser/parser/list_parser.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Wizard Parser
-   &#160;<span id="projectnumber">v4.3</span>
+   &#160;<span id="projectnumber">v4.4</span>
    </div>
    <div id="projectbrief">LL(*)-парсер на C++ с поддержкой DSL для описания грамматики в EBNF непосредственно в коде программы</div>
   </td>
@@ -68,23 +68,16 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Классы</a> &#124;
 <a href="#namespaces">Пространства имен</a> &#124;
 <a href="#func-members">Функции</a>  </div>
   <div class="headertitle">
-<div class="title">Файл empty_parser.hpp</div>  </div>
+<div class="title">Файл list_parser.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="rule__parser_8hpp_source.html">rule_parser.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="token_8hpp_source.html">../lexer/token.hpp</a>&quot;</code><br />
-</div>
-<p><a href="empty__parser_8hpp_source.html">См. исходные тексты.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Классы</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structthewizardplusplus_1_1wizard__parser_1_1parser_1_1empty__parser.html">thewizardplusplus::wizard_parser::parser::empty_parser</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="list__parser_8hpp_source.html">list_parser.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="concatenation__parser_8hpp_source.html">concatenation_parser.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="repetition__parser_8hpp_source.html">repetition_parser.hpp</a>&quot;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Пространства имен</h2></td></tr>
 <tr class="memitem:namespacethewizardplusplus"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus.html">thewizardplusplus</a></td></tr>
@@ -93,16 +86,18 @@ $(function() {
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html">thewizardplusplus::wizard_parser::parser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html">thewizardplusplus::wizard_parser::parser::operators</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
-<tr class="memitem:af585d0ac928c60d83c45d892922c725d"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser.html#af585d0ac928c60d83c45d892922c725d">thewizardplusplus::wizard_parser::parser::empty</a> ()</td></tr>
-<tr class="separator:af585d0ac928c60d83c45d892922c725d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d7e948329d535c998b0ed91fb025826"><td class="memItemLeft" align="right" valign="top">rule_parser::pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacethewizardplusplus_1_1wizard__parser_1_1parser_1_1operators.html#a3d7e948329d535c998b0ed91fb025826">thewizardplusplus::wizard_parser::parser::operators::operator%</a> (const rule_parser::pointer &amp;parser, const rule_parser::pointer &amp;separator)</td></tr>
+<tr class="separator:a3d7e948329d535c998b0ed91fb025826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по Wizard Parser. Последние изменения: Сб 15 Июн 2019 17:25:07. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по Wizard Parser. Последние изменения: Вт 25 Июн 2019 04:16:35. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>
