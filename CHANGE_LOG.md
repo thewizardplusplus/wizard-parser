@@ -1,6 +1,74 @@
 # Change Log
 
-## [v4.3](https://github.com/thewizardplusplus/wizard-parser/tree/v4.3) (2019-06-14)
+## [v4.4](https://github.com/thewizardplusplus/wizard-parser/tree/v4.4) (2019-06-26)
+
+**Closed issues:**
+
+- Rename types:
+  - `lexer::exception_group`:
+    - rename it to `type_group`;
+    - update the example;
+  - `parser::optional_offset`:
+    - rename it to `offset_optional`.
+- In the `parser` module:
+  - Add the list parser:
+    - implement it;
+    - cover it with tests;
+    - use it in the example.
+  - Remove the `empty_parser` class:
+    - remove it;
+    - remove its tests.
+  - Unifying header for all parsers:
+    - implement it;
+    - use it in the example.
+  - In the tests:
+    - Improve tests:
+      - of the `repetition_parser` class;
+      - of the `parse()` function;
+      - of the `parse_all()` function.
+    - Refactor tests:
+      - of the `repetition_parser` class;
+      - of the `parse_all()` function.
+- In the `transformers` module:
+  - Add the `default_ast_node_handlers` constant:
+    - implement it;
+    - use it:
+      - in the `parser::parse()` function;
+      - in the `parser::parse_all()` function.
+  - Add the `transform()` function for few handlers:
+    - implement it;
+    - cover it with tests;
+    - use it in the `parser::parse()` function.
+- In the example:
+  - Refactor:
+    - reduce a list of included headers;
+    - remove types:
+      - `constant_group`;
+      - `function_group`;
+    - lexemes:
+      - fix a code style;
+    - built-in functions:
+      - use the `std::fmod()` function for computing a division remainder;
+      - fix a code style;
+      - fix the explanatory comment;
+    - `evaluate_ast_node()` function:
+      - make some functions local for it:
+        - `inspect_sequence()` function;
+      - fix a code style;
+    - `main()` function:
+      - make some functions local for it:
+        - `stop()` function;
+        - `enrich_exception()` function;
+      - fix a code style.
+  - Extend tests of errors:
+    - check unexpected entities:
+      - constants;
+      - functions;
+    - split tests to short and verbose:
+      - mark existing tests as a short version;
+      - add a verbose version of tests.
+
+## [v4.3](https://github.com/thewizardplusplus/wizard-parser/tree/v4.3) (2019-06-15)
 
 **Closed issues:**
 
